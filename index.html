@@ -124,15 +124,7 @@
 					</li>
 
 
-					<!-- Mobile Menu Item -->
-					<li id="menuItemMobile">
-						<a class="menuItemMobile" data-toggle="collapse" data-target=".navbar-collapse" data-scroll
-							href="#about">About</a>
-					</li>
-					<!-- Normal Menu Item -->
-					<li id="menuItem">
-						<a data-scroll href="#about">About</a>
-					</li>
+			
 					<!-- Mobile Menu Item -->
 					<li id="menuItemMobile">
 						<a class="menuItemMobile" data-toggle="collapse" data-target=".navbar-collapse" data-scroll
@@ -142,6 +134,16 @@
 					<li id="menuItem">
 						<a data-scroll href="#donate">Donate</a>
 					</li>
+
+							<!-- Mobile Menu Item -->
+							<li id="menuItemMobile">
+								<a class="menuItemMobile" data-toggle="collapse" data-target=".navbar-collapse" data-scroll
+									href="#about">About</a>
+							</li>
+							<!-- Normal Menu Item -->
+							<li id="menuItem">
+								<a data-scroll href="#about">About</a>
+							</li>
 
 					<!-- Mobile Menu Item -->
 					<li id="menuItemMobile">
@@ -171,143 +173,220 @@ End Fixed Navigation
 	<!--
 Welcome Slider
 ==================================== -->
-	<section id="hero-area-section" class="hero-area">
+<section class="hero-area">
 
+	<div class="hero-area-inner">
 
-		<div class="block2 mobileTime">
-			<div style="background:#ffffff00;
-							padding: 15px;">
-				<h1 class="titleHeader">Prayer <span style="color: #bfe2d4f5;">Time</span></h1>
-				<table class="GeneratedTable">
-
-					<tbody>
-						<tr>
-							<td class="prayerName">Fajr</td>
-							<td class="prayerTime" id="fajr_time"></td>
-						</tr>
-						<tr>
-							<td class="iqamah">Iqamah</td>
-							<td class="iqamahTime" id="fajr_iqamah"></td>
-						</tr>
-						<!-- <thead> -->
-						<tr class="sunrise">
-							<th>Sunrise</th>
-							<td id="sunrise"></td>
-						</tr>
-						<!-- </thead> -->
-						<tr>
-							<td class="prayerName">Zuhr</td>
-							<td class="prayerTime" id="zuhr_time"></td>
-						</tr>
-						<tr>
-							<td class="iqamah">Iqamah</td>
-							<td class="iqamahTime" id="zuhr_iqamah"></td>
-						</tr>
-						<tr>
-							<td class="prayerName">Asr</td>
-							<td class="prayerTime" id="asr_time"></td>
-						</tr>
-						<tr>
-							<td class="iqamah">Iqamah</td>
-							<td class="iqamahTime" id="asr_iqamah"></td>
-						</tr>
-						<tr>
-							<td class="prayerName">Maghrib</td>
-							<td class="prayerTime" id="maghrib_time"></td>
-						</tr>
-						<tr>
-							<td class="iqamah">Iqamah</td>
-							<td class="iqamahTime" id="maghrib_iqamah"></td>
-						</tr>
-						<tr>
-							<td class="prayerName"> Isha</td>
-							<td class="prayerTime" id="isha_time"></td>
-						</tr>
-						<tr>
-							<td class="iqamah">Iqamah</td>
-							<td class="iqamahTime" id="isha_iqamah"></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<!-- <div class="block">
-			
+		<div class="timeContainer" style="background:#ffffff00;">
+			<h1 class="titleHeader">Prayer <span style="color: #bfe2d4f5;">Time</span></h1>
+			<div class="timeContainerInner">
+			<table class="GeneratedTable">
 	
-			</div>	 -->
+				<tbody>
+					<tr>
+						<td class="prayerName">Fajr</td>
+						<td class="prayerTime" id="fajr_time"></td>
+					</tr>
+					<tr>
+						<td class="iqamah">Iqamah</td>
+						<td class="iqamahTime" id="fajr_iqamah"></td>
+					</tr>
+					<!-- <thead> -->
+					<tr class="sunrise">
+						<th>Sunrise</th>
+						<td id="sunrise"></td>
+					</tr>
+					<!-- </thead> -->
+					<tr>
+						<td class="prayerName">Zuhr</td>
+						<td class="prayerTime" id="zuhr_time"></td>
+					</tr>
+					<tr>
+						<td class="iqamah">Iqamah</td>
+						<td class="iqamahTime" id="zuhr_iqamah"></td>
+					</tr>
+					<tr>
+						<td class="prayerName">Asr</td>
+						<td class="prayerTime" id="asr_time"></td>
+					</tr>
+					<tr>
+						<td class="iqamah">Iqamah</td>
+						<td class="iqamahTime" id="asr_iqamah"></td>
+					</tr>
+					<tr>
+						<td class="prayerName">Maghrib</td>
+						<td class="prayerTime" id="maghrib_time"></td>
+					</tr>
+					<tr>
+						<td class="iqamah">Iqamah</td>
+						<td class="iqamahTime" id="maghrib_iqamah"></td>
+					</tr>
+					<tr>
+						<td class="prayerName"> Isha</td>
+						<td class="prayerTime" id="isha_time"></td>
+					</tr>
+					<tr>
+						<td class="iqamah">Iqamah</td>
+						<td class="iqamahTime" id="isha_iqamah"></td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
 		</div>
-		<div class="block mobileSlides">
+	
+		<div class="promoContainer">
+			<div class="promoContainerHeader"> 
+				<h2> Donate & Journey With Us</h2>
+	
+			</div>
+			<div class="promoContainerBody">
+	
+	
+					<img width="200px" src="./images/slider/payments.png" />
+	
+					<div>
+						<span class="promoContainerLink">https://linktr.ee/almadina.association</span>
+	
+					</div>
+	
+					
+					<div class="promoQRContainer">
+	
+						<img width="200px" src="./images/slider/linktree.png" />
+					</div>
+					<div>
+						<span class="promoContainerLink">Scan or Click the link</span>
+	
+					</div>
+					<div>
+						<a href="https://linktr.ee/almadina.association" class="btn btn-main">Donate and Follow</a>
+	
+					</div>
+					<div>
+						<span class="promoContainerLink">@ama.rosemount</span>
+	
+					</div>
+	
+					<img width="200px" src="./images/slider/socials.png" />
+	
+	
+	
+			</div>
+	
 
-			<!-- <div class="mySlides">
-						<div class="textSlides">
-							<h1>Filing and Payment Deadline Extended to July 15, 2020</h1>
-		
-							<p>
-								  The Treasury Department and the Internal Revenue Service are providing special payment and filing deadline relief to individuals and businesses in response to the COVID-19 Outbreak. The filing deadline for tax returns are has been extended to July 15, 2020. The IRS urges taxpayers who are owed a refund to file as quickly as possible. Individual taxpayers who need additional time to file beyond the July 15 deadline can request an extension to Oct. 15, 2020, by filing Form 4868 through their tax professional, tax software or using the Free File link on IRS.gov.  							</p>
+	
+		</div>
+	</div>
 
-								<a data-scroll href="https://www.irs.gov/newsroom/payment-deadline-extended-to-july-15-2020" class="btn btn-transparent">Read More</a>
+	
+</section>
+
+<section id="donate"  class="section about-2 padding-0 bg-dark">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-6 padding-0 ">
+				<img class="img-responsive" src="images/about/about.png" alt="">
+			</div>
+			<div style="padding-top: 60px;" class="col-md-6">
+				<div " class="content-block">
+					<div class="titleAlt wow fadeIn" data-wow-duration="1500ms">
+						<h2>
+							<span class="darkTitleAlt"> Donate </span>
+							<span class="lightTitle">Generously</span>
+						</h2>
+						<!-- <div class="borderLight"></div> -->
+					</div>
+					<!-- <h2>Donate To Al Al-Madina</h2> -->
+					<h2>Prophet (PBUH) said: <q><i>Whoever builds a masjid for the sake of Allah, Allah will build
+								for
+								him a house in Paradise.</i></q></h2>
 
 
+					<div class="row">
+						<div class="col-md-6">
+							<div class="media">
+								<div class="pull-left">
+									<img width="35px" src="./images/slider/zelle.png" />
+								</div>
+								<div class="media-body">
+									<h3 class="media-heading">Zelle Us</h4>
 
-		
-						</div>
+										<p>Send us your generous donations using Zelle
+											@almadina.association@gmail.com or scan the QR code:
+											<!-- <a href="#services">View Services...</a> -->
+										</p>
+									
+
+								</div>
+							
+							</div>
 						
-					</div> -->
-			<!-- <div class="mySlides">
-				<div class="textSlides">
-					<h1>Join our whatsapp group:</h1>
+						</div>
+						<div class="qrContainer">
+							<img width="110px" src="./images/slider/qr-zelle.png" />
+						</div>
+			
+					</div>
+					<hr class="donate-divider">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="media">
+								<div class="pull-left">
+									<img width="35px" src="./images/slider/venmo.png" />
+								</div>
+								<div class="media-body">
+									<h3 class="media-heading">Venmo Us</h4>
+										<p>Send us your generous donations using Vemmo
+											@Al-Madina-Association or scan the QR code:
+											<!-- <a href="#services">View Services...</a> -->
+										</p>
 
-					<img width="200px" src="./images/slider/qrWhatsApp.png" />
-					<a href="https://chat.whatsapp.com/DD9KnLOze2NDb0NB9ylxbx" class="btn btn-main">Click to
-						join</a>
+										<!-- <button class="newButton">
+										Our Services
+									</button> -->
 
+								</div>
+							</div>
+						</div>
+						<div class="qrContainer">
+							<img width="110px" src="./images/slider/qr-venmo.png" />
+						</div>
+			
+					</div>
+					<hr class="donate-divider">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="media">
+								<div class="pull-left">
+									<img width="35px" src="./images/slider/paypal.png" />
+								</div>
+								<div class="media-body">
+									<h3 class="media-heading">Paypal Us</h4>
+										<p>Send us your generous donations using paypal
+											@almadinaassociation or scan the QR code:
+											<!-- <a href="#services">View Services...</a> -->
+										</p>
 
+										<!-- <button class="newButton">
+										Our Services
+									</button> -->
 
-				</div>
-			</div> -->
-			<div class="mySlides">
-				<div class="textSlides">
-					<h1 class="titleHeaderAlt">Ramadan <span style="color: #8fc1ae;">Announcement:</span> </h1>
-
-					<p>
-						Ramadan Mubarak to the whole community! Inshallah we'll have Isha followed by 20 Rakah Taraweeh
-						at 9:15 PM. Due to limited parking, Please try to do carpool as much as possible. May Allah
-						make this Ramadan easy and blessed one for everyone!
-						Jazakallah!
-					</p>
-
-
-
+								</div>
+							</div>
+						</div>
+						<div class="qrContainer">
+							<img width="110px" src="./images/slider/qr-paypal.jpg" />
+						</div>
+			
+					</div>
 				</div>
 			</div>
-			<div class="mySlides">
-				<div class="textSlides">
-					<h1 class="titleHeaderAlt">Eid <span style="color: #8fc1ae;">Announcement:</span></h1>
-
-					<p>
-						Ramadan Mubarak to the whole community! Inshallah we'll have Isha followed by 20 Rakah Taraweeh
-						at 9:15 PM. Due to limited parking, Please try to do carpool as much as possible. May Allah
-						make this Ramadan easy and blessed one for everyone!
-						Jazakallah!
-					</p>
-
-
-
-				</div>
-			</div>
-			<div class="whatsAppBox">
-				<h1>Join our whatsapp group:</h1>
-
-				<div>
-					<img width="200px" src="./images/slider/qrWhatsApp.png" />
-				</div>
-				<a href="https://chat.whatsapp.com/DD9KnLOze2NDb0NB9ylxbx" class="btn btn-main">Click to
-					join</a>
-			</div>
-
-
 		</div>
-
-	</section>
+	</div>
+	</div>
+	</div>
+	</div>
+</section>
 	<!--
 =================================== -->
 
@@ -315,6 +394,8 @@ Welcome Slider
 	<!--
 		Start About Section
 		==================================== -->
+
+
 
 	<section class="bg-one about section" id="about">
 		<div class="container">
@@ -347,47 +428,37 @@ Welcome Slider
 
 				<!-- About item -->
 				<div class="col-md-6 text-center wow fadeInUp" data-wow-duration="500ms" data-wow-delay="250ms">
+
+					<img width="100%" src="./images/slider/about.png" />
+					<h2>
+						<span class="aboutTextHeader">Our Story</span>
+					</h2>
 					<h3>
 						<span class="aboutText">
-							Welcome to our Muslim community center located in Rosemount, MN. Our center is dedicated to
-							providing a welcoming space for Muslims to offer daily prayers and connect with their faith.
-							We strive to create an Islamic environment that fosters a sense of community among the
-							Muslim population in and around Rosemount.
+							In 2010, we set out on an inspiring mission. With just 7 families,
+							 we aimed to create a Masjid where our community could unite, worship, and grow together.
+
 
 
 						</span>
 
 					</h3>
-					<h3>
-						<span class="aboutText">
-							We are committed to promoting a deeper understanding of Islam and its religious, social,
-							ethical, and moral standards through various educational programs and events. Our center
-							also offers opportunities to engage in Islamic education, cultural, social, and charitable
-							activities that benefit both Muslims and non-Muslims in the community.
-						</span>
-
-					</h3>
+		
 				</div>
 				<!-- End About item -->
 
 				<!-- About item -->
 				<div class="col-md-6 text-center wow fadeInUp" data-wow-duration="500ms" data-wow-delay="250ms">
+					<img width="100%" src="./images/slider/3.png" />
+
+					<h2>
+						<span class="aboutTextHeader">Our Mission</span>
+						
+					</h2>
 					<h3>
 						<span class="aboutText">
-							In addition, we are dedicated to pursuing mutual respect, understanding, and cooperation
-							with other religious organizations. We believe in developing fraternal relations with
-							non-Muslim communities and promoting interfaith dialogue to build stronger bonds and foster
-							harmony among diverse communities.
-
-
-
-						</span>
-
-					</h3>
-					<h3>
-						<span class="aboutText">
-							At our community center, we are proud to provide a place where Muslims can connect with
-							their faith, engage with the community, and contribute to the betterment of society.
+							To create a nurturing environment where our community can unite in faith, provide youth with Islamic education, strengthen family and community bonds, and build a foundation for a 
+							full-time Islamic school, all while offering daily five times prayer under the guidance of a learned Imam.
 						</span>
 
 					</h3>
@@ -402,74 +473,7 @@ Welcome Slider
 	</section>
 	<!-- End section -->
 
-	<section id="donate" class="section about-2 padding-0 bg-dark">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-md-6 padding-0 ">
-					<img class="img-responsive" src="images/about/about.jpg" alt="">
-				</div>
-				<div class="col-md-6">
-					<div style="padding-top: 100px;" class="content-block">
-						<div class="titleAlt wow fadeIn" data-wow-duration="1500ms">
-							<h2>
-								<span class="darkTitleAlt"> Donate </span>
-								<span class="lightTitle">Generously</span>
-							</h2>
-							<!-- <div class="borderLight"></div> -->
-						</div>
-						<!-- <h2>Donate To Al Al-Madina</h2> -->
-						<h2>Prophet (PBUH) said: <q><i>Whoever builds a masjid for the sake of Allah, Allah will build
-									for
-									him a house in Paradise.</i></q></h2>
 
-
-						<div class="row">
-							<div class="col-md-6">
-								<div class="media">
-									<div class="pull-left">
-										<i class="fa fa-usd"></i>
-									</div>
-									<div class="media-body">
-										<h3 class="media-heading">Zelle Us</h4>
-											<p>Send us your generous donations using Zelle
-												@almadina.association@gmail.com or scan the QR code:
-												<!-- <a href="#services">View Services...</a> -->
-											</p>
-
-											<!-- <button class="newButton">
-											Our Services
-										</button> -->
-
-									</div>
-								</div>
-							</div>
-							<div class="qrContainer">
-								<img width="150px" src="./images/slider/qr-zelle.png" />
-							</div>
-							<!-- <div class="col-md-6">
-								<div class="media">
-									<div class="pull-left">
-										<i class="fa fa-paypal" aria-hidden="true"></i>
-
-									</div>
-									<div class="media-body">
-										<h4 class="media-heading">PayPal</h4>
-										<p>Send us your generous donations using PayPal
-											<a href="#contact-us">Contact Us...</a>
-										</p>
-										<button class="newButton"    
-									>
-										Contact Us
-									</button> -->
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		</div>
-		</div>
-		</div>
-	</section>
 	<section id="contact-us" class="section about-2 padding-0 bg-dark">
 		<div class="container-fluid">
 			<div class="row">
@@ -607,20 +611,20 @@ Start Call To Action
 		-->
 
 	<script>
-		var myIndex = 0;
-		carousel();
+		// var myIndex = 0;
+		// carousel();
 
-		function carousel() {
-			var i;
-			var x = document.getElementsByClassName("mySlides");
-			for (i = 0; i < x.length; i++) {
-				x[i].style.display = "none";
-			}
-			myIndex++;
-			if (myIndex > x.length) { myIndex = 1 }
-			x[myIndex - 1].style.display = "block";
-			setTimeout(carousel, 10000);
-		}
+		// function carousel() {
+		// 	var i;
+		// 	var x = document.getElementsByClassName("mySlides");
+		// 	for (i = 0; i < x.length; i++) {
+		// 		x[i].style.display = "none";
+		// 	}
+		// 	myIndex++;
+		// 	if (myIndex > x.length) { myIndex = 1 }
+		// 	x[myIndex - 1].style.display = "block";
+		// 	setTimeout(carousel, 10000);
+		// }
 
 
 		// const asr = 'asr time';
