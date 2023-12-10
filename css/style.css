@@ -2903,6 +2903,7 @@ margin-right: 20px;
 
 .donationBanner {
   display: none;
+  background-color: #1f8c64;
 }
 
 @media (max-width: 800px) {
@@ -2913,7 +2914,27 @@ margin-right: 20px;
 
   .donationBanner a {
     background-color: #1f8c64;
+    padding-bottom: 20px;
   }
+
+  .donationBanner a:focus{
+    background-color: #1f8c64 !important;
+    padding-bottom: 20px;
+  }
+  .donationBanner a::after{
+    background-color: #1f8c64 !important;
+    padding-bottom: 20px;
+  }
+
+  .donationBanner a:active{
+    background-color: #1f8c64 !important;
+    padding-bottom: 20px;
+  }
+  .donationBanner a:hover{
+    background-color: #1f8c64 !important;
+    padding-bottom: 20px;
+  }
+
 
 
 
