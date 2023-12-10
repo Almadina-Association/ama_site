@@ -10,7 +10,7 @@ Tags: one-page, single-page, portfolio, custom-colors, post-formats, responsive,
 @import url("https://fonts.googleapis.com/css?family=Anaheim|Quattrocento+Sans:400,700");
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:300,400,600");
 html {
-  background-color: #353b43;
+  background-color: #ffffff;
   color: #dddddd;
 }
 
@@ -2611,7 +2611,7 @@ nav ul {
     /* height: 100vh; */
   }
   .navigation {
-    z-index: 0;
+    /* z-index: 0; */
   }
   .navigation .navigation-menu li a {
     font-size: 20px;
@@ -2901,6 +2901,23 @@ margin-right: 20px;
  opacity: .25;
 }
 
+.donationBanner {
+  display: none;
+}
+
+@media (max-width: 800px) {
+  .donationBanner {
+    display: block;
+    margin-top: 0px;
+  }
+
+  .donationBanner a {
+    background-color: #1f8c64;
+  }
+
+
+
+}
 @media (max-width: 900px) {
   .hero-area-inner {
     display: block;
