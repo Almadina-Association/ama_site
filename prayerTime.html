@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prayer Times Calendar - Al Madina Association</title>
+    
+    <!-- CSS Reference Plugins -->
+    <link rel="stylesheet" href="plugins/themefisher-font/style.css">
+    <link rel="stylesheet" href="plugins/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="plugins/animate-css/animate.css">
+    <link rel="stylesheet" href="plugins/magnific-popup/dist/magnific-popup.css">
+    <link rel="stylesheet" href="plugins/slick-carousel/slick/slick.css">
+    <link rel="stylesheet" href="plugins/slick-carousel/slick/slick-theme.css">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- FullCalendar CSS (Keeping for legacy or potential use, though we use custom now) -->
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/main.min.css' rel='stylesheet' />
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative:900|Josefin+Sans:400,600|Quattrocento+Sans:400,700|Lobster|Bangers" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    
+    <style>
+        :root {
+            --primary-green: #192b24;
+            --accent-green: #2b5a4a;
+            --light-green: #f3f9f6; /* Very light green for alt rows */
+            --current-day-green: #192b24;
+            --text-dark: #333;
+            --text-light: #fff;
+            --border-color: #ddd;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Josefin Sans", sans-serif;
+            background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.9)), url("images/slider/hero-area_new5.png");
+            background-size: cover;
+            background-attachment: fixed;
+            color: var(--text-dark);
+            min-height: 100vh;
+            font-size: 18px; /* Further increased base size */
+        }
+
+        /* Navbar Stabilization - matched to style.css and index.html */
+        #navigation.navbar {
+            margin-bottom: 0;
+            border: none;
+        }
+        .navigation .logo img {
+            width: 240px; /* Increased from 200px */
+            height: auto;
+        }
+        .navigation .navigation-menu li a {
+            font-size: 20px !important;
+            color: #9fbcb2 !important;
+            text-transform: capitalize !important;
+            font-weight: 400 !important;
+        }
+        .navigation .navigation-menu li a:hover {
+            color: #ffffff !important;
+        }
+
+        .home-btn {
+            background: transparent !important;
+            color: #f8f8f8 !important; /* Slightly softer off-white */
+            border: none !important;
+            padding: 5px 0;
+            text-decoration: none;
+            font-size: 0.7em; /* Even smaller */
+            font-weight: 600; /* Lighter font weight */
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            line-height: 1;
+            margin-top: 5px;
+        }
+        .home-btn i,
+        .home-btn span {
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 1;
+        }
+        .home-btn i {
+            font-size: 0.8em;
+            transform: translateY(-0.5px);
+        }
+        .home-btn:hover,
+        .home-btn:focus {
+            color: white !important;
+            background: transparent !important; /* No background change */
+            text-decoration: none;
+            transform: translateX(-3px);
+        }
+
+        .calendar-wrapper {
+            max-width: 98%;
+            margin: 40px auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            min-height: 600px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Custom Toolbar */
+        .custom-toolbar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #fff;
+        }
+
+        .nav-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+            padding: 15px 25px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .view-switcher {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            width: 100%;
+        }
+
+        .date-nav-btn {
+            background: transparent;
+            color: var(--accent-green);
+            border: 1px solid var(--accent-green);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.65em;
+        }
+
+        .date-nav-btn:hover:not(:disabled) {
+            background: var(--accent-green);
+            color: white;
+        }
+
+        .date-nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: #ccc;
+            color: #ccc;
+        }
+
+        #view-title {
+            font-weight: 900;
+            font-size: 2.5rem; /* Even larger */
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #000;
+            text-align: center;
+            min-width: 500px;
+            font-family: "Josefin Sans", sans-serif;
+        }
+
+        .view-btn {
+            background: #f0f0f0;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 4px;
+            font-size: 0.7em;
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+            color: #777;
+            transition: all 0.2s;
+            letter-spacing: 0.5px;
+        }
+
+        .view-btn.active {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        .today-btn {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 4px;
+            font-size: 0.7em;
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-left: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        /* View Container */
+        #view-container {
+            padding: 20px;
+            overflow-x: auto;
+        }
+
+        /* Table Styles (Week & Month) */
+        .prayer-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1.6rem; /* Massive table font */
+            text-align: center;
+        }
+
+        .prayer-table th {
+            background-color: var(--primary-green);
+            color: white;
+            padding: 24px 10px;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(255,255,255,0.2);
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .prayer-table th:nth-child(even) {
+            background-color: #2b3e36; /* Slightly different green for alternating columns */
+        }
+
+        .prayer-table td {
+            padding: 22px 15px;
+            border: 2px solid #ccc; /* Thicker borders */
+            color: #000;
+            text-align: center;
+            font-weight: 800; /* Ultra bold */
+        }
+
+        .prayer-table tr:nth-child(even) {
+            background-color: var(--light-green);
+        }
+
+        .prayer-table tbody tr:hover {
+            background-color: #ebf3ef;
+            transition: background-color 0.2s;
+            cursor: default;
+        }
+
+        .current-day-row {
+            font-weight: bold;
+            background-color: #2b5a4a !important;
+            color: white !important;
+        }
+        .current-day-row td {
+            color: white !important;
+        }
+
+        .current-day-row td:first-child::before {
+            content: "➜ ";
+            color: #d9534f; /* Red today arrow */
+            margin-right: 5px;
+            font-weight: bold;
+        }
+
+        .next-prayer-highlight {
+            background-color: var(--primary-green) !important;
+            color: white !important;
+            position: relative;
+            border: 2px solid #d9534f !important; /* Bold red border */
+            z-index: 1;
+        }
+        
+        .next-indicator {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.45em; /* Scaled down relative to massive parent */
+            color: #ff6b6b;
+            font-weight: 800;
+            letter-spacing: 1px;
+            white-space: nowrap;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 107, 107, 0.3);
+        }
+
+        .next-prayer-highlight .day-label {
+            padding-left: 120px !important; /* Massive padding to clear the badge */
+            text-align: left !important; /* Left align to keep it away from the badge center */
+        }
+
+        .next-prayer-highlight .day-label, 
+        .next-prayer-highlight .day-time {
+            color: white !important;
+        }
+        
+        /* Day View (Vertical) */
+        .day-view-container {
+            max-width: 650px; /* Widened for massive fonts */
+            margin: 0 auto;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .day-row {
+            display: flex;
+            border-bottom: 1px solid #eee;
+        }
+
+        .day-label {
+            flex: 1;
+            padding: 20px 30px;
+            font-weight: 900; /* Maximum weight */
+            text-align: center;
+            background: transparent;
+            font-size: 2rem; /* Massive 2rem */
+            border-right: 2px solid #ddd;
+            color: #000;
+        }
+
+        .day-time {
+            flex: 1;
+            padding: 20px 30px;
+            text-align: center;
+            background: transparent;
+            font-size: 2rem; /* Massive 2rem */
+            font-weight: 800; /* Maximum bold */
+            color: #000;
+        }
+
+        .prayer-header {
+            background-color: var(--primary-green);
+            color: white !important;
+        }
+        
+        .prayer-header .day-label,
+        .prayer-header .day-time {
+            color: white !important;
+        }
+
+        .iqamah-row {
+            background-color: #fff;
+            color: #000;
+        }
+
+        .sunrise-row {
+            background-color: #6f8a7e;
+            color: white !important;
+        }
+        
+        .sunrise-row .day-label,
+        .sunrise-row .day-time {
+            color: white !important;
+        }
+
+        /* Responsiveness Fixes */
+        @media (max-width: 768px) {
+            #navigation .container { 
+                display: flex !important; 
+                align-items: center !important; 
+                justify-content: space-between !important; 
+                padding: 10px 15px !important;
+                width: 100% !important;
+            }
+            .navbar-header, .navbar-right { 
+                float: none !important; 
+                display: flex !important; 
+                align-items: center !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            .navigation .logo img { width: 160px !important; } /* Increased from 120px */
+            .home-btn { 
+                padding: 4px 0 !important; 
+                font-size: 0.65rem !important; /* Even smaller on mobile */
+                white-space: nowrap !important;
+                margin: 0 !important;
+                border: none !important;
+                opacity: 1 !important;
+            }
+            .home-btn i { font-size: 0.65em !important; }
+            .navbar-nav { margin: 0 !important; }
+            .navbar-nav > li { display: block !important; }
+            .nav-row { padding: 10px; gap: 10px; }
+            .view-switcher { flex-wrap: wrap; gap: 5px; flex-direction: column-reverse; }
+            .view-btn, .today-btn { width: 100%; margin: 2px 0 !important; }
+            #view-title { font-size: 1.1rem; min-width: auto; }
+            
+            /* Modal Mobile Improvements */
+            .modal-content { border-radius: 0; }
+            .modal-dialog { width: 100% !important; margin: 0; max-width: 100vw !important; }
+            .modal-header { padding: 25px 30px !important; }
+            .modal-title { font-size: 1.2rem !important; letter-spacing: 1px !important; max-width: 80%; }
+            .pdf-modal-close { top: 15px !important; right: 15px !important; width: 35px !important; height: 35px !important; }
+            .pdf-modal-close span { font-size: 2rem !important; }
+            
+            .modal-body { padding: 25px !important; }
+            .row { flex-direction: column; }
+            .col-md-4 { border-right: none !important; border-bottom: 2px solid #f5f5f5; padding-right: 0 !important; padding-bottom: 30px; }
+            .col-md-8 { padding-left: 0 !important; padding-top: 30px; }
+            #pdf-preview-area { height: 300px; }
+        }
+
+        /* Modal Select Alignment Fix */
+        #pdf-month-select, #pdf-start-date, #pdf-end-date {
+            appearance: none !important;
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
+            background-repeat: no-repeat !important;
+            background-position: right 20px center !important;
+            background-size: 1.2rem !important;
+            padding-right: 50px !important;
+        }
+
+        /* Modal Download Button Final Fix */
+        .pdf-download-btn {
+            background: var(--primary-green) !important;
+            color: white !important;
+            border-radius: 12px !important;
+            height: 75px !important;
+            width: 100% !important;
+            font-weight: 800 !important;
+            font-size: 1.35rem !important;
+            text-transform: uppercase !important;
+            letter-spacing: 1.5px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            border: none !important;
+            box-shadow: 0 10px 25px rgba(25, 43, 36, 0.35) !important;
+            transition: all 0.3s !important;
+            padding: 0 20px !important;
+            gap: 15px !important;
+            white-space: nowrap !important;
+        }
+        .pdf-download-btn:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 15px 35px rgba(25, 43, 36, 0.45) !important;
+            filter: brightness(1.1);
+        }
+        .pdf-download-btn i,
+        .pdf-download-btn span {
+            display: inline-block !important;
+            vertical-align: middle !important;
+            line-height: 1 !important;
+        }
+        .pdf-download-btn i {
+            font-size: 1.35rem !important;
+            transform: translateY(-1px) !important;
+        }
+
+        /* Modal Close Styling Final Fix */
+        .pdf-modal-close {
+            position: absolute !important;
+            top: 20px !important;
+            right: 25px !important;
+            width: 45px !important;
+            height: 45px !important;
+            background: rgba(0,0,0,0.1) !important;
+            border-radius: 50% !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            color: white !important;
+            opacity: 1 !important;
+            border: none !important;
+            cursor: pointer !important;
+            z-index: 100 !important;
+            padding: 0 !important;
+            transition: all 0.3s !important;
+        }
+        .pdf-modal-close:hover {
+            background: rgba(0,0,0,0.2) !important;
+            transform: rotate(90deg);
+        }
+        .pdf-modal-close span {
+            font-size: 2.5rem !important;
+            font-weight: 300 !important;
+            line-height: 1 !important;
+            margin-top: -5px !important;
+        }
+
+        /* Print/PDF Specific Styles */
+        @media print {
+            .home-btn, .custom-toolbar, .date-nav-btn {
+                display: none !important;
+            }
+            .calendar-wrapper {
+                box-shadow: none;
+                margin: 0;
+            }
+            #view-container {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body id="body">
+    <header id="navigation" class="navbar navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand logo" href="index.html">
+                    <img src="images/logos/logo.png" alt="Al Madina Association" />
+                </a>
+            </div>
+            <nav class="navbar-right" role="Navigation">
+                <ul id="nav" class="nav navbar-nav navigation-menu">
+                    <li>
+                        <a href="index.html" class="home-btn">
+                            <i class="fas fa-chevron-left"></i>
+                            <span>Go Back</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="calendar-wrapper" id="pdf-content">
+        <div class="custom-toolbar">
+            <div class="nav-row">
+                <button id="prev-btn" class="date-nav-btn" onclick="navigate(-1)"><i class="fas fa-chevron-left"></i></button>
+                <div id="view-title">Loading...</div>
+                <button id="next-btn" class="date-nav-btn" onclick="navigate(1)"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="view-switcher">
+                <button class="view-btn" id="btn-day" onclick="setView('day')">Day</button>
+                <button class="view-btn" id="btn-week" onclick="setView('week')">Week</button>
+                <button class="view-btn" id="btn-month" onclick="setView('month')">Month</button>
+                <button class="today-btn" onclick="goToday()">Today</button>
+                <button class="today-btn pdf-gen-trigger" data-toggle="modal" data-target="#pdfModal" style="background: #d9534f; margin-left: 15px;">
+                    <i class="fas fa-file-pdf"></i> Generate PDF
+                </button>
+            </div>
+        </div>
+        <div id="view-container"></div>
+    </div>
+
+    <!-- Generate PDF Modal -->
+    <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="width: 1100px !important; max-width: 95vw !important;">
+            <div class="modal-content" style="border-radius: 24px; border: none; box-shadow: 0 25px 70px rgba(0,0,0,0.4); background: white; overflow: hidden; position: relative;">
+                <!-- Standard Close Button -->
+                <button type="button" class="close pdf-modal-close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="modal-header" style="background: var(--primary-green); color: white; border: none; padding: 35px 50px;">
+                    <h3 class="modal-title" id="pdfModalLabel" style="font-family: 'Josefin Sans', sans-serif; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin: 0;">Generate Prayer PDF</h3>
+                </div>
+                <div class="modal-body" style="padding: 50px;">
+                    <div class="row">
+                        <div class="col-md-4" style="border-right: 2px solid #f5f5f5; padding-right: 40px;">
+                            <h5 style="font-weight: 900; text-transform: uppercase; font-size: 1.2rem; letter-spacing: 2px; margin-bottom: 35px; color: var(--primary-green); border-bottom: 3px solid var(--primary-green); padding-bottom: 12px; display: inline-block;">Settings</h5>
+                            
+                            <div class="mb-5">
+                                <label style="display: flex; align-items: center; margin-bottom: 25px; cursor: pointer; font-size: 1.3rem;">
+                                    <input type="radio" name="pdfMode" value="month" checked onclick="togglePdfMode('month')" style="width: 24px; height: 24px; margin-right: 15px; accent-color: var(--primary-green); cursor: pointer;">
+                                    <span style="font-weight: 700; color: #111;">Specific Month</span>
+                                </label>
+                                <label style="display: flex; align-items: center; margin-bottom: 25px; cursor: pointer; font-size: 1.3rem;">
+                                    <input type="radio" name="pdfMode" value="ramadan" onclick="togglePdfMode('ramadan')" style="width: 24px; height: 24px; margin-right: 15px; accent-color: var(--primary-green); cursor: pointer;">
+                                    <span style="font-weight: 700; color: #111;">Ramadan 2026</span>
+                                </label>
+                                <label style="display: flex; align-items: center; margin-bottom: 25px; cursor: pointer; font-size: 1.3rem;">
+                                    <input type="radio" name="pdfMode" value="custom" onclick="togglePdfMode('custom')" style="width: 24px; height: 24px; margin-right: 15px; accent-color: var(--primary-green); cursor: pointer;">
+                                    <span style="font-weight: 700; color: #111;">Custom Range</span>
+                                </label>
+                            </div>
+
+
+                            <div id="pdf-month-section">
+                                <p style="font-weight: 800; color: #666; margin-bottom: 12px; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px;">Select Month</p>
+                                <select id="pdf-month-select" class="form-control" onchange="renderPdfPreview()" style="height: 60px; font-size: 1.2rem; font-weight: 700; border: 2px solid #ddd; border-radius: 15px; background: #fff; color: #000 !important; cursor: pointer; padding: 0 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                                </select>
+                            </div>
+
+                            <div id="pdf-custom-section" style="display: none;">
+                                <div class="mb-4">
+                                    <p style="font-weight: 800; color: #666; margin-bottom: 12px; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px;">Start Date</p>
+                                    <input type="date" id="pdf-start-date" class="form-control" onchange="renderPdfPreview()" style="height: 60px; font-size: 1.2rem; font-weight: 700; border: 2px solid #ddd; border-radius: 15px; background: #fff; color: #000 !important; padding: 0 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                                </div>
+                                <div class="mb-4">
+                                    <p style="font-weight: 800; color: #666; margin-bottom: 12px; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px;">End Date</p>
+                                    <input type="date" id="pdf-end-date" class="form-control" onchange="renderPdfPreview()" style="height: 60px; font-size: 1.2rem; font-weight: 700; border: 2px solid #ddd; border-radius: 15px; background: #fff; color: #000 !important; padding: 0 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                                </div>
+                            </div>
+
+                            <!-- Repositioned Download Button -->
+                            <div style="margin-top: 45px;">
+                                <button type="button" class="pdf-download-btn" onclick="generateSelectedPDF()">
+                                    <i class="fas fa-file-pdf" style="color: #ffffff;"></i>
+                                    <span>DOWNLOAD PDF</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8" style="padding-left: 40px;">
+                            <h5 style="font-weight: 900; text-transform: uppercase; font-size: 1.2rem; letter-spacing: 2px; margin-bottom: 30px; color: var(--primary-green); border-bottom: 3px solid var(--primary-green); padding-bottom: 12px; display: inline-block;">Live Preview</h5>
+                            <div id="pdf-preview-area" style="background: white; border: 2px solid #f0f0f0; border-radius: 20px; height: 500px; overflow: auto; padding: 0; box-shadow: 0 5px 20px rgba(0,0,0,0.03);">
+                                <!-- Preview content will be injected here -->
+                            </div>
+                            <div style="margin-top: 20px; display: flex; align-items: center; justify-content: center; gap: 12px; color: #888; font-size: 0.95rem; font-weight: 700;">
+                                <i class="fas fa-shield-alt" style="color: var(--primary-green);"></i>
+                                <span>High-fidelity data directly from Al-Madina Association.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Buffer for PDF rendering (ensures correct styling for capture) -->
+    <div id="pdf-capture-buffer" style="position: absolute; top: -10000px; left: 0; width: 1100px; background: white; padding: 20px;"></div>
+
+    <!-- PDF Generation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <!-- prayerData.js -->
+    <script src="js/prayerData.js"></script>
+
+    <script>
+        let currentView = 'month';
+        let pivotDate = new Date(); // The anchor date for views
+
+        function setView(view) {
+            currentView = view;
+            document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('btn-' + view).classList.add('active');
+            render();
+        }
+
+        function navigate(dir) {
+            const tempDate = new Date(pivotDate);
+            if (currentView === 'day') {
+                tempDate.setDate(tempDate.getDate() + dir);
+            } else if (currentView === 'week') {
+                tempDate.setDate(tempDate.getDate() + (dir * 7));
+            } else if (currentView === 'month') {
+                tempDate.setMonth(tempDate.getMonth() + dir);
+            }
+
+            if (checkDataExists(tempDate, currentView)) {
+                pivotDate = tempDate;
+                render();
+            }
+        }
+
+        function checkDataExists(date, view) {
+            if (view === 'day') {
+                return !!getPrayerDataForDate(formatDate(date));
+            } else if (view === 'month') {
+                const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                return !!prayerData[monthNames[date.getMonth()]];
+            } else if (view === 'week') {
+                // Check if any day in the target week has data
+                const start = new Date(date);
+                start.setDate(start.getDate() - start.getDay());
+                for (let i = 0; i < 7; i++) {
+                    const d = new Date(start);
+                    d.setDate(d.getDate() + i);
+                    if (getPrayerDataForDate(formatDate(d))) return true;
+                }
+                return false;
+            }
+            return false;
+        }
+
+        function goToday() {
+            pivotDate = new Date();
+            render();
+        }
+
+        function togglePdfMode(mode) {
+            document.getElementById('pdf-month-section').style.display = mode === 'month' ? 'block' : 'none';
+            document.getElementById('pdf-custom-section').style.display = mode === 'custom' ? 'block' : 'none';
+            renderPdfPreview();
+        }
+
+        let availableMinDate = null;
+        let availableMaxDate = null;
+
+        function populatePDFModal() {
+            const select = document.getElementById('pdf-month-select');
+            select.innerHTML = '';
+            const monthMap = { "Jan": 0, "Feb": 1, "Mar": 2, "Apr": 3, "May": 4, "Jun": 5, "Jul": 6, "Aug": 7, "Sep": 8, "Oct": 9, "Nov": 10, "Dec": 11 };
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            
+            const availableMonths = Object.keys(prayerData);
+            availableMonths.forEach(mKey => {
+                const monthIdx = monthMap[mKey];
+                if (monthIdx !== undefined) {
+                    const opt = document.createElement('option');
+                    opt.value = monthIdx;
+                    const firstDate = Object.keys(prayerData[mKey])[0];
+                    const year = firstDate ? firstDate.split('-')[0] : '2026';
+                    opt.text = monthNames[monthIdx] + " " + year;
+                    select.appendChild(opt);
+                }
+            });
+
+            let allDates = [];
+            Object.values(prayerData).forEach(m => {
+                allDates = allDates.concat(Object.keys(m));
+            });
+            allDates.sort();
+
+            if (allDates.length > 0) {
+                availableMinDate = allDates[0];
+                availableMaxDate = allDates[allDates.length - 1];
+                
+                const startInput = document.getElementById('pdf-start-date');
+                const endInput = document.getElementById('pdf-end-date');
+                
+                startInput.min = availableMinDate;
+                startInput.max = availableMaxDate;
+                startInput.value = availableMinDate;
+                
+                endInput.min = availableMinDate;
+                endInput.max = availableMaxDate;
+                endInput.value = availableMaxDate;
+            }
+            
+            renderPdfPreview();
+        }
+
+        function renderPdfPreview() {
+            const mode = document.querySelector('input[name="pdfMode"]:checked').value;
+            const previewArea = document.getElementById('pdf-preview-area');
+            const startInput = document.getElementById('pdf-start-date');
+            const endInput = document.getElementById('pdf-end-date');
+            
+            let startDate, endDate, titleText;
+            if (mode === 'month') {
+                const monthIdx = parseInt(document.getElementById('pdf-month-select').value);
+                startDate = new Date(2026, monthIdx, 1);
+                endDate = new Date(2026, monthIdx + 1, 0);
+                titleText = startDate.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
+            } else if (mode === 'ramadan') {
+                startDate = new Date(2026, 1, 19); // Feb 19
+                endDate = new Date(2026, 2, 20);   // Mar 20
+                titleText = "Ramadan 2026";
+            } else {
+                // Strictly enforce date limits in UI
+                if (availableMinDate && startInput.value < availableMinDate) startInput.value = availableMinDate;
+                if (availableMaxDate && endInput.value > availableMaxDate) endInput.value = availableMaxDate;
+                
+                const [sY, sM, sD] = startInput.value.split('-').map(Number);
+                startDate = new Date(sY, sM - 1, sD);
+                const [eY, eM, eD] = endInput.value.split('-').map(Number);
+                endDate = new Date(eY, eM - 1, eD);
+                titleText = `${startDate.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} - ${endDate.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}`;
+            }
+
+            if (isNaN(startDate) || isNaN(endDate) || startDate > endDate) {
+                previewArea.innerHTML = '<div style="display:flex; height:100%; align-items:center; justify-content:center; color:#999; font-weight:600;">Invalid date range select.</div>';
+                return;
+            }
+
+            // Shared rendering logic for both preview and final capture
+            let html = `<div id="final-capture-content" style="padding: 40px; background: white; min-width: 1050px;">`;
+            html += `<h2 style="text-align:center; font-family:'Josefin Sans', sans-serif; font-weight:900; text-transform:uppercase; margin-bottom:5px; font-size: 1.8rem; color:#192b24;">Salat and Iqamah time for Almadina Association, Rosemount</h2>`;
+            html += `<h3 style="text-align:center; font-family:'Josefin Sans', sans-serif; font-weight:700; margin-bottom:30px; font-size: 1.4rem; color:#444;">${titleText}</h3>`;
+            
+            const dayCount = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
+            const pdfFontSize = dayCount > 20 ? "12px" : (dayCount > 10 ? "14px" : "16px");
+            const pdfPadding = dayCount > 20 ? "12px 6px" : "18px 12px";
+
+            html += `<table style="width:100%; border-collapse:collapse; font-size:${pdfFontSize}; border: 3px solid #192b24; table-layout: fixed;">`;
+            html += '<thead><tr style="background:#192b24; color:white;">';
+            ["Day", "Fajr", "Iqamah", "Sunrise", "Zuhr", "Iqamah", "Asr", "Iqamah", "Maghrib", "Iqamah", "Isha", "Iqamah"].forEach(h => {
+                html += `<th style="padding:18px 5px; border:1px solid #fff; font-size:0.9em; word-wrap: break-word; text-transform: uppercase; letter-spacing: 0.5px;">${h}</th>`;
+            });
+            html += '</tr></thead><tbody>';
+
+            let curr = new Date(startDate);
+            let i = 0;
+            while (curr <= endDate) {
+                const dStr = formatDate(curr);
+                const data = getPrayerDataForDate(dStr);
+                const rowBg = i % 2 === 1 ? '#f8fdfa' : '#ffffff';
+                
+                const ramadanText = data?.ramadan ? `<br><span style="font-size:0.75em; color:var(--accent-green); font-weight:700;">${data.ramadan}</span>` : '';
+                
+                html += `<tr style="background:${rowBg}">
+                    <td style="padding:${pdfPadding}; border:1px solid #eee; font-weight:900; word-wrap: break-word; color:#192b24;">
+                        ${curr.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}
+                        ${ramadanText}
+                    </td>`;
+                
+                const times = [
+            data?.fajr_na || data?.fajr, 
+            data?.fajr_iqamah, 
+            data?.sunrise, 
+            data?.zuhr, 
+            data?.zuhr_iqamah, 
+            data?.asr_hanafi || data?.asr, 
+            data?.asr_iqamah, 
+            data?.maghrib, 
+            data?.maghrib_iqamah, 
+            data?.isha, 
+            data?.isha_iqamah
+        ];
+                times.forEach(t => {
+                    html += `<td style="padding:${pdfPadding}; border:1px solid #eee; font-weight:800; text-align:center; color:#111;">${t || '—'}</td>`;
+                });
+                
+                html += `</tr>`;
+                curr.setDate(curr.getDate() + 1);
+                i++;
+            }
+            html += '</tbody></table>';
+            html += `
+            <div style="margin-top: 100px; border-top: 1px solid #ddd; padding-top: 30px; font-size: 10px; color: #555; line-height: 1.4; font-family: 'Josefin Sans', sans-serif;">
+                <p style="margin: 0 0 5px 0;">• Taraweh will be followed by Isha prayer (about 15 minutes)</p>
+                <p style="margin: 0 0 5px 0;">• Jummua (Before daylight savings change): First Adan-1:00 PM, Khutba/Lecture at 1:15 PM (if Khutbah in English 1:20 PM) and Ikamah around at 1:45 PM</p>
+                <p style="margin: 0 0 5px 0;">• Jummua (After daylight savings change): First Adan-AEAP, Khutba/Lecture at 1:25 PM (if English Khutbah 1:30 PM) and Ikamah around at 1:55 PM</p>
+                <p style="text-align:center; font-size: 11px; color: #999; margin-top: 20px; font-weight:800; letter-spacing: 1px; text-transform: uppercase;">AL-MADINA ASSOCIATION • 2058 Bonaire Path W, Rosemount, MN 55068</p>
+            </div>`;
+            html += `</div>`;
+            
+            previewArea.innerHTML = html;
+        }
+
+        function generateSelectedPDF() {
+            const mode = document.querySelector('input[name="pdfMode"]:checked').value;
+            let startDate, endDate, titleText;
+            
+            if (mode === 'month') {
+                const monthIdx = parseInt(document.getElementById('pdf-month-select').value);
+                startDate = new Date(2026, monthIdx, 1);
+                endDate = new Date(2026, monthIdx + 1, 0);
+                titleText = startDate.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
+            } else if (mode === 'ramadan') {
+                startDate = new Date(2026, 1, 19); // Feb 19
+                endDate = new Date(2026, 2, 20);   // Mar 20
+                titleText = "Ramadan 2026";
+            } else {
+                const sVal = document.getElementById('pdf-start-date').value;
+                const eVal = document.getElementById('pdf-end-date').value;
+                const [sY, sM, sD] = sVal.split('-').map(Number);
+                const [eY, eM, eD] = eVal.split('-').map(Number);
+                startDate = new Date(sY, sM - 1, sD);
+                endDate = new Date(eY, eM - 1, eD);
+                titleText = `${startDate.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} - ${endDate.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}`;
+            }
+
+            if (isNaN(startDate) || isNaN(endDate) || startDate > endDate) {
+                alert("Please select a valid date range.");
+                return;
+            }
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({
+                orientation: 'landscape',
+                unit: 'pt',
+                format: 'letter'
+            });
+
+            // Add Header
+            doc.setFontSize(18);
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(25, 43, 36); // primary-green
+            doc.text(`Salat and Iqamah time for Almadina Association, Rosemount`, doc.internal.pageSize.width / 2, 35, { align: 'center' });
+            
+            doc.setFontSize(14);
+            doc.setFont("helvetica", "normal");
+            doc.setTextColor(80);
+            doc.text(titleText, doc.internal.pageSize.width / 2, 55, { align: 'center' });
+
+            doc.setFontSize(8);
+            doc.setTextColor(150);
+            doc.text(`Generated: ${new Date().toLocaleDateString()}`, doc.internal.pageSize.width - 40, 65, { align: 'right' });
+
+            // Prepare Data for Table
+            const columns = ["Day", "Fajr", "Iqamah", "Sunrise", "Zuhr", "Iqamah", "Asr", "Iqamah", "Maghrib", "Iqamah", "Isha", "Iqamah"];
+            const rows = [];
+            
+            let curr = new Date(startDate);
+            while (curr <= endDate) {
+                const dStr = formatDate(curr);
+                const data = getPrayerDataForDate(dStr);
+                let dayLabel = curr.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+                if (data?.ramadan) {
+                    dayLabel += ` (${data.ramadan})`;
+                }
+                
+                rows.push([
+                    dayLabel,
+                    data?.fajr_na || data?.fajr || '—',
+                    data?.fajr_iqamah || '—',
+                    data?.sunrise || '—',
+                    data?.zuhr || '—',
+                    data?.zuhr_iqamah || '—',
+                    data?.asr_hanafi || data?.asr || '—',
+                    data?.asr_iqamah || '—',
+                    data?.maghrib || '—',
+                    data?.maghrib_iqamah || '—',
+                    data?.isha || '—',
+                    data?.isha_iqamah || '—'
+                ]);
+                curr.setDate(curr.getDate() + 1);
+            }
+
+            // Generate Table
+            doc.autoTable({
+                head: [columns],
+                body: rows,
+                startY: 75,
+                margin: { top: 40, bottom: 80, left: 40, right: 40 },
+                theme: 'grid',
+                styles: {
+                    fontSize: rows.length > 20 ? 8 : (rows.length > 10 ? 9 : 10),
+                    cellPadding: rows.length > 20 ? 2 : 5,
+                    halign: 'center',
+                    valign: 'middle',
+                    textColor: [51, 51, 51],
+                    font: 'helvetica',
+                    lineWidth: 0.5
+                },
+                headStyles: {
+                    fillColor: [25, 43, 36],
+                    textColor: [255, 255, 255],
+                    fontStyle: 'bold',
+                    lineWidth: 0.5
+                },
+                alternateRowStyles: {
+                    fillColor: [243, 249, 246]
+                },
+                columnStyles: {
+                    0: { fontStyle: 'bold', halign: 'left', cellWidth: 'auto' }
+                },
+                didDrawPage: function (data) {
+                    // Add Footer Notes
+                    const pageSize = doc.internal.pageSize;
+                    const pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight();
+                    
+                    doc.setFontSize(7);
+                    doc.setTextColor(80);
+                    doc.setFont("helvetica", "normal");
+                    
+                    const footerTop = pageHeight - 50;
+                    doc.text("• Taraweh will be followed by Isha prayer (about 15 minutes)", 40, footerTop);
+                    doc.text("• Jummua (Before daylight savings change): First Adan-1:00 PM, Khutba/Lecture at 1:15 PM (if Khutbah in English 1:20 PM) and Ikamah around at 1:45 PM", 40, footerTop + 10);
+                    doc.text("• Jummua (After daylight savings change): First Adan-AEAP, Khutba/Lecture at 1:25 PM (if English Khutbah 1:30 PM) and Ikamah around at 1:55 PM", 40, footerTop + 20);
+                    
+                    doc.setFontSize(9);
+                    doc.setFont("helvetica", "bold");
+                    doc.setTextColor(150);
+                    doc.text("AL-MADINA ASSOCIATION • 2058 Bonaire Path W, Rosemount, MN 55068", pageSize.width / 2, pageHeight - 10, { align: 'center' });
+                }
+            });
+
+            const filename = `AMA-Prayer-Times-${titleText.replace(/ /g, '-')}.pdf`;
+            doc.save(filename);
+            $('#pdfModal').modal('hide');
+        }
+
+        function formatDate(date) {
+            return date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+        }
+
+        function getPrayerDataForDate(dateStr) {
+            const [year, monthNum, day] = dateStr.split('-');
+            const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            const monthName = monthNames[parseInt(monthNum) - 1];
+            return prayerData[monthName] ? prayerData[monthName][dateStr] : null;
+        }
+
+        function getNextPrayerIndex(data) {
+            const now = new Date();
+            const prayers = [
+                { label: 'Fajr', time: data.fajr_na },
+                { label: 'Zuhr', time: data.zuhr },
+                { label: 'Asr', time: data.asr_hanafi },
+                { label: 'Maghrib', time: data.maghrib },
+                { label: 'Isha', time: data.isha }
+            ];
+
+            function toMinutes(t) {
+                if (!t || t === "—") return 9999;
+                const match = t.match(/(\d+):(\d+)\s*(AM|PM)/i);
+                if (!match) return 9999;
+                let h = parseInt(match[1]);
+                const m = parseInt(match[2]);
+                const a = match[3].toUpperCase();
+                if (a === "PM" && h < 12) h += 12;
+                if (a === "AM" && h === 12) h = 0;
+                return h * 60 + m;
+            }
+
+            const currentMinutes = now.getHours() * 60 + now.getMinutes();
+            for (let i = 0; i < prayers.length; i++) {
+                if (toMinutes(prayers[i].time) > currentMinutes) return prayers[i].label;
+            }
+            // If all prayers today passed, highlight Fajr
+            return prayers[0].label;
+        }
+
+        function render() {
+            const container = document.getElementById('view-container');
+            const title = document.getElementById('view-title');
+            container.innerHTML = '';
+
+            const isPivotToday = formatDate(pivotDate) === formatDate(new Date());
+            const nextPrayerLabel = isPivotToday ? getNextPrayerIndex(getPrayerDataForDate(formatDate(pivotDate)) || {}) : null;
+
+            // Update button states
+            const prevDate = new Date(pivotDate);
+            const nextDate = new Date(pivotDate);
+            if (currentView === 'day') {
+                prevDate.setDate(pivotDate.getDate() - 1);
+                nextDate.setDate(pivotDate.getDate() + 1);
+            } else if (currentView === 'week') {
+                prevDate.setDate(pivotDate.getDate() - 7);
+                nextDate.setDate(pivotDate.getDate() + 7);
+            } else if (currentView === 'month') {
+                prevDate.setMonth(pivotDate.getMonth() - 1);
+                nextDate.setMonth(pivotDate.getMonth() + 1);
+            }
+
+            document.getElementById('prev-btn').disabled = !checkDataExists(prevDate, currentView);
+            document.getElementById('next-btn').disabled = !checkDataExists(nextDate, currentView);
+
+            if (currentView === 'day') {
+                const dateStr = formatDate(pivotDate);
+                const data = getPrayerDataForDate(dateStr);
+                let titleText = pivotDate.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                
+                if (data && data.ramadan) {
+                    titleText += ` • ${data.ramadan}`;
+                }
+                
+                title.innerText = titleText;
+
+                if (!data) {
+                    container.innerHTML = '<div style="text-align:center; padding:20px;">No data available for this date.</div>';
+                    return;
+                }
+
+                let html = '<div class="day-view-container">';
+                const rows = [
+                    { label: 'Fajr', time: data.fajr_na || data.fajr, type: 'prayer' },
+                    { label: 'Iqamah', time: data.fajr_iqamah, type: 'iqamah' },
+                    { label: 'Sunrise', time: data.sunrise, type: 'sunrise' },
+                    { label: 'Zuhr', time: data.zuhr, type: 'prayer' },
+                    { label: 'Iqamah', time: data.zuhr_iqamah, type: 'iqamah' },
+                    { label: 'Asr', time: data.asr_hanafi || data.asr, type: 'prayer' },
+                    { label: 'Iqamah', time: data.asr_iqamah, type: 'iqamah' }, 
+                    { label: 'Maghrib', time: data.maghrib, type: 'prayer' },
+                    { label: 'Iqamah', time: data.maghrib_iqamah, type: 'iqamah' },
+                    { label: 'Isha', time: data.isha, type: 'prayer' },
+                    { label: 'Iqamah', time: data.isha_iqamah, type: 'iqamah' }
+                ];
+                
+                rows.forEach(row => {
+                    let className = 'day-row';
+                    let indicatorHtml = '';
+                    if (row.type === 'prayer') className += ' prayer-header';
+                    else if (row.type === 'sunrise') className += ' sunrise-row';
+                    else className += ' iqamah-row';
+                    
+                    if (nextPrayerLabel && row.label === nextPrayerLabel) {
+                        className += ' next-prayer-highlight';
+                        indicatorHtml = `<span class="next-indicator">NEXT PRAYER ➜</span>`;
+                    }
+                    
+                    html += `<div class="${className}">${indicatorHtml}<div class="day-label">${row.label}</div><div class="day-time">${row.time || '—'}</div></div>`;
+                });
+                html += '</div>';
+                container.innerHTML = html;
+
+            } else if (currentView === 'week') {
+                // Get start of week (Sunday)
+                const start = new Date(pivotDate);
+                start.setDate(start.getDate() - start.getDay());
+                const end = new Date(start);
+                end.setDate(end.getDate() + 6);
+                
+                title.innerText = start.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) + ' — ' + end.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+
+                let html = '<table class="prayer-table"><thead><tr><th>Day</th><th>Fajr</th><th>Iqamah</th><th class="col-sunrise">Sunrise</th><th>Zuhr</th><th>Iqamah</th><th>Asr</th><th>Iqamah</th><th>Maghrib</th><th>Iqamah</th><th>Isha</th><th>Iqamah</th></tr></thead><tbody>';
+                
+                for (let i = 0; i < 7; i++) {
+                    const d = new Date(start);
+                    d.setDate(d.getDate() + i);
+                    const dStr = formatDate(d);
+                    const data = getPrayerDataForDate(dStr);
+                    const isToday = dStr === formatDate(new Date());
+                    
+                    const ramadanSub = data?.ramadan ? `<br><small style="color:var(--accent-green); font-weight:700; display:block; margin-top:2px;">${data.ramadan}</small>` : '';
+                    html += `<tr class="${isToday ? 'current-day-row' : ''}">
+                        <td>${d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}${ramadanSub}</td>
+                        <td>${data ? (data.fajr_na || data.fajr || '—') : '—'}</td>
+                        <td>${data ? data.fajr_iqamah : '—'}</td>
+                        <td class="col-sunrise">${data ? data.sunrise : '—'}</td>
+                        <td>${data ? data.zuhr : '—'}</td>
+                        <td>${data ? data.zuhr_iqamah : '—'}</td>
+                        <td>${data ? (data.asr_hanafi || data.asr || '—') : '—'}</td>
+                        <td>${data ? data.asr_iqamah : '—'}</td>
+                        <td>${data ? data.maghrib : '—'}</td>
+                        <td>${data ? data.maghrib_iqamah : '—'}</td>
+                        <td>${data ? data.isha : '—'}</td>
+                        <td>${data ? data.isha_iqamah : '—'}</td>
+                    </tr>`;
+                }
+                html += '</tbody></table>';
+                container.innerHTML = html;
+
+            } else if (currentView === 'month') {
+                const month = pivotDate.getMonth();
+                const year = pivotDate.getFullYear();
+                title.innerText = pivotDate.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
+
+                let html = '<table class="prayer-table"><thead><tr><th>Day</th><th>Fajr</th><th>Iqamah</th><th class="col-sunrise">Sunrise</th><th>Zuhr</th><th>Iqamah</th><th>Asr</th><th>Iqamah</th><th>Maghrib</th><th>Iqamah</th><th>Isha</th><th>Iqamah</th></tr></thead><tbody>';
+                
+                const lastDay = new Date(year, month + 1, 0).getDate();
+                for (let i = 1; i <= lastDay; i++) {
+                    const d = new Date(year, month, i);
+                    const dStr = formatDate(d);
+                    const data = getPrayerDataForDate(dStr);
+                    const isToday = dStr === formatDate(new Date());
+                    
+                    const ramadanSub = data?.ramadan ? `<br><small style="color:var(--accent-green); font-weight:700; display:block; margin-top:2px;">${data.ramadan}</small>` : '';
+                    html += `<tr class="${isToday ? 'current-day-row' : ''}">
+                        <td>${d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}${ramadanSub}</td>
+                        <td>${data ? (data.fajr_na || data.fajr || '—') : '—'}</td>
+                        <td>${data ? data.fajr_iqamah : '—'}</td>
+                        <td class="col-sunrise">${data ? data.sunrise : '—'}</td>
+                        <td>${data ? data.zuhr : '—'}</td>
+                        <td>${data ? data.zuhr_iqamah : '—'}</td>
+                        <td>${data ? (data.asr_hanafi || data.asr || '—') : '—'}</td>
+                        <td>${data ? data.asr_iqamah : '—'}</td>
+                        <td>${data ? data.maghrib : '—'}</td>
+                        <td>${data ? data.maghrib_iqamah : '—'}</td>
+                        <td>${data ? data.isha : '—'}</td>
+                        <td>${data ? data.isha_iqamah : '—'}</td>
+                    </tr>`;
+                }
+                html += '</tbody></table>';
+                container.innerHTML = html;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setView('month');
+            populatePDFModal();
+        });
+    </script>
+    <!-- Global Scripts -->
+    <script type="text/javascript" src="plugins/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="plugins/slick-carousel/slick/slick.min.js"></script>
+    <script type="text/javascript" src="plugins/mixitup/dist/mixitup.min.js"></script>
+    <script type="text/javascript" src="plugins/smooth-scroll/dist/js/smooth-scroll.min.js"></script>
+    <script type="text/javascript" src="plugins/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+    <script type="text/javascript" src="plugins/Sticky/jquery.sticky.js"></script>
+    <script type="text/javascript" src="plugins/count-to/jquery.countTo.js"></script>
+    <script type="text/javascript" src="plugins/wow/dist/wow.min.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+</body>
+</html>

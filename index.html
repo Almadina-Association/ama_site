@@ -36,6 +36,88 @@
 	<link rel="stylesheet" href="plugins/slick-carousel/slick/slick-theme.css">
 	<!-- Main Stylesheet -->
 	<link rel="stylesheet" href="css/style.css">
+	
+	<style>
+		.prayer-pagination {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 8px;
+			margin: 10px 0;
+			padding: 0 15px 10px 15px;
+			background: transparent;
+			border-bottom: 1px solid #ddd;
+		}
+		.date-nav {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 20px;
+			width: 100%;
+		}
+		.prayer-pagination #current-date-display {
+			font-family: 'Josefin Sans', sans-serif;
+			font-weight: 600;
+			font-size: 0.85em;
+			color: #444;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			text-align: center;
+			white-space: nowrap;
+		}
+		.prayer-pagination .btn-pagination {
+			background: transparent;
+			color: #2b5a4a;
+			border: 1px solid #2b5a4a;
+			width: 24px;
+			height: 24px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 50%;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			font-size: 0.65em;
+		}
+		.prayer-pagination .btn-pagination:hover:not(:disabled) {
+			background: #2b5a4a;
+			color: white;
+		}
+		.prayer-pagination .btn-pagination:disabled {
+			opacity: 0.3;
+			cursor: not-allowed;
+			border-color: #ccc;
+			color: #ccc;
+		}
+		.calendar-btn {
+			background: #2b5a4a;
+			color: white;
+			border: none;
+			padding: 4px 12px;
+			border-radius: 4px;
+			font-size: 0.65em;
+			cursor: pointer;
+			font-family: 'Josefin Sans', sans-serif;
+			transition: background 0.3s;
+			display: inline-flex;
+			align-items: center;
+			gap: 5px;
+			text-transform: uppercase;
+			font-weight: 600;
+		}
+		.calendar-btn:hover {
+			background: #1e3f34;
+		}
+		.calendar-btn i,
+		.calendar-btn span {
+			display: inline-block;
+			vertical-align: middle;
+			line-height: 1;
+		}
+		.calendar-btn i {
+			transform: translateY(-1px);
+		}
+	</style>
 
 	<!-- ================================== -->
 	<!--    Cinzel Decorative Font -->
@@ -51,6 +133,7 @@
 	<link rel="stylesheet" href="icons/font-awesome-4.7.0/css/font-awesome.min.css">
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"></script>
+	<script src="js/prayerData.js"></script>
 
 
 </head>
@@ -145,6 +228,16 @@
 								<a data-scroll href="#about">About</a>
 							</li>
 
+							<!-- Mobile Menu Item -->
+							<li id="menuItemMobile">
+								<a class="menuItemMobile" data-toggle="collapse" data-target=".navbar-collapse"
+									href="prayerTime.html">Prayer Time</a>
+							</li>
+							<!-- Normal Menu Item -->
+							<li id="menuItem">
+								<a href="prayerTime.html">Prayer Time</a>
+							</li>
+
 					<!-- Mobile Menu Item -->
 					<li id="menuItemMobile">
 						<a class="menuItemMobile" data-toggle="collapse" data-target=".navbar-collapse" data-scroll
@@ -183,6 +276,16 @@ Welcome Slider
 
 		<div class="timeContainer" style="background:#ffffffb8;">
 			<h1 class="timeContainerTitleHeader">Prayer <span style="color: #bfe2d4f5;">Time</span></h1>
+			
+			<div class="prayer-pagination">
+				<button id="calendar-btn" class="calendar-btn" onclick="window.location.href='prayerTime.html'"><i class="fas fa-calendar-alt"></i> <span>Calendar View</span></button>
+				<div class="date-nav">
+					<button id="prev-day" class="btn-pagination"><i class="fas fa-chevron-left"></i></button>
+					<span id="current-date-display">Loading...</span>
+					<button id="next-day" class="btn-pagination"><i class="fas fa-chevron-right"></i></button>
+				</div>
+			</div>
+
 			<div class="timeContainerInner">
 			<table class="GeneratedTable">
 	
@@ -271,9 +374,8 @@ Welcome Slider
 	
 					</div>
 	
+	
 					<img width="200px" src="./images/slider/socials.png" />
-	
-	
 	
 			</div>
 	
@@ -597,6 +699,9 @@ Start Call To Action
 
 
 
+	<div id="prayer-time-error" style="display:none; color: red; text-align: center; padding: 10px; background: #fff; margin: 10px; border-radius: 5px; font-weight: bold;">
+		Error loading prayer times. Please check the console (F12) for details.
+	</div>
 	<!-- end Contact Area
 		========================================== -->
 
@@ -658,46 +763,143 @@ Start Call To Action
 		// }
 
 
-		// const asr = 'asr time';
-		var date = new Date();
-		var day = date.getDate();
-		var month = date.getMonth() + 1;
-		var year = date.getFullYear();
-		var time = date.toLocaleString("en-US", {
-			hour: "numeric",
-			minute: "numeric",
-			hour12: true,
-		});
-		axios
-			.get(
-				"https://sheetlabs.com/ACCT/AMA_APP_DATA?date=" +
-				year +
-				"-" +
-				month +
-				"-" +
-				day +
-				""
-				// 'https://sheetlabs.com/ACCT/AMA_APP_DATA'
-			)
-			.then((res) => {
-				console.log({ res });
-				document.getElementById('fajr_time').innerHTML = res.data[0].fajrna;
-				document.getElementById('fajr_iqamah').innerHTML = res.data[0].fajriqamah;
-				document.getElementById('sunrise').innerHTML = res.data[0].sunrise;
-				document.getElementById('zuhr_time').innerHTML = res.data[0].dhuhr;
-				document.getElementById('zuhr_iqamah').innerHTML = res.data[0].dhuhriqamah;
-				document.getElementById('asr_time').innerHTML = res.data[0].asrhanafi;
-				document.getElementById('asr_iqamah').innerHTML = res.data[0].asriqamah;
-				document.getElementById('maghrib_time').innerHTML = res.data[0].maghrib;
-				document.getElementById('maghrib_iqamah').innerHTML = res.data[0].maghribiqamah;
-				document.getElementById('isha_time').innerHTML = res.data[0].isha;
-				document.getElementById('isha_iqamah').innerHTML = res.data[0].ishaiqamah;
+		function formatTime(timeStr) {
+			console.log("Formatting time:", timeStr, "Type:", typeof timeStr);
+			if (timeStr === null || timeStr === undefined || timeStr === '') return '—';
+			if (typeof timeStr === 'string') return timeStr.trim();
+			
+			// If it's a fractional day from Excel (e.g., 0.25 for 6:00 AM)
+			if (typeof timeStr === 'number') {
+				try {
+					let totalSeconds = Math.round(timeStr * 24 * 3600);
+					let hours = Math.floor(totalSeconds / 3600);
+					let minutes = Math.floor((totalSeconds % 3600) / 60);
+					let ampm = hours >= 12 ? 'PM' : 'AM';
+					hours = hours % 12;
+					hours = hours ? hours : 12;
+					minutes = minutes < 10 ? '0' + minutes : minutes;
+					return hours + ':' + minutes + ' ' + ampm;
+				} catch (e) {
+					console.error("Error formatting numeric time:", timeStr, e);
+					return timeStr;
+				}
+			}
+			return String(timeStr);
+		}
+
+		document.addEventListener('DOMContentLoaded', function() {
+			console.log("DOM loaded, initializing prayer times...");
+			
+			const errorDiv = document.getElementById('prayer-time-error');
+			const dateDisplay = document.getElementById('current-date-display');
+			const prevBtn = document.getElementById('prev-day');
+			const nextBtn = document.getElementById('next-day');
+			
+			let currentDisplayDate = new Date();
+			const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+			function updatePrayerTable(date) {
+				const monthIndex = date.getMonth();
+				const monthName = months[monthIndex];
+				const year = date.getFullYear();
+				const day = date.getDate();
+				
+				const todayStr = year + "-" + 
+								 String(monthIndex + 1).padStart(2, '0') + "-" + 
+								 String(day).padStart(2, '0');
+
+				// Update Display Text
+				const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+				dateDisplay.innerText = date.toLocaleDateString(undefined, options);
+
+				if (typeof prayerData === 'undefined') {
+					console.error("prayerData is not defined!");
+					if (errorDiv) {
+						errorDiv.innerText = "Error: Prayer data not found. Please ensure js/prayerData.js is loaded.";
+						errorDiv.style.display = 'block';
+					}
+					return;
+				}
+
+				const sheetData = prayerData[monthName];
+				function dataExists(date) {
+					const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+					const mName = monthNames[date.getMonth()];
+					const dStr = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+					return !!(prayerData[mName] && prayerData[mName][dStr]);
+				}
+
+				// Update pagination buttons
+				const prevDate = new Date(date);
+				prevDate.setDate(date.getDate() - 1);
+				const nextDate = new Date(date);
+				nextDate.setDate(date.getDate() + 1);
+
+				prevBtn.disabled = !dataExists(prevDate);
+				nextBtn.disabled = !dataExists(nextDate);
+
+				if (!prayerData) {
+					console.error("No data for month:", monthName);
+					clearTable();
+					return;
+				}
+
+				if (!sheetData) {
+					console.error("No data for month:", monthName);
+					clearTable();
+					return;
+				}
+
+				const data = sheetData[todayStr];
+				if (data) {
+					console.log("Data found for", todayStr, ":", data);
+					try {
+						document.getElementById('fajr_time').innerHTML = data.fajr_na || data.fajr;
+						document.getElementById('fajr_iqamah').innerHTML = data.fajr_iqamah;
+						document.getElementById('sunrise').innerHTML = data.sunrise;
+						document.getElementById('zuhr_time').innerHTML = data.zuhr;
+						document.getElementById('zuhr_iqamah').innerHTML = data.zuhr_iqamah;
+						document.getElementById('asr_time').innerHTML = data.asr_hanafi || data.asr;
+						document.getElementById('asr_iqamah').innerHTML = data.asr_iqamah;
+						document.getElementById('maghrib_time').innerHTML = data.maghrib;
+						document.getElementById('maghrib_iqamah').innerHTML = data.maghrib_iqamah;
+						document.getElementById('isha_time').innerHTML = data.isha;
+						document.getElementById('isha_iqamah').innerHTML = data.isha_iqamah;
+						if (errorDiv) errorDiv.style.display = 'none';
+					} catch (e) {
+						console.error("Error updating UI elements:", e);
+					}
+				} else {
+					console.warn("No data for date:", todayStr);
+					clearTable();
+					if (errorDiv) {
+						errorDiv.innerText = "No data found for: " + todayStr;
+						errorDiv.style.display = 'block';
+					}
+				}
+			}
+
+			function clearTable() {
+				const ids = ['fajr_time', 'fajr_iqamah', 'sunrise', 'zuhr_time', 'zuhr_iqamah', 'asr_time', 'asr_iqamah', 'maghrib_time', 'maghrib_iqamah', 'isha_time', 'isha_iqamah'];
+				ids.forEach(id => {
+					const el = document.getElementById(id);
+					if (el) el.innerHTML = "—";
+				});
+			}
+
+			prevBtn.addEventListener('click', function() {
+				currentDisplayDate.setDate(currentDisplayDate.getDate() - 1);
+				updatePrayerTable(currentDisplayDate);
 			});
 
+			nextBtn.addEventListener('click', function() {
+				currentDisplayDate.setDate(currentDisplayDate.getDate() + 1);
+				updatePrayerTable(currentDisplayDate);
+			});
 
-
-
-
+			// Initial Load
+			updatePrayerTable(currentDisplayDate);
+		});
 	</script>
 
 

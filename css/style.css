@@ -2776,12 +2776,12 @@ homeButton {
   background:#192b24;
   text-align: left;
   font-weight: bolder;
-  font-size: 20px;
+  font-size: 18px;
 }
 .iqamah{
   text-align: left;
   font-weight: bolder;
-  font-size: 20px;
+  font-size: 18px;
   background:#ffffff42;
   color: #192b24;
   /* background:#192b24;
@@ -2796,7 +2796,7 @@ homeButton {
   /* color: #fff; */
   text-align: left;
   font-weight: bolder;
-  font-size: 20px;
+  font-size: 18px;
 }
 .iqamahTime{
   background:#ffffff42;
@@ -2805,13 +2805,13 @@ homeButton {
 
   text-align: left;
   font-weight: bolder;
-  font-size: 20px;
+  font-size: 18px;
 }
 .sunrise{
   background:#5f8376;
   text-align: left;
   font-weight: bolder;
-  font-size: 20px;
+  font-size: 18px;
 }
 .whatsAppBox{
   margin-top: 20px;
@@ -2838,7 +2838,7 @@ homeButton {
   border-radius: 20px;  
   width: 400px;
   /* width: 100%; */
-  height:  700px;
+  height:  725px;
   text-align: center;
   box-shadow: 5px 5px 13px #b9b8b8;
   flex: 1;
@@ -2882,7 +2882,7 @@ font-weight: bold;
     background: #ffffffb8;
     border-radius: 20px;
 width: 400px;
-height:  700px;
+height:  725px;
 flex: 1;
 margin-left: 20px;
 margin-right: 20px;
