@@ -642,6 +642,7 @@
 
         function setView(view) {
             currentView = view;
+            pivotDate = new Date(); // always reset to today when switching views
             document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
             document.getElementById('btn-' + view).classList.add('active');
             render();
@@ -785,7 +786,7 @@
 
             html += `<table style="width:100%; border-collapse:collapse; font-size:${pdfFontSize}; border: 3px solid #192b24; table-layout: fixed;">`;
             html += '<thead><tr style="background:#192b24; color:white;">';
-            ["Day", "Fajr", "Iqamah", "Sunrise", "Zuhr", "Iqamah", "Asr", "Iqamah", "Maghrib", "Iqamah", "Isha", "Iqamah"].forEach(h => {
+            ["Day", "Fajr 18°", "Fajr NA", "Iqamah", "Sunrise", "Zuhr", "Iqamah", "Asr Standard", "Asr Hanafi", "Iqamah", "Maghrib", "Iqamah", "Isha", "Iqamah"].forEach(h => {
                 html += `<th style="padding:18px 5px; border:1px solid #fff; font-size:0.9em; word-wrap: break-word; text-transform: uppercase; letter-spacing: 0.5px;">${h}</th>`;
             });
             html += '</tr></thead><tbody>';
@@ -795,6 +796,7 @@
             while (curr <= endDate) {
                 const dStr = formatDate(curr);
                 const data = getPrayerDataForDate(dStr);
+                if (!data) { curr.setDate(curr.getDate() + 1); continue; }
                 const rowBg = i % 2 === 1 ? '#f8fdfa' : '#ffffff';
                 
                 const ramadanText = data?.ramadan ? `<br><span style="font-size:0.75em; color:var(--accent-green); font-weight:700;">${data.ramadan}</span>` : '';
@@ -806,12 +808,14 @@
                     </td>`;
                 
                 const times = [
-            data?.fajr_na || data?.fajr, 
+            data?.fajr_18,
+            data?.fajr_na,
             data?.fajr_iqamah, 
             data?.sunrise, 
             data?.zuhr, 
             data?.zuhr_iqamah, 
-            data?.asr_hanafi || data?.asr, 
+            data?.asr_standard, 
+            data?.asr_hanafi, 
             data?.asr_iqamah, 
             data?.maghrib, 
             data?.maghrib_iqamah, 
@@ -890,13 +894,14 @@
             doc.text(`Generated: ${new Date().toLocaleDateString()}`, doc.internal.pageSize.width - 40, 65, { align: 'right' });
 
             // Prepare Data for Table
-            const columns = ["Day", "Fajr", "Iqamah", "Sunrise", "Zuhr", "Iqamah", "Asr", "Iqamah", "Maghrib", "Iqamah", "Isha", "Iqamah"];
+            const columns = ["Day", "Fajr 18°", "Fajr NA", "Iqamah", "Sunrise", "Zuhr", "Iqamah", "Asr Standard", "Asr Hanafi", "Iqamah", "Maghrib", "Iqamah", "Isha", "Iqamah"];
             const rows = [];
             
             let curr = new Date(startDate);
             while (curr <= endDate) {
                 const dStr = formatDate(curr);
                 const data = getPrayerDataForDate(dStr);
+                if (!data) { curr.setDate(curr.getDate() + 1); continue; }
                 let dayLabel = curr.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
                 if (data?.ramadan) {
                     dayLabel += ` (${data.ramadan})`;
@@ -904,12 +909,14 @@
                 
                 rows.push([
                     dayLabel,
-                    data?.fajr_na || data?.fajr || '—',
+                    data?.fajr_18 || '—',
+                    data?.fajr_na || '—',
                     data?.fajr_iqamah || '—',
                     data?.sunrise || '—',
                     data?.zuhr || '—',
                     data?.zuhr_iqamah || '—',
-                    data?.asr_hanafi || data?.asr || '—',
+                    data?.asr_standard || '—',
+                    data?.asr_hanafi || '—',
                     data?.asr_iqamah || '—',
                     data?.maghrib || '—',
                     data?.maghrib_iqamah || '—',
@@ -1057,12 +1064,14 @@
 
                 let html = '<div class="day-view-container">';
                 const rows = [
-                    { label: 'Fajr', time: data.fajr_na || data.fajr, type: 'prayer' },
+                    { label: 'Fajr 18°', time: data.fajr_18, type: 'prayer', bgColor: '#192b24' },
+                    { label: 'Fajr NA', time: data.fajr_na, type: 'prayer', bgColor: '#2e6b47' },
                     { label: 'Iqamah', time: data.fajr_iqamah, type: 'iqamah' },
                     { label: 'Sunrise', time: data.sunrise, type: 'sunrise' },
                     { label: 'Zuhr', time: data.zuhr, type: 'prayer' },
                     { label: 'Iqamah', time: data.zuhr_iqamah, type: 'iqamah' },
-                    { label: 'Asr', time: data.asr_hanafi || data.asr, type: 'prayer' },
+                    { label: 'Asr Standard', time: data.asr_standard, type: 'prayer', bgColor: '#1e4a35' },
+                    { label: 'Asr Hanafi', time: data.asr_hanafi, type: 'prayer', bgColor: '#4a7c5a' },
                     { label: 'Iqamah', time: data.asr_iqamah, type: 'iqamah' }, 
                     { label: 'Maghrib', time: data.maghrib, type: 'prayer' },
                     { label: 'Iqamah', time: data.maghrib_iqamah, type: 'iqamah' },
@@ -1082,7 +1091,7 @@
                         indicatorHtml = `<span class="next-indicator">NEXT PRAYER ➜</span>`;
                     }
                     
-                    html += `<div class="${className}">${indicatorHtml}<div class="day-label">${row.label}</div><div class="day-time">${row.time || '—'}</div></div>`;
+                    html += `<div class="${className}" style="${row.bgColor ? 'background:' + row.bgColor + ';' : ''}">${indicatorHtml}<div class="day-label">${row.label}</div><div class="day-time">${row.time || '—'}</div></div>`;
                 });
                 html += '</div>';
                 container.innerHTML = html;
@@ -1096,24 +1105,27 @@
                 
                 title.innerText = start.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) + ' — ' + end.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
 
-                let html = '<table class="prayer-table"><thead><tr><th>Day</th><th>Fajr</th><th>Iqamah</th><th class="col-sunrise">Sunrise</th><th>Zuhr</th><th>Iqamah</th><th>Asr</th><th>Iqamah</th><th>Maghrib</th><th>Iqamah</th><th>Isha</th><th>Iqamah</th></tr></thead><tbody>';
+                let html = '<table class="prayer-table"><thead><tr><th>Day</th><th style="background:#192b24;">Fajr 18°</th><th style="background:#2e6b47;">Fajr NA</th><th>Iqamah</th><th class="col-sunrise">Sunrise</th><th>Zuhr</th><th>Iqamah</th><th style="background:#1e4a35;">Asr Standard</th><th style="background:#4a7c5a;">Asr Hanafi</th><th>Iqamah</th><th>Maghrib</th><th>Iqamah</th><th>Isha</th><th>Iqamah</th></tr></thead><tbody>';
                 
                 for (let i = 0; i < 7; i++) {
                     const d = new Date(start);
                     d.setDate(d.getDate() + i);
                     const dStr = formatDate(d);
                     const data = getPrayerDataForDate(dStr);
+                    if (!data) continue;
                     const isToday = dStr === formatDate(new Date());
                     
                     const ramadanSub = data?.ramadan ? `<br><small style="color:var(--accent-green); font-weight:700; display:block; margin-top:2px;">${data.ramadan}</small>` : '';
                     html += `<tr class="${isToday ? 'current-day-row' : ''}">
                         <td>${d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}${ramadanSub}</td>
-                        <td>${data ? (data.fajr_na || data.fajr || '—') : '—'}</td>
+                        <td>${data ? (data.fajr_18 || '—') : '—'}</td>
+                        <td>${data ? (data.fajr_na || '—') : '—'}</td>
                         <td>${data ? data.fajr_iqamah : '—'}</td>
                         <td class="col-sunrise">${data ? data.sunrise : '—'}</td>
                         <td>${data ? data.zuhr : '—'}</td>
                         <td>${data ? data.zuhr_iqamah : '—'}</td>
-                        <td>${data ? (data.asr_hanafi || data.asr || '—') : '—'}</td>
+                        <td>${data ? (data.asr_standard || '—') : '—'}</td>
+                        <td>${data ? (data.asr_hanafi || '—') : '—'}</td>
                         <td>${data ? data.asr_iqamah : '—'}</td>
                         <td>${data ? data.maghrib : '—'}</td>
                         <td>${data ? data.maghrib_iqamah : '—'}</td>
@@ -1129,24 +1141,27 @@
                 const year = pivotDate.getFullYear();
                 title.innerText = pivotDate.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
 
-                let html = '<table class="prayer-table"><thead><tr><th>Day</th><th>Fajr</th><th>Iqamah</th><th class="col-sunrise">Sunrise</th><th>Zuhr</th><th>Iqamah</th><th>Asr</th><th>Iqamah</th><th>Maghrib</th><th>Iqamah</th><th>Isha</th><th>Iqamah</th></tr></thead><tbody>';
+                let html = '<table class="prayer-table"><thead><tr><th>Day</th><th>Fajr 18°</th><th>Fajr NA</th><th>Iqamah</th><th class="col-sunrise">Sunrise</th><th>Zuhr</th><th>Iqamah</th><th>Asr Std</th><th>Asr Hanafi</th><th>Iqamah</th><th>Maghrib</th><th>Iqamah</th><th>Isha</th><th>Iqamah</th></tr></thead><tbody>';
                 
                 const lastDay = new Date(year, month + 1, 0).getDate();
                 for (let i = 1; i <= lastDay; i++) {
                     const d = new Date(year, month, i);
                     const dStr = formatDate(d);
                     const data = getPrayerDataForDate(dStr);
+                    if (!data) continue;
                     const isToday = dStr === formatDate(new Date());
                     
                     const ramadanSub = data?.ramadan ? `<br><small style="color:var(--accent-green); font-weight:700; display:block; margin-top:2px;">${data.ramadan}</small>` : '';
                     html += `<tr class="${isToday ? 'current-day-row' : ''}">
                         <td>${d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}${ramadanSub}</td>
-                        <td>${data ? (data.fajr_na || data.fajr || '—') : '—'}</td>
+                        <td>${data ? (data.fajr_18 || '—') : '—'}</td>
+                        <td>${data ? (data.fajr_na || '—') : '—'}</td>
                         <td>${data ? data.fajr_iqamah : '—'}</td>
                         <td class="col-sunrise">${data ? data.sunrise : '—'}</td>
                         <td>${data ? data.zuhr : '—'}</td>
                         <td>${data ? data.zuhr_iqamah : '—'}</td>
-                        <td>${data ? (data.asr_hanafi || data.asr || '—') : '—'}</td>
+                        <td>${data ? (data.asr_standard || '—') : '—'}</td>
+                        <td>${data ? (data.asr_hanafi || '—') : '—'}</td>
                         <td>${data ? data.asr_iqamah : '—'}</td>
                         <td>${data ? data.maghrib : '—'}</td>
                         <td>${data ? data.maghrib_iqamah : '—'}</td>

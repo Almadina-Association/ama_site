@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Athan+ - Al Madina Association</title>
+
+    <!-- CSS Reference Plugins -->
+    <link rel="stylesheet" href="plugins/themefisher-font/style.css">
+    <link rel="stylesheet" href="plugins/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="plugins/animate-css/animate.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative:900|Josefin+Sans:400,600|Quattrocento+Sans:400,700|Lobster|Bangers" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+
+    <style>
+        :root {
+            --primary-green: #192b24;
+            --accent-green: #2b5a4a;
+            --light-green: #f3f9f6;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Josefin Sans", sans-serif;
+            background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.9)), url("images/slider/hero-area_new5.png");
+            background-size: cover;
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        /* Navbar Stabilization - matched to style.css and index.html */
+        #navigation.navbar {
+            margin-bottom: 0;
+            border: none;
+        }
+        .navigation .logo img {
+            width: 240px;
+            height: auto;
+        }
+        .navigation .navigation-menu li a {
+            font-size: 20px !important;
+            color: #9fbcb2 !important;
+            text-transform: capitalize !important;
+            font-weight: 400 !important;
+        }
+        .navigation .navigation-menu li a:hover {
+            color: #ffffff !important;
+        }
+
+        .home-btn {
+            background: transparent !important;
+            color: #f8f8f8 !important;
+            border: none !important;
+            padding: 5px 0;
+            text-decoration: none;
+            font-size: 0.7em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            display: inline-flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            gap: 6px;
+            line-height: 1;
+            margin-top: 5px;
+            white-space: nowrap;
+        }
+        .home-btn i,
+        .home-btn span {
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 1;
+        }
+        .home-btn i {
+            font-size: 0.8em;
+            transform: translateY(-0.5px);
+        }
+        .home-btn:hover,
+        .home-btn:focus {
+            color: white !important;
+            background: transparent !important;
+            text-decoration: none;
+            transform: translateX(-3px);
+        }
+
+
+        /* Page Content */
+        .page-wrapper {
+            max-width: 860px;
+            margin: 50px auto 60px;
+            padding: 0 20px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .page-header .app-icon {
+            width: 110px;
+            height: 110px;
+            border-radius: 26px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+            margin-bottom: 20px;
+        }
+        .page-header h1 {
+            font-family: 'Josefin Sans', sans-serif;
+            font-weight: 900;
+            font-size: 2.8rem;
+            color: var(--primary-green);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        .page-header p {
+            font-size: 1.5rem;
+            color: #555;
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        /* Steps */
+        .steps-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .step-card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.07);
+            padding: 30px 35px;
+            display: flex;
+            gap: 25px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            width: 54px;
+            height: 54px;
+            min-width: 54px;
+            background: var(--primary-green);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 900;
+        }
+
+        .step-body {
+            flex: 1;
+        }
+
+        .step-body h3 {
+            font-family: 'Josefin Sans', sans-serif;
+            font-weight: 800;
+            font-size: 1.7rem;
+            color: var(--primary-green);
+            margin: 0 0 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .step-body p {
+            font-size: 1.4rem;
+            color: #444;
+            margin: 0 0 15px 0;
+            line-height: 1.6;
+        }
+
+        .step-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-screenshot {
+            width: 100%;
+            max-width: 280px;
+            border-radius: 14px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+            display: block;
+            margin-top: 15px;
+        }
+
+        /* Store Buttons */
+        .store-btns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 18px;
+        }
+        .store-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--primary-green);
+            color: white !important;
+            border-radius: 12px;
+            padding: 12px 22px;
+            font-family: 'Josefin Sans', sans-serif;
+            font-weight: 700;
+            font-size: 1.15rem;
+            text-decoration: none !important;
+            transition: background 0.2s, transform 0.2s;
+        }
+        .store-btn:hover {
+            background: var(--accent-green);
+            transform: translateY(-2px);
+            color: white !important;
+        }
+        .store-btn i {
+            font-size: 1.4rem;
+        }
+
+        /* Tip box */
+        .tip-box {
+            background: #e8f5f0;
+            border-left: 5px solid var(--accent-green);
+            border-radius: 12px;
+            padding: 18px 22px;
+            margin-top: 40px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .tip-box i {
+            font-size: 1.8rem;
+            color: var(--accent-green);
+        }
+        .tip-box p {
+            margin: 0;
+            font-size: 1.35rem;
+            color: #2b5a4a;
+            font-weight: 600;
+        }
+
+        @media (max-width: 767px) {
+            .page-wrapper {
+                margin: 30px auto 40px;
+            }
+            .step-card {
+                flex-direction: column;
+                gap: 15px;
+                padding: 22px 20px;
+            }
+            .page-header h1 {
+                font-size: 1.7rem;
+            }
+            .store-btns {
+                flex-direction: column;
+            }
+            /* Keep logo + Go Back on one row on mobile */
+            #navigation .container {
+                display: flex !important;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: nowrap;
+            }
+            #navigation .navbar-header {
+                float: none;
+                display: flex;
+                align-items: center;
+            }
+            #navigation .navbar-right {
+                float: none !important;
+                display: flex !important;
+                align-items: center;
+            }
+            #navigation #nav {
+                display: flex !important;
+                flex-direction: row;
+                margin: 0;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body id="body">
+    <header id="navigation" class="navbar navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand logo" href="index.html">
+                    <img src="images/logos/logo.png" alt="Al Madina Association" />
+                </a>
+            </div>
+            <nav class="navbar-right" role="Navigation">
+                <ul id="nav" class="nav navbar-nav navigation-menu">
+                    <li>
+                        <a href="index.html" class="home-btn">
+                            <i class="fas fa-chevron-left"></i>
+                            <span>Go Back</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="page-wrapper">
+
+        <div class="page-header">
+            <h1>Get Athan+ by Masjidal</h1>
+            <p>Follow these simple steps to download Athan+ and connect your phone to Al-Madina Association's live prayer times.</p>
+        </div>
+
+        <div class="steps-container">
+
+            <!-- Step 1: Download the App -->
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <div class="step-body">
+                    <h3>Download Athan+ App</h3>
+                    <p>Search for <strong>"Athan+"</strong> by Masjidal in the App Store (iPhone) or Google Play (Android), then download and install it.</p>
+                    <div class="store-btns">
+                        <a href="https://apps.apple.com/us/app/masjidal-athan-times-more/id1524990518" target="_blank" class="store-btn">
+                            <i class="fab fa-apple"></i> App Store
+                        </a>
+                        <a href="https://play.google.com/store/search?q=athan%2B+masjidal" target="_blank" class="store-btn">
+                            <i class="fab fa-google-play"></i> Google Play
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Search for Al-Madina -->
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <div class="step-body">
+                    <h3>Search for Al-Madina</h3>
+                    <p>Once the app is open, use the masjid search feature to find <strong>"Al-Madina"</strong> and add it as your <strong>favorite masjid</strong>. This will sync our exact prayer and Iqamah times directly to your phone.</p>
+                </div>
+            </div>
+
+            <!-- Step 3: View Times -->
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <div class="step-body">
+                    <h3>View Accurate Prayer Times</h3>
+                    <p>Athan+ will display Al-Madina's correct Salat and Iqamah timings. You can also see the prayer schedule <strong>for the next 7 days</strong> — all updated directly by the masjid.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="tip-box">
+            <i class="fas fa-bell"></i>
+            <p>Enable notifications in the app to receive prayer reminders automatically — never miss a prayer again!</p>
+        </div>
+
+    </div>
+
+    <!-- Page Scripts -->
+    <script type="text/javascript" src="plugins/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="plugins/Sticky/jquery.sticky.js"></script>
+    <script type="text/javascript" src="plugins/wow/dist/wow.min.js"></script>
+    <script>
+        jQuery(function ($) {
+            $("#navigation").sticky({ topSpacing: 0 });
+        });
+        var wow = new WOW({ mobile: false });
+        wow.init();
+    </script>
+</body>
+</html>
