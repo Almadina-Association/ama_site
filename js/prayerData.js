@@ -142,7 +142,7 @@ var prayerData = {
       "maghrib": "5:58 PM",
       "maghrib_iqamah": "6:05 PM",
       "isha": "7:18 PM",
-      "isha_iqamah": "8:00 PM",
+      "isha_iqamah": "7:45 PM",
       "ramadan": "Ramadan Day 9"
     },
     "2026-02-28": {
@@ -158,7 +158,7 @@ var prayerData = {
       "maghrib": "5:59 PM",
       "maghrib_iqamah": "6:06 PM",
       "isha": "7:20 PM",
-      "isha_iqamah": "8:00 PM",
+      "isha_iqamah": "7:45 PM",
       "ramadan": "Ramadan Day 10"
     }
   },
@@ -176,7 +176,7 @@ var prayerData = {
       "maghrib": "6:01 PM",
       "maghrib_iqamah": "6:08 PM",
       "isha": "7:21 PM",
-      "isha_iqamah": "8:00 PM",
+      "isha_iqamah": "7:45 PM",
       "ramadan": "Ramadan Day 11"
     },
     "2026-03-02": {
@@ -192,7 +192,7 @@ var prayerData = {
       "maghrib": "6:02 PM",
       "maghrib_iqamah": "6:09 PM",
       "isha": "7:22 PM",
-      "isha_iqamah": "8:00 PM",
+      "isha_iqamah": "7:45 PM",
       "ramadan": "Ramadan Day 12"
     },
     "2026-03-03": {
@@ -208,7 +208,7 @@ var prayerData = {
       "maghrib": "6:03 PM",
       "maghrib_iqamah": "6:10 PM",
       "isha": "7:24 PM",
-      "isha_iqamah": "8:00 PM",
+      "isha_iqamah": "7:45 PM",
       "ramadan": "Ramadan Day 13"
     },
     "2026-03-04": {
@@ -224,7 +224,7 @@ var prayerData = {
       "maghrib": "6:05 PM",
       "maghrib_iqamah": "6:12 PM",
       "isha": "7:25 PM",
-      "isha_iqamah": "8:00 PM",
+      "isha_iqamah": "7:45 PM",
       "ramadan": "Ramadan Day 14"
     },
     "2026-03-05": {
@@ -240,7 +240,7 @@ var prayerData = {
       "maghrib": "6:06 PM",
       "maghrib_iqamah": "6:13 PM",
       "isha": "7:26 PM",
-      "isha_iqamah": "8:00 PM",
+      "isha_iqamah": "7:45 PM",
       "ramadan": "Ramadan Day 15"
     },
     "2026-03-06": {
@@ -256,7 +256,7 @@ var prayerData = {
       "maghrib": "6:07 PM",
       "maghrib_iqamah": "6:14 PM",
       "isha": "7:28 PM",
-      "isha_iqamah": "8:00 PM",
+      "isha_iqamah": "7:45 PM",
       "ramadan": "Ramadan Day 16"
     },
     "2026-03-07": {
@@ -272,7 +272,7 @@ var prayerData = {
       "maghrib": "6:09 PM",
       "maghrib_iqamah": "6:16 PM",
       "isha": "7:29 PM",
-      "isha_iqamah": "8:00 PM",
+      "isha_iqamah": "7:45 PM",
       "ramadan": "Ramadan Day 17"
     },
     "2026-03-08": {
@@ -288,7 +288,7 @@ var prayerData = {
       "maghrib": "7:10 PM",
       "maghrib_iqamah": "7:17 PM",
       "isha": "8:30 PM",
-      "isha_iqamah": "9:00 PM",
+      "isha_iqamah": "8:45 PM",
       "ramadan": "Ramadan Day 18"
     },
     "2026-03-09": {
@@ -304,7 +304,7 @@ var prayerData = {
       "maghrib": "7:11 PM",
       "maghrib_iqamah": "7:18 PM",
       "isha": "8:32 PM",
-      "isha_iqamah": "9:00 PM",
+      "isha_iqamah": "8:45 PM",
       "ramadan": "Ramadan Day 19"
     },
     "2026-03-10": {
@@ -320,7 +320,7 @@ var prayerData = {
       "maghrib": "7:13 PM",
       "maghrib_iqamah": "7:20 PM",
       "isha": "8:33 PM",
-      "isha_iqamah": "9:00 PM",
+      "isha_iqamah": "8:45 PM",
       "ramadan": "Ramadan Day 20"
     },
     "2026-03-11": {
@@ -336,7 +336,7 @@ var prayerData = {
       "maghrib": "7:14 PM",
       "maghrib_iqamah": "7:21 PM",
       "isha": "8:34 PM",
-      "isha_iqamah": "9:00 PM",
+      "isha_iqamah": "8:45 PM",
       "ramadan": "Ramadan Day 21"
     },
     "2026-03-12": {
@@ -352,7 +352,7 @@ var prayerData = {
       "maghrib": "7:15 PM",
       "maghrib_iqamah": "7:22 PM",
       "isha": "8:36 PM",
-      "isha_iqamah": "9:00 PM",
+      "isha_iqamah": "8:45 PM",
       "ramadan": "Ramadan Day 22"
     },
     "2026-03-13": {
