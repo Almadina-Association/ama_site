@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Become a Member - Al-Madina Association</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/png" href="../images/logos/square.png" />
+
+    <!-- CSS Plugins -->
+    <link rel="stylesheet" href="../plugins/themefisher-font/style.css">
+    <link rel="stylesheet" href="../plugins/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/animate-css/animate.css">
+    <link rel="stylesheet" href="../css/style.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Quattrocento+Sans:wght@400;700&family=Josefin+Sans:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+
+    <style>
+        :root {
+            --primary-green: #192b24;
+            --accent-green: #2b5a4a;
+            --light-green: #f3f9f6;
+            --gold: #c9a84c;
+            --text-dark: #222;
+            --text-muted: #6b7280;
+            --border: #e2e8f0;
+            --white: #fff;
+            --shadow: 0 10px 40px rgba(25, 43, 36, 0.1);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Quattrocento Sans", sans-serif;
+            background: linear-gradient(160deg, #e8f4ef 0%, #f3f9f6 50%, #eaf4f0 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+        }
+
+        /* ── Navbar (matches prayerTime.html) ── */
+        #navigation.navbar {
+            margin-bottom: 0;
+            border: none;
+        }
+        .navigation .logo img { width: 220px; height: auto; }
+        .navigation .navigation-menu li a {
+            font-size: 18px !important;
+            color: #9fbcb2 !important;
+            text-transform: capitalize !important;
+            font-weight: 400 !important;
+        }
+        .navigation .navigation-menu li a:hover { color: #fff !important; }
+
+        /* On mobile Bootstrap collapses the navbar — force horizontal layout */
+        @media (max-width: 767px) {
+            .navigation .container {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+            }
+            .navigation .navbar-header { float: none !important; }
+            .navigation nav.navbar-right {
+                float: none !important;
+                margin: 0 !important;
+            }
+        }
+
+        .home-btn {
+            background: transparent !important;
+            color: #f8f8f8 !important;
+            border: none !important;
+            padding: 5px 0;
+            text-decoration: none;
+            font-size: 0.7em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            line-height: 1;
+            margin-top: 5px;
+        }
+        .home-btn:hover, .home-btn:focus {
+            color: white !important;
+            background: transparent !important;
+            text-decoration: none;
+            transform: translateX(-3px);
+        }
+
+        /* ── Page Hero Banner ── */
+        .membership-hero {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--accent-green) 100%);
+            color: white;
+            text-align: center;
+            padding: 60px 20px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        .membership-hero::before {
+            content: '';
+            position: absolute;
+            top: -60px; right: -60px;
+            width: 280px; height: 280px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.04);
+        }
+        .membership-hero::after {
+            content: '';
+            position: absolute;
+            bottom: -80px; left: -40px;
+            width: 200px; height: 200px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.04);
+        }
+        .membership-hero h1 {
+            font-family: "Quattrocento Sans", sans-serif;
+            font-weight: 700;
+            font-size: 48px;
+            margin: 0 0 12px;
+            text-transform: capitalize;
+        }
+        .membership-hero h1 span { color: #7ecba1; }
+        .membership-hero p {
+            font-family: "Quattrocento Sans", sans-serif;
+            font-size: 18px;
+            opacity: 0.85;
+            max-width: 560px;
+            margin: 0 auto;
+            font-weight: 400;
+            line-height: 1.65;
+        }
+
+        /* ── Form Card ── */
+        .form-card {
+            max-width: 800px;
+            margin: -40px auto 60px;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ── Step Progress Bar ── */
+        .progress-track {
+            background: var(--light-green);
+            padding: 36px 48px 28px;
+            border-bottom: 1px solid var(--border);
+        }
+        .steps-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .step-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            max-width: 160px;
+            position: relative;
+            z-index: 2;
+        }
+        .step-circle {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: #d1e7dc;
+            border: 3px solid #b2d4c0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: #8aa89a;
+            font-weight: 800;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+        }
+        .step-circle.active {
+            background: var(--primary-green);
+            border-color: var(--primary-green);
+            color: white;
+            box-shadow: 0 6px 20px rgba(25,43,36,0.35);
+            transform: scale(1.08);
+        }
+        .step-circle.done {
+            background: var(--accent-green);
+            border-color: var(--accent-green);
+            color: white;
+        }
+        .step-label {
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #8aa89a;
+            text-align: center;
+            transition: color 0.3s;
+        }
+        .step-label.active { color: var(--primary-green); }
+        .step-label.done { color: var(--accent-green); }
+        .step-connector {
+            flex: 1;
+            height: 3px;
+            background: #d1e7dc;
+            transition: background 0.4s;
+            margin-bottom: 30px;
+            max-width: 100px;
+        }
+        .step-connector.done { background: var(--accent-green); }
+
+        /* ── Form Body ── */
+        .form-body {
+            padding: 44px 48px 40px;
+        }
+
+        .step-pane { display: none; }
+        .step-pane.active {
+            display: block;
+            animation: fadeSlideIn 0.4s ease forwards;
+        }
+        @keyframes fadeSlideIn {
+            from { opacity: 0; transform: translateX(24px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+
+        .step-title {
+            font-family: "Quattrocento Sans", sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-green);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0 0 6px;
+        }
+        .step-subtitle {
+            font-family: "Quattrocento Sans", sans-serif;
+            font-size: 16px;
+            color: var(--text-muted);
+            margin: 0 0 32px;
+            font-weight: 400;
+        }
+
+        /* ── Field Groups ── */
+        .row-fields {
+            display: grid;
+            gap: 22px;
+            margin-bottom: 22px;
+        }
+        .row-fields.two { grid-template-columns: 1fr 1fr; }
+        .row-fields.one { grid-template-columns: 1fr; }
+
+        .field-group { display: flex; flex-direction: column; gap: 6px; }
+        .field-group label {
+            font-family: "Quattrocento Sans", sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-muted);
+        }
+        .field-group label .req { color: #e53e3e; margin-left: 2px; }
+        .field-group input,
+        .field-group select,
+        .field-group textarea {
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            padding: 12px 16px;
+            font-family: "Quattrocento Sans", sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--text-dark);
+            background: #fafafa;
+            transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
+            outline: none;
+            width: 100%;
+        }
+        .field-group input:focus,
+        .field-group select:focus,
+        .field-group textarea:focus {
+            border-color: var(--accent-green);
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(43, 90, 74, 0.12);
+        }
+        .field-group textarea { resize: vertical; min-height: 90px; }
+
+        /* ── Pledge Radio / Checkbox Groups ── */
+        .radio-group, .check-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 6px;
+        }
+        .radio-chip, .check-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-family: "Quattrocento Sans", sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 9px 18px;
+            border-radius: 4px;
+            border: 2px solid var(--border);
+            background: #fafafa;
+            transition: all 0.2s;
+            user-select: none;
+        }
+        .radio-chip:hover, .check-chip:hover { border-color: var(--accent-green); }
+        .radio-chip input, .check-chip input { display: none; }
+        .radio-chip.selected, .check-chip.selected {
+            background: var(--primary-green);
+            color: white;
+            border-color: var(--primary-green);
+        }
+
+        /* ── Section Divider ── */
+        .section-divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 30px 0 24px;
+        }
+        .section-divider span {
+            font-family: "Quattrocento Sans", sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-green);
+            white-space: nowrap;
+        }
+        .section-divider::before,
+        .section-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* ── Info Note ── */
+        .info-note {
+            background: #f0f9f4;
+            border-left: 4px solid var(--accent-green);
+            border-radius: 0 6px 6px 0;
+            padding: 12px 16px;
+            font-family: "Quattrocento Sans", sans-serif;
+            font-size: 15px;
+            color: var(--accent-green);
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+        .info-note i { margin-right: 6px; }
+
+        /* ── Summary Card ── */
+        .summary-card {
+            background: var(--light-green);
+            border-radius: 14px;
+            padding: 28px 32px;
+            margin-bottom: 24px;
+        }
+        .summary-section-title {
+            font-family: "Quattrocento Sans", sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent-green);
+            margin-bottom: 14px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #c6e0d4;
+        }
+        .summary-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px 24px;
+        }
+        .summary-item .s-label {
+            font-family: "Quattrocento Sans", sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-muted);
+            margin-bottom: 2px;
+        }
+        .summary-item .s-value {
+            font-family: "Quattrocento Sans", sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+        .summary-item.full { grid-column: 1 / -1; }
+
+        /* ── Buttons ── */
+        .btn-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 36px;
+            gap: 12px;
+        }
+        .btn-back {
+            background: transparent;
+            border: 2px solid var(--border);
+            border-radius: 4px;
+            padding: 12px 28px;
+            font-family: "Quattrocento Sans", sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        .btn-back:hover { border-color: var(--accent-green); color: var(--accent-green); }
+        .btn-next {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 13px 36px;
+            font-family: "Quattrocento Sans", sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.25s;
+            box-shadow: 0 6px 20px rgba(25,43,36,0.25);
+        }
+        .btn-next:hover {
+            background: var(--accent-green);
+            box-shadow: 0 10px 28px rgba(25,43,36,0.35);
+            transform: translateY(-2px);
+        }
+        .btn-next.submit { background: #1a7340; }
+        .btn-next.submit:hover { background: #15593a; }
+
+        /* ── Success Screen ── */
+        .success-screen {
+            display: none;
+            text-align: center;
+            padding: 60px 40px;
+            animation: fadeSlideIn 0.5s ease forwards;
+        }
+        .success-screen .check-icon {
+            width: 86px; height: 86px;
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-green));
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 28px;
+            box-shadow: 0 10px 30px rgba(25,43,36,0.3);
+        }
+        .success-screen .check-icon i {
+            font-size: 2.4rem; color: white;
+        }
+        .success-screen h2 {
+            font-family: "Quattrocento Sans", sans-serif;
+            font-size: 38px; font-weight: 700;
+            color: var(--primary-green);
+            text-transform: capitalize;
+            margin-bottom: 12px;
+        }
+        .success-screen p {
+            font-family: "Quattrocento Sans", sans-serif;
+            font-size: 18px; color: var(--text-muted);
+            max-width: 480px; margin: 0 auto 32px;
+            line-height: 1.65;
+        }
+        .success-screen .btn-home {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: var(--primary-green); color: white;
+            border-radius: 4px; padding: 14px 36px;
+            font-family: "Quattrocento Sans", sans-serif;
+            font-size: 16px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1px;
+            text-decoration: none;
+            transition: all 0.25s;
+            box-shadow: 0 6px 20px rgba(25,43,36,0.28);
+        }
+        .success-screen .btn-home:hover {
+            background: var(--accent-green);
+            transform: translateY(-2px);
+            text-decoration: none; color: white;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 640px) {
+            .form-body { padding: 28px 20px 28px; }
+            .progress-track { padding: 24px 20px 18px; }
+            .row-fields.two { grid-template-columns: 1fr; }
+            .form-card { margin: -30px 16px 40px; border-radius: 14px; }
+            .membership-hero h1 { font-size: 1.8rem; }
+            .summary-grid { grid-template-columns: 1fr; }
+            .step-label { font-size: 0.62rem; }
+            .step-circle { width: 42px; height: 42px; font-size: 1rem; }
+        }
+    </style>
+</head>
+<body id="body">
+
+    <!-- Navbar -->
+    <header id="navigation" class="navbar navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand logo" href="../index.html">
+                    <img src="../images/logos/logo.png" alt="Al Madina Association" />
+                </a>
+            </div>
+            <nav class="navbar-right" role="Navigation">
+                <ul id="nav" class="nav navbar-nav navigation-menu">
+                    <li>
+                        <a href="../index.html" class="home-btn">
+                            <i class="fas fa-chevron-left"></i>
+                            <span>Go Back</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <div class="membership-hero">
+        <h1>Become a <span>Member</span></h1>
+        <p>Your membership helps sustain daily operations, fund Islamic education, and build a stronger community at Al-Madina Association.</p>
+    </div>
+
+    <!-- Form Card -->
+    <div class="form-card">
+
+        <!-- Progress Tracker -->
+        <div class="progress-track">
+            <div class="steps-row">
+                <div class="step-item">
+                    <div class="step-circle active" id="circle-1"><i class="fas fa-user"></i></div>
+                    <div class="step-label active" id="label-1">Member Info</div>
+                </div>
+                <div class="step-connector" id="conn-1"></div>
+                <div class="step-item">
+                    <div class="step-circle" id="circle-2"><i class="fas fa-hand-holding-usd"></i></div>
+                    <div class="step-label" id="label-2">Pledge Info</div>
+                </div>
+                <div class="step-connector" id="conn-2"></div>
+                <div class="step-item">
+                    <div class="step-circle" id="circle-3"><i class="fas fa-check-circle"></i></div>
+                    <div class="step-label" id="label-3">Summary</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Body -->
+        <div class="form-body" id="form-wrapper">
+
+            <!-- ── Step 1: Personal Info ── -->
+            <div class="step-pane active" id="step-1">
+                <div class="step-title">Member Information</div>
+                <div class="step-subtitle">Please fill in your personal details below.</div>
+
+                <div class="row-fields two">
+                    <div class="field-group">
+                        <label>First Name <span class="req">*</span></label>
+                        <input type="text" id="firstName" placeholder="e.g. Ahmed" required>
+                    </div>
+                    <div class="field-group">
+                        <label>Last Name <span class="req">*</span></label>
+                        <input type="text" id="lastName" placeholder="e.g. Hassan" required>
+                    </div>
+                </div>
+                <div class="row-fields two">
+                    <div class="field-group">
+                        <label>Email Address <span class="req">*</span></label>
+                        <input type="email" id="email" placeholder="you@example.com" required>
+                    </div>
+                    <div class="field-group">
+                        <label>Phone (Home)</label>
+                        <input type="tel" id="phoneHome" placeholder="(651) 000-0000">
+                    </div>
+                </div>
+                <div class="row-fields two">
+                    <div class="field-group">
+                        <label>Phone (Cell)</label>
+                        <input type="tel" id="phoneCell" placeholder="(651) 000-0000">
+                    </div>
+                    <div class="field-group">
+                        <label>Address <span class="req">*</span></label>
+                        <input type="text" id="address" placeholder="2058 Bonaire Path W" required>
+                    </div>
+                </div>
+                <div class="row-fields two">
+                    <div class="field-group">
+                        <label>City <span class="req">*</span></label>
+                        <input type="text" id="city" placeholder="Rosemount" required>
+                    </div>
+                    <div class="field-group">
+                        <label>State <span class="req">*</span></label>
+                        <select id="state" required>
+                            <option value="">Select State</option>
+                            <option>MN</option><option>WI</option><option>IA</option><option>ND</option><option>SD</option>
+                            <option>IL</option><option>MI</option><option>OH</option><option>IN</option><option>MO</option>
+                            <option>AL</option><option>AK</option><option>AZ</option><option>AR</option><option>CA</option>
+                            <option>CO</option><option>CT</option><option>DE</option><option>FL</option><option>GA</option>
+                            <option>HI</option><option>ID</option><option>KS</option><option>KY</option><option>LA</option>
+                            <option>ME</option><option>MD</option><option>MA</option><option>MS</option><option>MT</option>
+                            <option>NE</option><option>NV</option><option>NH</option><option>NJ</option><option>NM</option>
+                            <option>NY</option><option>NC</option><option>OK</option><option>OR</option><option>PA</option>
+                            <option>RI</option><option>SC</option><option>TN</option><option>TX</option><option>UT</option>
+                            <option>VT</option><option>VA</option><option>WA</option><option>WV</option><option>WY</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row-fields one">
+                    <div class="field-group">
+                        <label>Zip Code <span class="req">*</span></label>
+                        <input type="text" id="zip" placeholder="55068" maxlength="10" required>
+                    </div>
+                </div>
+
+                <div class="btn-row">
+                    <div></div>
+                    <button class="btn-next" onclick="goToStep(2)">
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ── Step 2: Pledge Info ── -->
+            <div class="step-pane" id="step-2">
+                <div class="step-title">Membership Pledge</div>
+                <div class="step-subtitle">How would you like to support Al-Madina Association?</div>
+
+                <div class="row-fields one">
+                    <div class="field-group">
+                        <label>Pledge Amount ($) <span class="req">*</span></label>
+                        <input type="number" id="pledgeAmount" placeholder="e.g. 500" min="1" required>
+                    </div>
+                </div>
+
+                <div class="section-divider"><span>Payment Frequency</span></div>
+                <div class="radio-group" id="freq-group">
+                    <label class="radio-chip" data-value="now"><input type="radio" name="freq" value="now"> Now (One-Time)</label>
+                    <label class="radio-chip" data-value="monthly"><input type="radio" name="freq" value="monthly"> Monthly</label>
+                    <label class="radio-chip" data-value="quarterly"><input type="radio" name="freq" value="quarterly"> Quarterly</label>
+                    <label class="radio-chip" data-value="yearly"><input type="radio" name="freq" value="yearly"> Yearly</label>
+                </div>
+
+                <div class="section-divider"><span>Payment Method</span></div>
+                <div class="radio-group" id="method-group">
+                    <label class="radio-chip" data-value="cash"><input type="radio" name="method" value="cash"> Cash</label>
+                    <label class="radio-chip" data-value="check"><input type="radio" name="method" value="check"> Check</label>
+                    <label class="radio-chip" data-value="direct_deposit"><input type="radio" name="method" value="direct_deposit"> Direct Deposit</label>
+                    <label class="radio-chip" data-value="other"><input type="radio" name="method" value="other"> Other</label>
+                </div>
+
+                <div id="bank-fields" style="display:none; margin-top:20px;">
+                    <div class="info-note"><i class="fas fa-info-circle"></i> For Direct Deposit, please provide your bank account details below or attach a voided check.</div>
+                    <div class="row-fields two">
+                        <div class="field-group">
+                            <label>Bank Account #</label>
+                            <input type="text" id="bankAccount" placeholder="Account number">
+                        </div>
+                        <div class="field-group">
+                            <label>Routing #</label>
+                            <input type="text" id="routingNumber" placeholder="Routing number">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-divider"><span>Signature</span></div>
+                <div class="row-fields two">
+                    <div class="field-group">
+                        <label>Full Name (Signature) <span class="req">*</span></label>
+                        <input type="text" id="signature" placeholder="Sign with your full name" required>
+                    </div>
+                    <div class="field-group">
+                        <label>Date <span class="req">*</span></label>
+                        <input type="date" id="pledgeDate" required>
+                    </div>
+                </div>
+
+                <div class="info-note" style="margin-top:12px;">
+                    <i class="fas fa-mosque"></i> Please make checks payable to: <strong>Al-Madina Association</strong>. Mail to: 2058 Bonaire Path W, Rosemount, MN 55068.
+                </div>
+
+                <div class="btn-row">
+                    <button class="btn-back" onclick="goToStep(1)">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                    <button class="btn-next" onclick="goToStep(3)">
+                        Review Summary <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ── Step 3: Summary ── -->
+            <div class="step-pane" id="step-3">
+                <div class="step-title">Summary & Confirmation</div>
+                <div class="step-subtitle">Please review your information before submitting.</div>
+
+                <div class="summary-card">
+                    <div class="summary-section-title"><i class="fas fa-user" style="margin-right:6px;"></i>Member Information</div>
+                    <div class="summary-grid">
+                        <div class="summary-item">
+                            <div class="s-label">Full Name</div>
+                            <div class="s-value" id="sum-name">—</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="s-label">Email</div>
+                            <div class="s-value" id="sum-email">—</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="s-label">Phone (Home)</div>
+                            <div class="s-value" id="sum-phoneHome">—</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="s-label">Phone (Cell)</div>
+                            <div class="s-value" id="sum-phoneCell">—</div>
+                        </div>
+                        <div class="summary-item full">
+                            <div class="s-label">Address</div>
+                            <div class="s-value" id="sum-address">—</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <div class="summary-section-title"><i class="fas fa-hand-holding-usd" style="margin-right:6px;"></i>Pledge Information</div>
+                    <div class="summary-grid">
+                        <div class="summary-item">
+                            <div class="s-label">Pledge Amount</div>
+                            <div class="s-value" id="sum-amount">—</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="s-label">Frequency</div>
+                            <div class="s-value" id="sum-freq">—</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="s-label">Payment Method</div>
+                            <div class="s-value" id="sum-method">—</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="s-label">Date</div>
+                            <div class="s-value" id="sum-date">—</div>
+                        </div>
+                        <div class="summary-item full">
+                            <div class="s-label">Signed By</div>
+                            <div class="s-value" id="sum-sig">—</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btn-row">
+                    <button class="btn-back" onclick="goToStep(2)">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                    <button class="btn-next submit" onclick="submitForm()">
+                        <i class="fas fa-paper-plane"></i> Submit Membership
+                    </button>
+                </div>
+            </div>
+
+        </div><!-- /form-body -->
+
+        <!-- Success Screen -->
+        <div class="success-screen" id="success-screen">
+            <div class="check-icon"><i class="fas fa-check"></i></div>
+            <h2>JazakAllah Khair!</h2>
+            <p>Your membership application has been received. We will be in touch at the email you provided. May Allah accept it from you.</p>
+            <a href="../index.html" class="btn-home"><i class="fas fa-home"></i> Return to Home</a>
+        </div>
+
+    </div><!-- /form-card -->
+
+
+    <!-- Scripts -->
+    <script src="../plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script>
+        let currentStep = 1;
+
+        // Set today's date as default for pledge date
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('pledgeDate').value = today;
+
+            // Radio chip selection logic
+            document.querySelectorAll('.radio-group').forEach(group => {
+                group.querySelectorAll('.radio-chip').forEach(chip => {
+                    chip.addEventListener('click', function () {
+                        group.querySelectorAll('.radio-chip').forEach(c => c.classList.remove('selected'));
+                        this.classList.add('selected');
+                        const radio = this.querySelector('input[type="radio"]');
+                        if (radio) radio.checked = true;
+
+                        // Show bank fields if Direct Deposit selected
+                        if (group.id === 'method-group') {
+                            const val = this.dataset.value;
+                            document.getElementById('bank-fields').style.display =
+                                val === 'direct_deposit' ? 'block' : 'none';
+                        }
+                    });
+                });
+            });
+        });
+
+        function updateProgressBar(step) {
+            for (let i = 1; i <= 3; i++) {
+                const circle = document.getElementById('circle-' + i);
+                const label  = document.getElementById('label-' + i);
+                circle.classList.remove('active', 'done');
+                label.classList.remove('active', 'done');
+                if (i < step)       { circle.classList.add('done');   label.classList.add('done'); }
+                else if (i === step){ circle.classList.add('active');  label.classList.add('active'); }
+            }
+            for (let c = 1; c <= 2; c++) {
+                const conn = document.getElementById('conn-' + c);
+                conn.classList.toggle('done', c < step);
+            }
+        }
+
+        function validateStep(step) {
+            if (step === 1) {
+                const required = ['firstName','lastName','email','address','city','state','zip'];
+                for (const id of required) {
+                    const el = document.getElementById(id);
+                    if (!el.value.trim()) {
+                        el.focus();
+                        el.style.borderColor = '#e53e3e';
+                        setTimeout(() => el.style.borderColor = '', 2000);
+                        return false;
+                    }
+                }
+            }
+            if (step === 2) {
+                const amount = document.getElementById('pledgeAmount').value;
+                const sig    = document.getElementById('signature').value;
+                const date   = document.getElementById('pledgeDate').value;
+                const freq   = document.querySelector('input[name="freq"]:checked');
+                const method = document.querySelector('input[name="method"]:checked');
+                if (!amount || !sig || !date || !freq || !method) {
+                    alert('Please complete all required fields, including payment frequency and method.');
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function populateSummary() {
+            const firstName  = document.getElementById('firstName').value.trim();
+            const lastName   = document.getElementById('lastName').value.trim();
+            const email      = document.getElementById('email').value.trim();
+            const phoneHome  = document.getElementById('phoneHome').value.trim();
+            const phoneCell  = document.getElementById('phoneCell').value.trim();
+            const address    = document.getElementById('address').value.trim();
+            const city       = document.getElementById('city').value.trim();
+            const state      = document.getElementById('state').value;
+            const zip        = document.getElementById('zip').value.trim();
+            const amount     = document.getElementById('pledgeAmount').value;
+            const freq       = (document.querySelector('input[name="freq"]:checked') || {}).value || '—';
+            const method     = (document.querySelector('input[name="method"]:checked') || {}).value || '—';
+            const sig        = document.getElementById('signature').value.trim();
+            const date       = document.getElementById('pledgeDate').value;
+
+            document.getElementById('sum-name').textContent      = `${firstName} ${lastName}`;
+            document.getElementById('sum-email').textContent     = email;
+            document.getElementById('sum-phoneHome').textContent = phoneHome || '—';
+            document.getElementById('sum-phoneCell').textContent = phoneCell || '—';
+            document.getElementById('sum-address').textContent   = `${address}, ${city}, ${state} ${zip}`;
+            document.getElementById('sum-amount').textContent    = amount ? `$${parseFloat(amount).toLocaleString()}` : '—';
+            document.getElementById('sum-freq').textContent      = freq.charAt(0).toUpperCase() + freq.slice(1).replace('_', ' ');
+            document.getElementById('sum-method').textContent    = method.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase());
+            document.getElementById('sum-sig').textContent       = sig;
+            document.getElementById('sum-date').textContent      = date ? new Date(date + 'T12:00:00').toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'}) : '—';
+        }
+
+        function goToStep(next) {
+            if (!validateStep(currentStep)) return;
+            if (next === 3) populateSummary();
+
+            document.getElementById('step-' + currentStep).classList.remove('active');
+            currentStep = next;
+            document.getElementById('step-' + currentStep).classList.add('active');
+            updateProgressBar(currentStep);
+
+            // Scroll form card into view smoothly
+            document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        async function submitForm() {
+            // ── PASTE YOUR FORMSPREE FORM ID HERE (from formspree.io) ──
+            // Sign up free at formspree.io → New Form → set email to almadina.association@gmail.com
+            const FORMSPREE_URL = 'https://formspree.io/f/myknpwlo';
+
+            const payload = {
+                _subject:    'New Membership Application – Al-Madina Association',
+                firstName:   document.getElementById('firstName').value.trim(),
+                lastName:    document.getElementById('lastName').value.trim(),
+                email:       document.getElementById('email').value.trim(),
+                phoneHome:   document.getElementById('phoneHome').value.trim(),
+                phoneCell:   document.getElementById('phoneCell').value.trim(),
+                address:     document.getElementById('address').value.trim(),
+                city:        document.getElementById('city').value.trim(),
+                state:       document.getElementById('state').value,
+                zip:         document.getElementById('zip').value.trim(),
+                pledgeAmount: document.getElementById('pledgeAmount').value,
+                frequency:   (document.querySelector('input[name="freq"]:checked') || {}).value || '',
+                paymentMethod: (document.querySelector('input[name="method"]:checked') || {}).value || '',
+                signature:   document.getElementById('signature').value.trim(),
+                pledgeDate:  document.getElementById('pledgeDate').value
+            };
+
+            const submitBtn = document.querySelector('.btn-next.submit');
+            if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Submitting…'; }
+
+            try {
+                const res = await fetch(FORMSPREE_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (res.ok) {
+                    document.getElementById('form-wrapper').style.display = 'none';
+                    document.querySelector('.progress-track').style.display = 'none';
+                    document.getElementById('success-screen').style.display = 'block';
+                } else {
+                    throw new Error('Server error');
+                }
+            } catch (err) {
+                alert('There was an error submitting your application. Please email us directly at almadina.association@gmail.com');
+                if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Submit Application'; }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -6,8 +6,8 @@
     <title>Prayer Times Calendar - Al Madina Association</title>
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/png" href="images/logos/square.png" />
-    
-    <!-- CSS Reference Plugins -->
+
+    <!-- Critical CSS (render-blocking, local — fast) -->
     <link rel="stylesheet" href="plugins/themefisher-font/style.css">
     <link rel="stylesheet" href="plugins/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="plugins/animate-css/animate.css">
@@ -15,16 +15,18 @@
     <link rel="stylesheet" href="plugins/slick-carousel/slick/slick.css">
     <link rel="stylesheet" href="plugins/slick-carousel/slick/slick-theme.css">
     <link rel="stylesheet" href="css/style.css">
-    
-    <!-- FullCalendar CSS (Keeping for legacy or potential use, though we use custom now) -->
-    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/main.min.css' rel='stylesheet' />
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative:900|Josefin+Sans:400,600|Quattrocento+Sans:400,700|Lobster|Bangers" rel="stylesheet">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
-    
+
+    <!-- Google Fonts — async (non-render-blocking) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Cinzel+Decorative:900|Josefin+Sans:400,600|Quattrocento+Sans:400,700|Lobster|Bangers" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cinzel+Decorative:900|Josefin+Sans:400,600|Quattrocento+Sans:400,700|Lobster|Bangers"></noscript>
+
+    <!-- Font Awesome — async (non-render-blocking) -->
+    <link rel="preconnect" href="https://use.fontawesome.com">
+    <link rel="preload" as="style" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"></noscript>
+
+
     <style>
         :root {
             --primary-green: #192b24;
@@ -97,9 +99,23 @@
         .home-btn:hover,
         .home-btn:focus {
             color: white !important;
-            background: transparent !important; /* No background change */
+            background: transparent !important;
             text-decoration: none;
             transform: translateX(-3px);
+        }
+
+        /* ── Page Loader ── */
+        #page-loader {
+            position: fixed;
+            inset: 0;
+            background: #192b24;
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            transition: opacity 0.4s ease;
         }
 
         .calendar-wrapper {
@@ -509,12 +525,12 @@
                 margin: 0;
             }
             #view-container {
-                padding: 0;
             }
         }
     </style>
 </head>
 <body id="body">
+
     <header id="navigation" class="navbar navigation">
         <div class="container">
             <div class="navbar-header">
