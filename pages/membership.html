@@ -598,8 +598,8 @@
                 </div>
                 <div class="row-fields two">
                     <div class="field-group">
-                        <label>Phone (Cell)</label>
-                        <input type="tel" id="phoneCell" placeholder="(651) 000-0000">
+                        <label>Phone (Cell) <span class="req">*</span></label>
+                        <input type="tel" id="phoneCell" placeholder="(651) 000-0000" required>
                     </div>
                     <div class="field-group">
                         <label>Address <span class="req">*</span></label>
@@ -672,16 +672,8 @@
                 </div>
 
                 <div id="bank-fields" style="display:none; margin-top:20px;">
-                    <div class="info-note"><i class="fas fa-info-circle"></i> For Direct Deposit, please provide your bank account details below or attach a voided check.</div>
-                    <div class="row-fields two">
-                        <div class="field-group">
-                            <label>Bank Account #</label>
-                            <input type="text" id="bankAccount" placeholder="Account number">
-                        </div>
-                        <div class="field-group">
-                            <label>Routing #</label>
-                            <input type="text" id="routingNumber" placeholder="Routing number">
-                        </div>
+                    <div class="info-note" style="background:#f0f9f4; border-left:4px solid #2b5a4a;">
+                        <i class="fas fa-user-tie"></i> A representative from the Al-Madina Association board will contact you directly to securely collect your bank details for Direct Deposit.
                     </div>
                 </div>
 
@@ -838,7 +830,7 @@
 
         function validateStep(step) {
             if (step === 1) {
-                const required = ['firstName','lastName','email','address','city','state','zip'];
+                const required = ['firstName','lastName','email','phoneCell','address','city','state','zip'];
                 for (const id of required) {
                     const el = document.getElementById(id);
                     if (!el.value.trim()) {
