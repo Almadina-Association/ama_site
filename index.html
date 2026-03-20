@@ -269,6 +269,57 @@
 			transform: translateY(-2px);
 			box-shadow: 0 12px 30px rgba(0,0,0,0.32);
 		}
+
+		/* ── Eid Announcement Banner ── */
+		.eid-announcement-banner {
+			background: linear-gradient(135deg, #c8f0da 0%, #a8e4c0 100%);
+			color: #1a3d2b;
+			padding: 28px 30px;
+			text-align: center;
+			border-top: 4px solid #3a8f5f;
+			border-bottom: 4px solid #3a8f5f;
+			position: relative;
+			z-index: 999;
+		}
+		.eid-banner-inner {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 24px;
+			max-width: 1100px;
+			margin: 0 auto;
+		}
+		.eid-banner-icon {
+			font-size: 2.8rem;
+			flex-shrink: 0;
+			color: #2b6b45;
+		}
+		.eid-banner-content {
+			flex: 1;
+		}
+		.eid-banner-line1 {
+			margin: 0 0 10px;
+			font-size: 1.5rem;
+			font-family: 'Josefin Sans', sans-serif;
+			line-height: 1.6;
+			color: #1a3d2b;
+		}
+		.eid-banner-line2 {
+			margin: 0;
+			font-size: 1.5rem;
+			font-family: 'Josefin Sans', sans-serif;
+			color: #1a3d2b;
+			line-height: 1.6;
+		}
+		.eid-banner-line1 strong,
+		.eid-banner-line2 strong {
+			color: #145c30;
+		}
+		@media (max-width: 600px) {
+			.eid-banner-icon { display: none; }
+			.eid-banner-line1 { font-size: 1.1rem; }
+			.eid-banner-line2 { font-size: 0.95rem; }
+		}
 	</style>
 
 	<!-- ================================== -->
@@ -425,6 +476,35 @@
 	<div class="donationBanner">
 		<a href="#donate" style="width: 100%;"  class="btn btn-main">Donate Now</a>
 	</div>
+
+	<!-- ── Eid al-Fitr Announcement Banner ── -->
+	<div class="eid-announcement-banner">
+		<div class="eid-banner-inner">
+			<div class="eid-banner-icon">☽</div>
+			<div class="eid-banner-content">
+				<p class="eid-banner-line1">
+					According to <strong>ChicagoHilal.com</strong> the moon was able to be sighted.
+					Therefore <strong>Eid al-Fitr will be tomorrow, March 20th</strong>.
+				</p>
+				<p class="eid-banner-line2">
+					🕌 <strong>Eid Prayer</strong> at <strong>Rosemount Community Center</strong>
+					&nbsp;|&nbsp; Takbeer: <strong>8:00 AM</strong>
+					&nbsp;|&nbsp; Prayer: <strong>8:30 AM</strong>
+				</p>
+			</div>
+			<div class="eid-banner-icon">☽</div>
+		</div>
+	</div>
+	<!-- ── End Eid Banner ── -->
+	<script>
+		(function() {
+			var expiry = new Date('2026-03-21T00:00:00');
+			if (new Date() >= expiry) {
+				var banner = document.querySelector('.eid-announcement-banner');
+				if (banner) banner.style.display = 'none';
+			}
+		})();
+	</script>
 	<!--
 End Fixed Navigation
 ==================================== -->

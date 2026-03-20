@@ -480,7 +480,7 @@ var prayerData = {
       "maghrib_iqamah": "7:33 PM",
       "isha": "8:47 PM",
       "isha_iqamah": "9:00 PM",
-      "ramadan": "Ramadan Day 30"
+      "ramadan": "Eid al-Fitr"
     },
     "2026-03-21": {
       "fajr_18": "5:34 AM",
@@ -496,7 +496,7 @@ var prayerData = {
       "maghrib_iqamah": "7:32 PM",
       "isha": "8:48 PM",
       "isha_iqamah": "9:00 PM",
-      "ramadan": null
+      "ramadan": "Shawwal Day 1"
     },
     "2026-03-22": {
       "fajr_18": "5:32 AM",
@@ -512,7 +512,7 @@ var prayerData = {
       "maghrib_iqamah": "7:33 PM",
       "isha": "8:50 PM",
       "isha_iqamah": "9:00 PM",
-      "ramadan": null
+      "ramadan": "Shawwal Day 2"
     },
     "2026-03-23": {
       "fajr_18": "5:30 AM",
@@ -528,7 +528,7 @@ var prayerData = {
       "maghrib_iqamah": "7:34 PM",
       "isha": "8:51 PM",
       "isha_iqamah": "9:00 PM",
-      "ramadan": null
+      "ramadan": "Shawwal Day 3"
     },
     "2026-03-24": {
       "fajr_18": "5:28 AM",
@@ -544,7 +544,7 @@ var prayerData = {
       "maghrib_iqamah": "7:36 PM",
       "isha": "8:52 PM",
       "isha_iqamah": "9:00 PM",
-      "ramadan": null
+      "ramadan": "Shawwal Day 4"
     },
     "2026-03-25": {
       "fajr_18": "5:26 AM",
@@ -560,7 +560,7 @@ var prayerData = {
       "maghrib_iqamah": "7:37 PM",
       "isha": "8:54 PM",
       "isha_iqamah": "9:00 PM",
-      "ramadan": null
+      "ramadan": "Shawwal Day 5"
     },
     "2026-03-26": {
       "fajr_18": "5:24 AM",
@@ -576,7 +576,7 @@ var prayerData = {
       "maghrib_iqamah": "7:38 PM",
       "isha": "8:55 PM",
       "isha_iqamah": "9:00 PM",
-      "ramadan": null
+      "ramadan": "Shawwal Day 6"
     },
     "2026-03-27": {
       "fajr_18": "5:21 AM",
@@ -592,7 +592,7 @@ var prayerData = {
       "maghrib_iqamah": "7:39 PM",
       "isha": "8:57 PM",
       "isha_iqamah": "9:15 PM",
-      "ramadan": null
+      "ramadan": "Shawwal Day 7"
     },
     "2026-03-28": {
       "fajr_18": "5:19 AM",
@@ -608,7 +608,7 @@ var prayerData = {
       "maghrib_iqamah": "7:41 PM",
       "isha": "8:58 PM",
       "isha_iqamah": "9:00 PM",
-      "ramadan": null
+      "ramadan": "Shawwal Day 8"
     },
     "2026-03-29": {
       "fajr_18": "5:17 AM",
@@ -624,7 +624,7 @@ var prayerData = {
       "maghrib_iqamah": "7:42 PM",
       "isha": "9:00 PM",
       "isha_iqamah": "9:00 PM",
-      "ramadan": null
+      "ramadan": "Shawwal Day 9"
     },
     "2026-03-30": {
       "fajr_18": "5:15 AM",
@@ -640,7 +640,7 @@ var prayerData = {
       "maghrib_iqamah": "7:43 PM",
       "isha": "9:01 PM",
       "isha_iqamah": "9:00 PM",
-      "ramadan": null
+      "ramadan": "Shawwal Day 10"
     },
     "2026-03-31": {
       "fajr_18": "5:13 AM",
@@ -656,7 +656,7 @@ var prayerData = {
       "maghrib_iqamah": "7:44 PM",
       "isha": "9:03 PM",
       "isha_iqamah": "9:15 PM",
-      "ramadan": null
+      "ramadan": "Shawwal Day 11"
     }
   }
 };
