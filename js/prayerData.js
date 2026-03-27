@@ -607,7 +607,7 @@ var prayerData = {
       "maghrib": "7:36 PM",
       "maghrib_iqamah": "7:41 PM",
       "isha": "8:58 PM",
-      "isha_iqamah": "9:00 PM",
+      "isha_iqamah": "9:15 PM",
       "ramadan": "Shawwal Day 8"
     },
     "2026-03-29": {
@@ -623,7 +623,7 @@ var prayerData = {
       "maghrib": "7:37 PM",
       "maghrib_iqamah": "7:42 PM",
       "isha": "9:00 PM",
-      "isha_iqamah": "9:00 PM",
+      "isha_iqamah": "9:15 PM",
       "ramadan": "Shawwal Day 9"
     },
     "2026-03-30": {
@@ -639,7 +639,7 @@ var prayerData = {
       "maghrib": "7:38 PM",
       "maghrib_iqamah": "7:43 PM",
       "isha": "9:01 PM",
-      "isha_iqamah": "9:00 PM",
+      "isha_iqamah": "9:15 PM",
       "ramadan": "Shawwal Day 10"
     },
     "2026-03-31": {
