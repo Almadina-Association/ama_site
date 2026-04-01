@@ -673,6 +673,8 @@
             } else if (currentView === 'week') {
                 tempDate.setDate(tempDate.getDate() + (dir * 7));
             } else if (currentView === 'month') {
+                // Set day to 1 first to avoid month overflow (e.g., Mar 31 + 1 month = May 1)
+                tempDate.setDate(1);
                 tempDate.setMonth(tempDate.getMonth() + dir);
             }
 
@@ -1057,7 +1059,10 @@
                 prevDate.setDate(pivotDate.getDate() - 7);
                 nextDate.setDate(pivotDate.getDate() + 7);
             } else if (currentView === 'month') {
+                // Set day to 1 first to avoid month overflow (e.g., Mar 31 ± 1 month = May/Feb 1)
+                prevDate.setDate(1);
                 prevDate.setMonth(pivotDate.getMonth() - 1);
+                nextDate.setDate(1);
                 nextDate.setMonth(pivotDate.getMonth() + 1);
             }
 
