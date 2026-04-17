@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Al-Madina Association — TV Display</title>
+<link rel="shortcut icon" type="image/png" href="images/logos/square.png" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Josefin+Sans:wght@300;400;600;700&family=Quattrocento+Sans:wght@400;700&family=Playfair+Display:wght@700;900&family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Green palette */
+  --bg-1: #0c1e14;
+  --bg-2: #122e1f;
+  --bg-3: #18402c;
+  --bg-4: #1e5239;
+  --bg-5: #256846;
+  --green-acc: #2fa06c;
+  --green-light: #55c28d;
+  --green-pale: #8ddbaf;
+  --green-wash: #c6eed6;
+
+  /* Active prayer = orange */
+  --orange: #e8882d;
+  --orange-dark: #cf7520;
+
+  /* Diamond icon blue-ish green (matching the blue diamonds but in green theme) */
+  --diamond-bg: #1a5c5c;
+  --diamond-border: #2a8080;
+
+  /* Gold */
+  --gold: #c9a84c;
+  --gold-light: #e0ca7a;
+
+  --white: #ffffff;
+  --black: #1a1a1a;
+  --gray: #666;
+  --gray-light: #999;
+
+  --font: 'Inter', sans-serif;
+  --font-ar: 'Amiri', 'Noto Naskh Arabic', serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--bg-1); font-family: var(--font); }
+body { cursor: default; }
+body.cursor-hidden { cursor: none; }
+
+/* ═══════════════════════════════════════════
+   MOBILE / TABLET BLOCK MESSAGE
+   ═══════════════════════════════════════════ */
+.mobile-block {
+  display: none;
+  position: fixed; inset: 0; z-index: 9999;
+  background: linear-gradient(160deg, #0f2419 0%, #0b1d14 40%, #0d1f16 100%);
+  flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 24px;
+  padding: 40px;
+  text-align: center;
+}
+.mobile-block i {
+  font-size: 4rem;
+  color: #d4a843;
+}
+.mobile-block h2 {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 1.8rem; font-weight: 700;
+  color: #f2f0e6;
+  letter-spacing: 1px;
+}
+.mobile-block p {
+  font-family: 'Quattrocento Sans', sans-serif;
+  font-size: 1.1rem;
+  color: rgba(242,240,230,0.5);
+  line-height: 1.6;
+  max-width: 400px;
+}
+@media (max-width: 1024px), (pointer: coarse) and (max-width: 1024px) {
+  .mobile-block { display: flex; }
+  .slideshow, .dots { display: none !important; }
+}
+
+/* ═══════════════════════════════════════════
+   SLIDESHOW
+   ═══════════════════════════════════════════ */
+.slideshow { position: relative; width: 100vw; height: 100vh; }
+.slide {
+  position: absolute; inset: 0; opacity: 0; visibility: hidden;
+  transition: opacity 1s ease, visibility 0s 1s;
+}
+.slide.active { opacity: 1; visibility: visible; transition: opacity 1s ease, visibility 0s 0s; }
+
+/* ═══════════════════════════════════════════
+   SLIDE 1 — PRAYER TIMES
+   ═══════════════════════════════════════════ */
+#slide-prayer {
+  --gold: #d4a843;
+  --gold-soft: rgba(212,168,67,0.55);
+  --gold-glow: rgba(212,168,67,0.08);
+  --gold-line: rgba(212,168,67,0.2);
+  --tw: #f2f0e6;
+  --tm: rgba(242,240,230,0.55);
+  --td: rgba(242,240,230,0.3);
+  --ln: rgba(255,255,255,0.05);
+  font-family: 'Josefin Sans', sans-serif;
+  background: linear-gradient(160deg, #0f2419 0%, #0b1d14 40%, #0d1f16 100%);
+}
+
+/* Islamic geometric pattern overlay */
+#slide-prayer::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56'%3E%3Cpath d='M28 0L56 28L28 56L0 28Z' fill='none' stroke='%23ffffff' stroke-width='0.4'/%3E%3Cpath d='M28 8L48 28L28 48L8 28Z' fill='none' stroke='%23ffffff' stroke-width='0.25'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  pointer-events: none;
+}
+
+#slide-prayer .s-content {
+  position: relative; z-index: 1;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  height: 100vh;
+  padding: clamp(20px, 4vh, 70px) clamp(24px, 3vw, 70px);
+  gap: clamp(10px, 1.5vh, 20px);
+}
+
+/* ── MAIN 2-PANEL ── */
+#slide-prayer .prayer-main {
+  display: grid;
+  grid-template-columns: 1fr 720px;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* ════════════════════════════
+   LEFT — Prayer Table
+   ════════════════════════════ */
+#slide-prayer .prayer-table {
+  display: flex; flex-direction: column;
+  border-top: 2px solid var(--gold);
+}
+
+/* Table header */
+#slide-prayer .pt-header {
+  display: grid;
+  grid-template-columns: clamp(80px, 10vw, 150px) clamp(180px, 18vw, 320px) 1fr 1fr;
+  background: rgba(0,0,0,0.25);
+  border-bottom: 1px solid var(--ln);
+}
+#slide-prayer .pt-header .pt-hcell {
+  padding: clamp(16px, 2.5vh, 24px) 44px;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: clamp(1.6rem, 2.8vh, 2.4rem);
+  font-weight: 700;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 8px;
+  text-align: center;
+}
+#slide-prayer .pt-header .pt-hcell:first-child {
+  padding: 0;
+}
+#slide-prayer .pt-header .pt-hcell:nth-child(2) {
+  color: var(--td);
+}
+#slide-prayer .pt-header .pt-hcell:nth-child(3),
+#slide-prayer .pt-header .pt-hcell:nth-child(4) {
+  border-left: 1px solid var(--ln);
+}
+
+/* Prayer rows container */
+#slide-prayer #prayer-rows {
+  display: flex; flex-direction: column;
+  flex: 1;
+}
+
+/* Prayer rows */
+#slide-prayer .pt-row {
+  display: grid;
+  grid-template-columns: clamp(80px, 10vw, 150px) clamp(180px, 18vw, 320px) 1fr 1fr;
+  border-bottom: 1px solid var(--ln);
+  background: rgba(255,255,255,0.015);
+  transition: all 0.4s ease;
+  flex: 1;
+  align-items: center;
+}
+#slide-prayer .pt-row:nth-child(even) {
+  background: rgba(255,255,255,0.035);
+}
+#slide-prayer .pt-row:last-child { border-bottom: none; }
+
+/* Active prayer row — dramatic gold accent */
+#slide-prayer .pt-row.active {
+  background: linear-gradient(90deg, rgba(212,168,67,0.12) 0%, rgba(212,168,67,0.04) 100%);
+  box-shadow: inset 5px 0 0 var(--gold);
+  border-bottom-color: var(--gold-line);
+}
+#slide-prayer .pt-row.active + .pt-row {
+  border-top-color: var(--gold-line);
+}
+
+#slide-prayer .pt-cell {
+  padding: 0 44px;
+  display: flex; align-items: center;
+  height: 100%;
+}
+#slide-prayer .pt-cell:nth-child(3),
+#slide-prayer .pt-cell:nth-child(4) {
+  border-left: 1px solid var(--ln);
+}
+#slide-prayer .pt-row.active .pt-cell:nth-child(3),
+#slide-prayer .pt-row.active .pt-cell:nth-child(4) {
+  border-left-color: var(--gold-line);
+}
+
+/* Icon cell */
+#slide-prayer .pt-cell.pt-ic {
+  justify-content: center;
+  padding: 0;
+  background: rgba(0,0,0,0.12);
+}
+#slide-prayer .pt-ic i {
+  font-size: clamp(2rem, 3.5vh, 3.2rem);
+  color: var(--tm);
+  opacity: 0.7;
+}
+#slide-prayer .pt-row.active .pt-ic {
+  background: rgba(212,168,67,0.06);
+}
+#slide-prayer .pt-row.active .pt-ic i {
+  color: var(--gold);
+  opacity: 1;
+}
+
+/* Prayer name */
+#slide-prayer .pt-cell.pt-name {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: clamp(1.8rem, 3.2vh, 2.8rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: clamp(4px, 0.6vh, 6px);
+  color: var(--tw);
+  justify-content: center;
+}
+#slide-prayer .pt-row.active .pt-name {
+  color: var(--gold);
+}
+
+/* Prayer time */
+#slide-prayer .pt-cell.pt-time {
+  justify-content: center;
+  font-family: 'Quattrocento Sans', sans-serif;
+  font-size: clamp(3rem, 5.5vh, 4.8rem);
+  font-weight: 700;
+  color: var(--tw);
+  line-height: 1;
+}
+#slide-prayer .pt-row.active .pt-time {
+  color: var(--gold);
+}
+#slide-prayer .pt-time .pt-ap {
+  font-size: clamp(1.1rem, 1.9vh, 1.7rem);
+  font-weight: 700;
+  margin-left: 6px;
+  color: var(--td);
+  vertical-align: super;
+}
+#slide-prayer .pt-row.active .pt-time .pt-ap {
+  color: var(--gold-soft);
+}
+
+/* ════════════════════════════
+   RIGHT — Info Panel
+   ════════════════════════════ */
+#slide-prayer .info-panel {
+  background: rgba(0,0,0,0.2);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 2.5vh 3vw;
+  gap: 0.5vh;
+  border-left: 1px solid var(--ln);
+  overflow: hidden;
+}
+
+#slide-prayer .info-hijri {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 1.6vh; font-weight: 600;
+  color: var(--gold); text-transform: uppercase;
+  letter-spacing: 4px; text-align: center;
+}
+#slide-prayer .info-greg {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 1.3vh; font-weight: 400;
+  color: var(--tm); text-transform: uppercase;
+  letter-spacing: 3px; text-align: center;
+  margin-bottom: 1vh;
+}
+
+/* Big clock */
+#slide-prayer .info-clock {
+  font-family: 'Quattrocento Sans', sans-serif;
+  font-size: 10vh; font-weight: 700;
+  color: var(--tw); line-height: 1;
+  text-align: center; letter-spacing: -3px;
+}
+#slide-prayer .info-clock .info-ap {
+  font-size: 2.5vh; font-weight: 700;
+  color: var(--td); margin-left: 4px;
+  vertical-align: super;
+}
+
+/* Next iqamah */
+#slide-prayer .info-niq {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 0.3vh;
+  margin-top: 1vh; padding: 1.5vh 0;
+  border-top: 1px solid var(--ln);
+  border-bottom: 1px solid var(--ln);
+  width: 100%;
+}
+#slide-prayer .info-niq-label {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 1.3vh; font-weight: 700;
+  color: var(--tm); text-transform: uppercase;
+  letter-spacing: 5px;
+}
+#slide-prayer .info-niq-time {
+  font-family: 'Quattrocento Sans', sans-serif;
+  font-size: 5vh; font-weight: 700;
+  color: var(--gold);
+}
+#slide-prayer .info-niq-time small {
+  font-size: 1.8vh; font-weight: 600;
+  color: rgba(242,240,230,0.4); margin: 0 3px;
+}
+
+/* Jumu'ah */
+#slide-prayer .info-jumuah {
+  text-align: center; padding: 1.5vh 0;
+  border-bottom: 1px solid var(--ln);
+  width: 100%;
+}
+#slide-prayer .info-jumuah-title {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 1.5vh; font-weight: 700;
+  color: var(--gold); text-transform: uppercase;
+  letter-spacing: 5px; margin-bottom: 1vh;
+}
+#slide-prayer .info-jumuah-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+}
+#slide-prayer .info-jumuah-col { text-align: center; }
+#slide-prayer .info-jumuah-col .jtime {
+  font-family: 'Quattrocento Sans', sans-serif;
+  font-size: 4.2vh; font-weight: 700; color: var(--tw); line-height: 1;
+}
+#slide-prayer .info-jumuah-col .jtime .jap {
+  font-size: 1.2vh; font-weight: 700; color: var(--td); vertical-align: super;
+}
+#slide-prayer .info-jumuah-col .jlabel {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 1.1vh; font-weight: 700;
+  color: var(--td); text-transform: uppercase;
+  letter-spacing: 3px; margin-top: 0.5vh;
+}
+
+/* Sunrise / Sunset */
+#slide-prayer .info-sun {
+  display: flex; flex-direction: column;
+  gap: 0.6vh; width: 100%; padding-top: 1.5vh;
+}
+#slide-prayer .info-sun-row {
+  display: flex; align-items: center;
+  gap: 14px; padding: 1.2vh 1.5vw;
+  background: rgba(255,255,255,0.025);
+  border-radius: 8px;
+  border: 1px solid var(--ln);
+}
+#slide-prayer .info-sun-row i {
+  font-size: 1.6vh; color: var(--gold-soft); width: 24px; text-align: center;
+}
+#slide-prayer .info-sun-row .sun-label {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 1.3vh; font-weight: 700;
+  color: var(--tm); text-transform: uppercase;
+  letter-spacing: 3px; flex: 1;
+}
+#slide-prayer .info-sun-row .sun-time {
+  font-family: 'Quattrocento Sans', sans-serif;
+  font-size: 2.4vh; font-weight: 700; color: var(--tw);
+}
+#slide-prayer .info-sun-row .sun-time .sun-ap {
+  font-size: 1vh; font-weight: 700; color: var(--td); vertical-align: super;
+}
+
+/* ════════════════════════════
+   BOTTOM BAR
+   ════════════════════════════ */
+#slide-prayer .bottom-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0,0,0,0.3);
+  padding: 16px 24px;
+  border-radius: 10px;
+}
+#slide-prayer .bottom-bar img {
+  height: 36px;
+  filter: brightness(10);
+  opacity: 0.7;
+}
+#slide-prayer .bottom-bar .masjid-name {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.95rem; font-weight: 600;
+  color: var(--td); text-transform: uppercase;
+  letter-spacing: 6px;
+}
+
+@keyframes tickerMove {
+  0%   { transform: translateX(80vw); }
+  100% { transform: translateX(-100%); }
+}
+
+/* ═══════════════════════════════════════════
+   SLIDE 2 — RESOURCES (Calendar + App)
+   ═══════════════════════════════════════════ */
+#slide-resources {
+  background: linear-gradient(160deg, #0f2419 0%, #0b1d14 40%, #0d1f16 100%);
+}
+#slide-resources::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56'%3E%3Cpath d='M28 0L56 28L28 56L0 28Z' fill='none' stroke='%23ffffff' stroke-width='0.4'/%3E%3Cpath d='M28 8L48 28L28 48L8 28Z' fill='none' stroke='%23ffffff' stroke-width='0.25'/%3E%3C/svg%3E");
+  opacity: 0.025; pointer-events: none;
+}
+#slide-resources .s-content {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; justify-content: center;
+  height: 100vh; padding: 5vh 4vw;
+  overflow: hidden;
+}
+
+.res-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  gap: 0;
+  overflow: hidden;
+}
+
+.res-half {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2vw;
+  padding: 2vh 1.5vw;
+  height: 100%;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.res-divider {
+  width: 1px;
+  height: 50%;
+  background: rgba(212,168,67,0.18);
+  flex-shrink: 0;
+}
+
+/* Mockup side */
+.res-mockup-wrap {
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+/* Text + QR side */
+.res-info {
+  display: flex; flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5vw;
+  min-width: 0;
+  flex-shrink: 1;
+}
+
+/* Title */
+.res-heading {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 2.6vw;
+  font-weight: 700;
+  color: #f2f0e6;
+  line-height: 1.2;
+  letter-spacing: 0.1vw;
+  margin: 0;
+}
+
+.res-sub {
+  font-family: 'Quattrocento Sans', sans-serif;
+  font-size: 1.2vw;
+  color: rgba(242,240,230,0.45);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* QR area */
+.res-qr-row {
+  display: flex; align-items: center; gap: 1.2vw;
+  margin-top: 0.5vw;
+}
+.res-qr {
+  background: #fff;
+  border-radius: 0.8vw;
+  padding: 0.5vw;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+  position: relative;
+  flex-shrink: 0;
+}
+.res-qr::before {
+  content: '';
+  position: absolute; inset: -2px;
+  border-radius: 0.9vw;
+  background: linear-gradient(135deg, #d4a843, #2b5a4a, #d4a843);
+  z-index: -1;
+}
+.res-qr canvas { display: block; width: 9vw; height: 9vw; }
+.res-cta-text { display: flex; flex-direction: column; gap: 0.3vw; }
+.res-scan {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 1.4vw; font-weight: 700;
+  color: #d4a843; margin: 0;
+  letter-spacing: 0.15vw; text-transform: uppercase;
+  line-height: 1.3;
+}
+.res-scan-sub {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.8vw; font-weight: 400;
+  color: rgba(242,240,230,0.3); margin: 0;
+  letter-spacing: 0.1vw; text-transform: uppercase;
+}
+
+/* ── Floating animations ── */
+@keyframes floatA {
+  0%, 100% { transform: rotate(-3deg) translateY(0); }
+  50% { transform: rotate(-3deg) translateY(-10px); }
+}
+@keyframes floatB {
+  0%, 100% { transform: rotate(3deg) translateY(0); }
+  50% { transform: rotate(3deg) translateY(-10px); }
+}
+
+/* ── Mockup images ── */
+.mock-img {
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.08);
+  object-fit: cover;
+}
+.mock-img-cal {
+  height: 42vh;
+  max-width: 17vw;
+  transform: rotate(-3deg);
+  animation: floatA 4s ease-in-out infinite;
+}
+
+/* ── Phone mockup ── */
+.mock-phone {
+  width: 13vw; height: 48vh;
+  background: linear-gradient(180deg, #142b20 0%, #0d1f16 100%);
+  border: 2px solid rgba(255,255,255,0.1);
+  border-radius: 32px;
+  padding: 24px 20px 30px;
+  display: flex; flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transform: rotate(3deg);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.4);
+  animation: floatB 4s ease-in-out infinite 1s;
+}
+.mock-phone-notch {
+  width: 56px; height: 5px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 3px;
+  margin-bottom: 14px;
+}
+.mock-phone-time {
+  font-family: 'Quattrocento Sans', sans-serif;
+  font-size: 3.5vw; font-weight: 700;
+  color: #f2f0e6; line-height: 1;
+}
+.mock-phone-label {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 1vw; font-weight: 700;
+  color: #d4a843; text-transform: uppercase;
+  letter-spacing: 0.3vw;
+}
+.mock-phone-iq {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.7vw; font-weight: 600;
+  color: rgba(242,240,230,0.3);
+  text-transform: uppercase; letter-spacing: 0.15vw;
+  margin-bottom: 1vh;
+}
+.mock-phone-list {
+  width: 100%;
+  display: flex; flex-direction: column;
+  gap: 4px; flex: 1;
+}
+.mock-ph-row {
+  display: flex; justify-content: space-between;
+  padding: 0.5vh 1vw;
+  border-radius: 6px;
+  font-family: 'Quattrocento Sans', sans-serif;
+  font-size: 1vw; font-weight: 700;
+  color: rgba(242,240,230,0.4);
+  flex: 1; align-items: center;
+}
+.mock-ph-row.active {
+  background: rgba(212,168,67,0.1);
+  color: #d4a843;
+}
+
+/* ═══════════════════════════════════════════
+   SLIDE 3 — DONATION
+   ═══════════════════════════════════════════ */
+#slide-donation {
+  background: linear-gradient(160deg, #0f2419 0%, #0b1d14 40%, #0d1f16 100%);
+}
+#slide-donation::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56'%3E%3Cpath d='M28 0L56 28L28 56L0 28Z' fill='none' stroke='%23ffffff' stroke-width='0.4'/%3E%3Cpath d='M28 8L48 28L28 48L8 28Z' fill='none' stroke='%23ffffff' stroke-width='0.25'/%3E%3C/svg%3E");
+  opacity: 0.025; pointer-events: none;
+}
+/* Donation slide layout — mirrors res-grid style */
+#slide-donation .s-content {
+  position: relative; z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr auto 1.6fr;
+  height: 100vh;
+  padding: 5vh 4vw;
+  align-items: center;
+  gap: 0;
+  overflow: hidden;
+}
+.don-top-title {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 3.4vw; font-weight: 700; color: #f2f0e6;
+  line-height: 1.15; letter-spacing: 0.15vw;
+  margin: 0; -webkit-text-stroke: 0.5px #f2f0e6;
+}
+.don-top-title em { font-style: normal; color: #d4a843; }
+
+/* ── Left column: QR ── */
+.don-qr {
+  display: flex; align-items: center; justify-content: center;
+  gap: 2.5vw; padding: 2vh 2vw;
+  height: 100%;
+}
+.don-qr-info {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 1.5vw;
+}
+.don-qr-info .qi { font-size: 2.8vw; color: #d4a843; }
+.don-qr-info h3 {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 2.6vw; font-weight: 700; color: #f2f0e6;
+  letter-spacing: 0.1vw; line-height: 1.2; margin: 0;
+}
+.don-qr-info h3 em { font-style: normal; color: #d4a843; }
+.don-qr-info .qsub {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.8vw; color: rgba(242,240,230,0.3); text-transform: uppercase;
+  letter-spacing: 0.1vw; margin: 0;
+}
+.don-qr-row {
+  display: flex; align-items: center; gap: 1.2vw; margin-top: 0.5vw;
+}
+.don-qr-box {
+  background: #fff; border-radius: 1.2vw; padding: 1vw;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4); position: relative; flex-shrink: 0;
+}
+.don-qr-box::before {
+  content:''; position: absolute; inset: -2px; border-radius: 1.3vw;
+  background: linear-gradient(135deg, #d4a843, #2b5a4a, #d4a843); z-index: -1;
+}
+.don-qr-box canvas { display: block; width: 16vw; height: 16vw; }
+.don-qr-box .qu {
+  font-family: 'Quattrocento Sans', sans-serif;
+  font-size: 0.85vw; font-weight: 700; color: #0b1d14;
+  text-align: center; margin-top: 0.4vw;
+}
+.don-cta-text { display: flex; flex-direction: column; gap: 0.2vw; }
+.don-scan {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 1.6vw; font-weight: 700;
+  color: #d4a843; margin: 0;
+  letter-spacing: 0.2vw; text-transform: uppercase; line-height: 1.3;
+}
+.don-scan-sub {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.75vw; font-weight: 400;
+  color: rgba(242,240,230,0.3); margin: 0;
+  letter-spacing: 0.1vw; text-transform: uppercase;
+}
+.pay-row { display: flex; gap: 1vw; margin-top: 0.5vw; }
+.pay-chip {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 0.6vw; padding: 0.6vw 1.5vw; color: #f2f0e6;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 1.05vw; font-weight: 600; display: flex; align-items: center; gap: 0.5vw;
+  letter-spacing: 1px;
+}
+.pay-chip i { color: #d4a843; }
+
+/* Divider */
+.don-divider {
+  width: 1px; height: 50%;
+  background: rgba(212,168,67,0.18); flex-shrink: 0;
+}
+
+/* ── Right column: content ── */
+.don-right-panel {
+  display: flex; flex-direction: column;
+  justify-content: center;
+  gap: 1.8vh; padding: 2vh 2vw;
+  height: 100%; overflow: hidden;
+}
+.don-header h2 {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 3.2vw; font-weight: 700; color: #f2f0e6; line-height: 1.15;
+  letter-spacing: 0.1vw; margin: 0;
+}
+.don-header h2 em { font-style: normal; color: #d4a843; }
+.don-images {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 0.6vw;
+  height: 28vh;
+}
+.don-img-big, .don-img-small {
+  border-radius: 0.8vw; overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.don-img-big img, .don-img-small img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+/* Goal box */
+.don-goal-box {
+  display: flex; align-items: center; gap: 1.8vw;
+  background: rgba(0,0,0,0.25); border-radius: 1vw;
+  border: 1px solid rgba(255,255,255,0.08); padding: 1.6vw 2vw;
+}
+.fund-pie-wrap {
+  flex-shrink: 0; position: relative;
+}
+.fund-pie {
+  width: 8vw; height: 8vw; border-radius: 50%;
+  position: relative; background: conic-gradient(#55c28d 0deg, #55c28d 0deg, rgba(255,255,255,0.08) 0deg, rgba(255,255,255,0.08) 360deg);
+  transition: background 0.05s linear;
+}
+.fund-pie::after {
+  content: ''; position: absolute; inset: 1.4vw;
+  background: rgba(10,25,16,0.95); border-radius: 50%;
+}
+.fund-pie-label {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  z-index: 2; text-align: center;
+  font-family: 'Quattrocento Sans', sans-serif;
+  font-size: 1.6vw; font-weight: 700; color: #f2f0e6; line-height: 1.1;
+}
+.fund-pie-label small {
+  font-size: 0.55vw; font-weight: 700; letter-spacing: 3px;
+  color: rgba(242,240,230,0.5); display: block; margin-top: 2px;
+}
+.don-goal-info { flex: 1; min-width: 0; }
+.don-goal-title {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.8vw; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.3vw; color: rgba(242,240,230,0.5);
+  display: flex; align-items: center; gap: 0.5vw; margin-bottom: 0.4vw;
+}
+.don-goal-title i { color: #55c28d; font-size: 1vw; }
+.don-goal-amount {
+  font-family: 'Quattrocento Sans', sans-serif;
+  font-size: 2.8vw; font-weight: 700; color: #f2f0e6;
+  line-height: 1; margin-bottom: 1vw;
+}
+.don-goal-stats {
+  display: flex; align-items: center; gap: 1.2vw;
+}
+.don-goal-stat-label {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.6vw; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 2px; color: rgba(242,240,230,0.4);
+  margin-bottom: 0.2vw;
+}
+.don-goal-stat-val {
+  font-family: 'Quattrocento Sans', sans-serif;
+  font-size: 1.6vw; font-weight: 700;
+}
+.don-goal-stat-raised { color: #55c28d; }
+.don-goal-stat-remaining { color: #e88a5a; }
+.don-goal-stat-divider { width: 1px; height: 2.5vw; background: rgba(255,255,255,0.1); }
+/* Verse */
+.don-verse {
+  font-family: 'Quattrocento Sans', sans-serif;
+  font-size: 1.5vw; font-style: italic;
+  color: rgba(242,240,230,0.5); line-height: 1.6;
+  padding: 1.2vw 1.5vw; border-left: 3px solid rgba(212,168,67,0.35);
+  background: rgba(212,168,67,0.04); border-radius: 0 0.6vw 0.6vw 0;
+}
+.don-verse cite {
+  display: block; font-family: 'Josefin Sans', sans-serif;
+  font-style: normal; font-size: 1vw;
+  color: rgba(212,168,67,0.55); margin-top: 0.4vw; letter-spacing: 1px;
+}
+
+/* ═══════════════════════════════════════════
+   SLIDE 4 — WHATSAPP
+   ═══════════════════════════════════════════ */
+#slide-whatsapp {
+  background: linear-gradient(160deg, #0f2419 0%, #0b1d14 40%, #0d1f16 100%);
+}
+#slide-whatsapp::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56'%3E%3Cpath d='M28 0L56 28L28 56L0 28Z' fill='none' stroke='%23ffffff' stroke-width='0.4'/%3E%3Cpath d='M28 8L48 28L28 48L8 28Z' fill='none' stroke='%23ffffff' stroke-width='0.25'/%3E%3C/svg%3E");
+  opacity: 0.025; pointer-events: none;
+}
+#slide-whatsapp .s-content {
+  position: relative; z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  height: 100vh;
+  padding: 5vh 4vw;
+  align-items: center;
+  gap: 0;
+  overflow: hidden;
+}
+/* Left side */
+.wa-left {
+  display: flex; align-items: center; justify-content: center;
+  padding: 2vh 2vw; height: 100%;
+}
+.wa-left-inner {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 1.5vw;
+}
+.wa-title-row {
+  display: flex; align-items: center; gap: 1.5vw;
+}
+.wa-icon {
+  font-size: 4vw; color: #d4a843;
+}
+.wa-heading {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 3vw; font-weight: 700; color: #f2f0e6;
+  line-height: 1.2; letter-spacing: 0.1vw; margin: 0;
+}
+.wa-heading em { font-style: normal; color: #d4a843; }
+.wa-sub {
+  font-family: 'Quattrocento Sans', sans-serif;
+  font-size: 1.3vw; color: rgba(242,240,230,0.5);
+  line-height: 1.6; margin: 0;
+}
+.wa-qr-row {
+  display: flex; align-items: center; gap: 1.2vw; margin-top: 0.5vw;
+}
+.wa-qr-box {
+  background: #fff; border-radius: 1vw; padding: 0.8vw;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.4); position: relative; flex-shrink: 0;
+}
+.wa-qr-box::before {
+  content:''; position: absolute; inset: -2px; border-radius: 1.1vw;
+  background: linear-gradient(135deg, #d4a843, #2b5a4a, #d4a843); z-index: -1;
+}
+.wa-qr-box img { display: block; width: 12vw; height: 12vw; object-fit: contain; }
+.wa-qr-box .qu {
+  font-family: 'Quattrocento Sans', sans-serif;
+  font-size: 0.7vw; font-weight: 700; color: #0b1d14;
+  text-align: center; margin-top: 0.3vw;
+}
+.wa-cta-text { display: flex; flex-direction: column; gap: 0.2vw; }
+.wa-scan {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 1.6vw; font-weight: 700;
+  color: #d4a843; margin: 0;
+  letter-spacing: 0.2vw; text-transform: uppercase; line-height: 1.3;
+}
+.wa-scan-sub {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.75vw; font-weight: 400;
+  color: rgba(242,240,230,0.3); margin: 0;
+  letter-spacing: 0.1vw; text-transform: uppercase;
+}
+/* Divider */
+.wa-divider {
+  width: 1px; height: 50%;
+  background: rgba(212,168,67,0.18); flex-shrink: 0;
+}
+/* Right side */
+.wa-right {
+  display: flex; align-items: center; justify-content: center;
+  padding: 2vh 3vw; height: 100%;
+}
+.wa-right-inner {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 2vw; text-align: center;
+}
+.wa-phone-icon {
+  font-size: 8vw; color: #25D366; opacity: 0.15;
+}
+.wa-hero-img {
+  width: 100%; border-radius: 1vw; overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+.wa-hero-img img {
+  width: 100%; height: 22vh; object-fit: cover; display: block;
+}
+.wa-benefits {
+  display: flex; flex-direction: column; gap: 1.5vw;
+}
+.wa-benefit {
+  display: flex; align-items: center; gap: 1vw;
+  text-align: left;
+}
+.wa-benefit i {
+  font-size: 2vw; color: #d4a843; flex-shrink: 0; width: 2.5vw;
+}
+.wa-benefit-text {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 1.4vw; font-weight: 600; color: #f2f0e6;
+  letter-spacing: 0.05vw;
+}
+.wa-benefit-desc {
+  font-family: 'Quattrocento Sans', sans-serif;
+  font-size: 0.9vw; color: rgba(242,240,230,0.4);
+  margin-top: 0.2vw;
+}
+
+/* ═══════════════════════════════════════════
+   SLIDE 5 — EVENTS
+   ═══════════════════════════════════════════ */
+#slide-events {
+  background: linear-gradient(160deg, #0f2419 0%, #0b1d14 40%, #0d1f16 100%);
+}
+#slide-events::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56'%3E%3Cpath d='M28 0L56 28L28 56L0 28Z' fill='none' stroke='%23ffffff' stroke-width='0.4'/%3E%3Cpath d='M28 8L48 28L28 48L8 28Z' fill='none' stroke='%23ffffff' stroke-width='0.25'/%3E%3C/svg%3E");
+  opacity: 0.025; pointer-events: none;
+}
+#slide-events .s-content {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column;
+  justify-content: center;
+  height: 100vh; padding: 4vh 4vw; gap: 3vh;
+}
+.ev-hdr {
+  text-align: center; padding-bottom: 1.5vh;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  flex-shrink: 0;
+}
+.ev-hdr h2 {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 2.8vw; font-weight: 700; color: #f2f0e6;
+  letter-spacing: 3px;
+}
+.ev-hdr h2 i { color: #d4a843; margin-right: 0.6vw; }
+.ev-hdr p {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.9vw; color: rgba(242,240,230,0.3); margin-top: 0.5vh;
+  letter-spacing: 3px; text-transform: uppercase;
+}
+.ev-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3vw; align-content: start; flex-shrink: 0; }
+.ev-card {
+  background: rgba(255,255,255,0.03); border-radius: 1vw; padding: 2vw 2.5vw;
+  display: flex; flex-direction: column; gap: 1.5vh; position: relative; overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.04);
+}
+.ev-card::before {
+  content:''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, #2b5a4a, #d4a843);
+}
+.ev-badge {
+  display: inline-flex; align-items: center; gap: 0.4vw;
+  background: rgba(212,168,67,0.08); border-radius: 0.4vw;
+  padding: 0.4vw 0.9vw; font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.8vw; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 2px; color: #d4a843;
+  align-self: flex-start;
+}
+.ev-badge i { color: #d4a843; opacity: 0.7; }
+.ev-ttl {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 2vw; font-weight: 700; color: #f2f0e6; line-height: 1.2;
+}
+.ev-meta { display: flex; flex-direction: column; gap: 0.6vh; }
+.ev-meta span {
+  font-family: 'Quattrocento Sans', sans-serif;
+  font-size: 1.2vw; font-weight: 400; color: rgba(242,240,230,0.45); display: flex; align-items: center; gap: 0.5vw;
+}
+.ev-meta span i { color: rgba(212,168,67,0.5); width: 1.2vw; text-align: center; font-size: 1.1vw; }
+.ev-desc {
+  font-family: 'Quattrocento Sans', sans-serif;
+  font-size: 1.1vw; font-weight: 400; color: rgba(242,240,230,0.38); line-height: 1.7;
+  margin-top: 0.5vh;
+}
+
+/* ═══ INDICATORS ═══ */
+.dots {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 10px; z-index: 100;
+}
+.dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: rgba(242,240,230,0.15); transition: all 0.4s; cursor: pointer;
+}
+.dot.on {
+  background: #d4a843; box-shadow: 0 0 10px rgba(212,168,67,0.4);
+  width: 28px; border-radius: 5px;
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-height: 900px) {
+  #slide-prayer .s-content { padding: 30px 40px; gap: 14px; }
+  #slide-prayer .prayer-main { grid-template-columns: 1fr 560px; }
+  #slide-prayer .pt-header .pt-hcell { padding: 16px 30px; font-size: 1.8rem; }
+  #slide-prayer .pt-cell { padding: 0 30px; }
+  #slide-prayer .pt-cell.pt-time { font-size: 3.6rem; }
+  #slide-prayer .pt-cell.pt-name { font-size: 2.2rem; letter-spacing: 4px; }
+  #slide-prayer .pt-ic i { font-size: 2.4rem; }
+  #slide-prayer .info-panel { padding: 28px 32px; gap: 4px; }
+  #slide-prayer .info-clock { font-size: 7rem; }
+  #slide-prayer .info-clock .info-ap { font-size: 1.6rem; }
+  #slide-prayer .info-hijri { font-size: 1.2rem; }
+  #slide-prayer .info-greg { font-size: 1rem; margin-bottom: 10px; }
+  #slide-prayer .info-niq { padding: 14px 0; margin-top: 8px; }
+  #slide-prayer .info-niq-label { font-size: 0.9rem; }
+  #slide-prayer .info-niq-time { font-size: 3.2rem; }
+  #slide-prayer .info-niq-time small { font-size: 1.2rem; }
+  #slide-prayer .info-jumuah { padding: 12px 0; }
+  #slide-prayer .info-jumuah-title { font-size: 1.1rem; margin-bottom: 10px; }
+  #slide-prayer .info-jumuah-col .jtime { font-size: 2.8rem; }
+  #slide-prayer .info-jumuah-col .jtime .jap { font-size: 0.8rem; }
+  #slide-prayer .info-jumuah-col .jlabel { font-size: 0.75rem; }
+  #slide-prayer .info-sun { padding-top: 12px; gap: 5px; }
+  #slide-prayer .info-sun-row { padding: 10px 16px; gap: 12px; }
+  #slide-prayer .info-sun-row .sun-label { font-size: 0.9rem; }
+  #slide-prayer .info-sun-row .sun-time { font-size: 1.6rem; }
+  #slide-prayer .info-sun-row i { font-size: 1.1rem; }
+}
+@media (max-height: 750px) {
+  #slide-prayer .s-content { padding: 18px 24px; gap: 10px; }
+  #slide-prayer .prayer-main { grid-template-columns: 1fr 440px; }
+  #slide-prayer .pt-header,
+  #slide-prayer .pt-row { grid-template-columns: 80px 180px 1fr 1fr; }
+  #slide-prayer .pt-header .pt-hcell { padding: 12px 20px; font-size: 1.4rem; }
+  #slide-prayer .pt-cell { padding: 0 20px; }
+  #slide-prayer .pt-cell.pt-time { font-size: 2.6rem; }
+  #slide-prayer .pt-time .pt-ap { font-size: 1rem; }
+  #slide-prayer .pt-cell.pt-name { font-size: 1.6rem; letter-spacing: 3px; }
+  #slide-prayer .pt-ic i { font-size: 1.8rem; }
+  #slide-prayer .info-panel { padding: 18px 22px; gap: 2px; }
+  #slide-prayer .info-clock { font-size: 5rem; }
+  #slide-prayer .info-clock .info-ap { font-size: 1.2rem; }
+  #slide-prayer .info-hijri { font-size: 0.95rem; }
+  #slide-prayer .info-greg { font-size: 0.8rem; margin-bottom: 6px; }
+  #slide-prayer .info-niq { padding: 10px 0; margin-top: 6px; }
+  #slide-prayer .info-niq-label { font-size: 0.75rem; }
+  #slide-prayer .info-niq-time { font-size: 2.2rem; }
+  #slide-prayer .info-niq-time small { font-size: 0.9rem; }
+  #slide-prayer .info-jumuah { padding: 8px 0; }
+  #slide-prayer .info-jumuah-title { font-size: 0.85rem; margin-bottom: 8px; }
+  #slide-prayer .info-jumuah-col .jtime { font-size: 2rem; }
+  #slide-prayer .info-jumuah-col .jlabel { font-size: 0.65rem; }
+  #slide-prayer .info-sun { padding-top: 8px; gap: 4px; }
+  #slide-prayer .info-sun-row { padding: 8px 14px; }
+  #slide-prayer .info-sun-row .sun-label { font-size: 0.75rem; }
+  #slide-prayer .info-sun-row .sun-time { font-size: 1.3rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Mobile / Tablet block message -->
+<div class="mobile-block">
+  <i class="fas fa-tv"></i>
+  <h2>TV & Desktop Display Only</h2>
+  <p>This page is designed for large screens such as TVs and desktop monitors. Please open it on a larger display to view the prayer times slideshow.</p>
+</div>
+
+<div class="slideshow">
+
+<!-- ═══════════════ SLIDE 1 — PRAYER TIMES (CLEAN TABLE) ═══════════════ -->
+<div class="slide active" id="slide-prayer">
+  <div class="s-content">
+    <!-- Main 2-panel area -->
+    <div class="prayer-main">
+      <!-- LEFT: Prayer table -->
+      <div class="prayer-table">
+        <div class="pt-header">
+          <div class="pt-hcell"></div>
+          <div class="pt-hcell">Salah</div>
+          <div class="pt-hcell">Athan</div>
+          <div class="pt-hcell">Iqamah</div>
+        </div>
+        <div id="prayer-rows">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- RIGHT: Info panel -->
+      <div class="info-panel">
+        <div class="info-hijri" id="d-hijri">SHAWWAL 28, 1447</div>
+        <div class="info-greg" id="d-greg">THURSDAY, APR 16</div>
+        <div class="info-clock">
+          <span id="rc-time">12:00</span><span class="info-ap" id="rc-ampm">AM</span>
+        </div>
+        <div class="info-niq">
+          <span class="info-niq-label">Next Iqamah in</span>
+          <span class="info-niq-time" id="niq-cd">—</span>
+        </div>
+        <div class="info-jumuah">
+          <div class="info-jumuah-title">Jumu'ah</div>
+          <div class="info-jumuah-row">
+            <div class="info-jumuah-col">
+              <div class="jtime" id="jumuah-start">1:25<span class="jap">PM</span></div>
+              <div class="jlabel">Starts</div>
+            </div>
+            <div class="info-jumuah-col">
+              <div class="jtime" id="jumuah-iqamah">1:55<span class="jap">PM</span></div>
+              <div class="jlabel">Jumu'ah</div>
+            </div>
+          </div>
+        </div>
+        <div class="info-sun">
+          <div class="info-sun-row">
+            <i class="fas fa-sun"></i>
+            <span class="sun-label">Sunrise</span>
+            <span class="sun-time" id="sunrise-t2">6:26<span class="sun-ap">AM</span></span>
+          </div>
+          <div class="info-sun-row">
+            <i class="fas fa-cloud-sun"></i>
+            <span class="sun-label">Sunset</span>
+            <span class="sun-time" id="sunset-t2">8:00<span class="sun-ap">PM</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="bottom-bar">
+      <img src="images/logos/square.png" alt="Logo"/>
+      <div class="masjid-name">Al-Madina Association</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ SLIDE 2 — RESOURCES (Calendar + App) ═══════════════ -->
+<div class="slide" id="slide-resources">
+  <div class="s-content">
+    <div class="res-grid">
+
+      <!-- LEFT: Prayer Calendar -->
+      <div class="res-half">
+        <div class="res-mockup-wrap">
+          <img src="images/tv-calendar-mock.png" class="mock-img mock-img-cal" alt="Monthly Prayer Calendar"/>
+        </div>
+        <div class="res-info">
+          <h2 class="res-heading">Monthly Prayer<br>Times Calendar</h2>
+          <p class="res-sub">View all athan &amp; iqamah times<br>for the entire month</p>
+          <div class="res-qr-row">
+            <div class="res-qr"><canvas id="qr-calendar"></canvas></div>
+            <div class="res-cta-text">
+              <p class="res-scan">Scan to<br>View</p>
+              <p class="res-scan-sub">Point your phone camera</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="res-divider"></div>
+
+      <!-- RIGHT: Athan App -->
+      <div class="res-half">
+        <div class="res-info">
+          <h2 class="res-heading">Get the Al-Madina<br>Athan+ App</h2>
+          <p class="res-sub">Prayer times, iqamah countdown<br>&amp; notifications on your phone</p>
+          <div class="res-qr-row">
+            <div class="res-qr"><canvas id="qr-app"></canvas></div>
+            <div class="res-cta-text">
+              <p class="res-scan">Scan to<br>Download</p>
+              <p class="res-scan-sub">Available on your phone</p>
+            </div>
+          </div>
+        </div>
+        <div class="res-mockup-wrap">
+          <div class="mock-phone">
+            <div class="mock-phone-notch"></div>
+            <div class="mock-phone-time">1:05</div>
+            <div class="mock-phone-label">DHUHR</div>
+            <div class="mock-phone-iq">Iqamah in 40 min</div>
+            <div class="mock-phone-list">
+              <div class="mock-ph-row"><span>Fajr</span><span>4:38</span></div>
+              <div class="mock-ph-row active"><span>Dhuhr</span><span>1:13</span></div>
+              <div class="mock-ph-row"><span>Asr</span><span>5:59</span></div>
+              <div class="mock-ph-row"><span>Maghrib</span><span>8:00</span></div>
+              <div class="mock-ph-row"><span>Isha</span><span>9:28</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ SLIDE 3 — DONATION ═══════════════ -->
+<div class="slide" id="slide-donation">
+  <div class="s-content">
+
+    <!-- Left: QR code (mirrors res-half layout) -->
+    <div class="don-qr">
+      <div class="don-qr-info">
+        <h2 class="don-top-title">Build a <em>House</em><br>of Allah</h2>
+        <div class="don-cta-text">
+          <p class="don-scan">Scan to Donate</p>
+          <p class="don-scan-sub">Point your phone camera</p>
+        </div>
+        <div class="don-qr-box">
+          <canvas id="qr-canvas"></canvas>
+          <div class="qu">linktr.ee/almadina.association</div>
+        </div>
+        <div class="pay-row">
+          <div class="pay-chip"><i class="fas fa-bolt"></i> Zelle</div>
+          <div class="pay-chip"><i class="fab fa-paypal"></i> PayPal</div>
+          <div class="pay-chip"><i class="fas fa-credit-card"></i> Venmo</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="don-divider"></div>
+
+    <!-- Right: title + images + goal + verse -->
+    <div class="don-right-panel">
+      <div class="don-images">
+        <div class="don-img-big">
+          <img src="images/slider/3.jpg" alt="Masjid Side View"/>
+        </div>
+        <div class="don-img-small">
+          <img src="images/slider/full_new_masjid.PNG" alt="Masjid Aerial View"/>
+        </div>
+      </div>
+      <div class="don-goal-box">
+        <div class="fund-pie-wrap">
+          <div class="fund-pie" id="fund-pie"></div>
+          <div class="fund-pie-label"><span id="pie-pct">0</span>%<br><small>RAISED</small></div>
+        </div>
+        <div class="don-goal-info">
+          <div class="don-goal-title"><i class="fas fa-check-circle"></i> Our Campaign Goal</div>
+          <div class="don-goal-amount">$1,600,000</div>
+          <div class="don-goal-stats">
+            <div class="don-goal-stat">
+              <div class="don-goal-stat-label">Total Raised (Including Pledges)</div>
+              <div class="don-goal-stat-val don-goal-stat-raised">$740,000</div>
+            </div>
+            <div class="don-goal-stat-divider"></div>
+            <div class="don-goal-stat">
+              <div class="don-goal-stat-label">Remaining</div>
+              <div class="don-goal-stat-val don-goal-stat-remaining">$860,000</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="don-verse">
+        "Whoever builds a masjid for the sake of Allah, Allah will build for him a house in Paradise."
+        <cite>— Prophet Muhammad (PBUH)</cite>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════ SLIDE 4 — WHATSAPP ═══════════════ -->
+<div class="slide" id="slide-whatsapp">
+  <div class="s-content">
+
+    <!-- Left: Info + QR -->
+    <div class="wa-left">
+      <div class="wa-left-inner">
+        <div class="wa-title-row">
+          <div class="wa-icon"><i class="fab fa-whatsapp"></i></div>
+          <h2 class="wa-heading">Join Our<br><em>WhatsApp Group</em></h2>
+        </div>
+        <p class="wa-sub">Stay connected with Al-Madina Association.<br>Get announcements for all activities and events.</p>
+        <div class="wa-cta-text">
+          <p class="wa-scan">Scan to Join</p>
+          <p class="wa-scan-sub">Point your phone camera</p>
+        </div>
+        <div class="wa-qr-box">
+          <img id="qr-whatsapp" src="images/slider/qr-whatsapp.png" alt="WhatsApp QR"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="wa-divider"></div>
+
+    <!-- Right: Hero + Benefits -->
+    <div class="wa-right">
+      <div class="wa-right-inner">
+        <div class="wa-benefits">
+          <div class="wa-benefit">
+            <i class="fas fa-bullhorn"></i>
+            <div>
+              <div class="wa-benefit-text">Masjid Announcements</div>
+              <div class="wa-benefit-desc">Important updates about prayers, events, and community news</div>
+            </div>
+          </div>
+          <div class="wa-benefit">
+            <i class="fas fa-calendar-check"></i>
+            <div>
+              <div class="wa-benefit-text">Event Reminders</div>
+              <div class="wa-benefit-desc">Never miss a class, lecture, or community gathering</div>
+            </div>
+          </div>
+          <div class="wa-benefit">
+            <i class="fas fa-clock"></i>
+            <div>
+              <div class="wa-benefit-text">Schedule Changes</div>
+              <div class="wa-benefit-desc">Instant notifications for prayer time or event changes</div>
+            </div>
+          </div>
+          <div class="wa-benefit">
+            <i class="fas fa-hand-holding-heart"></i>
+            <div>
+              <div class="wa-benefit-text">Community Updates</div>
+              <div class="wa-benefit-desc">Fundraisers, volunteer opportunities, and more</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════ SLIDE 5 — EVENTS ═══════════════ -->
+<div class="slide" id="slide-events">
+  <div class="s-content">
+    <div class="ev-hdr">
+      <h2><i class="fas fa-mosque"></i> Weekly Events & Classes</h2>
+      <p>Join us for knowledge, worship, and community</p>
+    </div>
+    <div class="ev-grid" id="ev-grid"></div>
+  </div>
+</div>
+
+<!-- Dots -->
+<div class="dots">
+  <div class="dot on" data-s="0"></div>
+  <div class="dot" data-s="1"></div>
+  <div class="dot" data-s="2"></div>
+  <div class="dot" data-s="3"></div>
+  <div class="dot" data-s="4"></div>
+</div>
+</div>
+
+<script src="js/prayerData.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+<script>
+(function(){
+'use strict';
+
+const SLIDE_MS = 15000;
+const DON_URL = 'https://linktr.ee/almadina.association';
+const CAL_URL = 'file:///c:/Users/Romo/Documents/src/ama/ama_site/prayerTime.html';
+const APP_URL = 'file:///c:/Users/Romo/Documents/src/ama/ama_site/athanplus.html';
+const WA_URL = 'https://chat.whatsapp.com/KIYEVrr7ZUl6QsyuYj0jEx';
+const RAISED = 740000, GOAL = 1600000;
+
+const MSGS = [
+  'Please donate generously for the new masjid!',
+  'Weekly Halqa by Mufti Atif on Wednesdays after Isha!',
+  'Join our WhatsApp group for announcements — see the front desk.',
+  'Weekend Islamic School every Sunday 10 AM – 1 PM.',
+  'May Allah accept your prayers and good deeds.'
+];
+
+const EVS = [
+  {d:'Every Wednesday',t:'Tafsir Halaqah',tm:'After Maghrib',w:'Mufti Aatif Shah',ds:'Topic: Tafsir of Surah An-Nisa'},
+  {d:'Every Friday',t:'Halaqah by Sheikh Fathi',tm:'5:15 PM – 6:15 PM',w:'Sheikh Fathi Thamer',ds:'Topic: Riyad As-Saliheen — Teachings of the Prophet (PBUH).'}
+];
+
+const PRS = [
+  {k:'fajr',n:'Fajr',ic:'fa-cloud-moon',sK:'fajr_18',iK:'fajr_iqamah'},
+  {k:'dhuhr',n:'Dhuhr',ic:'fa-sun',sK:'zuhr',iK:'zuhr_iqamah'},
+  {k:'asr',n:'Asr',ic:'fa-cloud-sun',sK:'asr_hanafi',iK:'asr_iqamah'},
+  {k:'maghrib',n:'Maghrib',ic:'fa-cloud-sun-rain',sK:'maghrib',iK:'maghrib_iqamah'},
+  {k:'isha',n:'Isha',ic:'fa-moon',sK:'isha',iK:'isha_iqamah'}
+];
+
+/* Helpers */
+function pTime(s){
+  if(!s)return null;
+  const m=s.match(/(\d+):(\d+)\s*(AM|PM)/i);
+  if(!m)return null;
+  let h=+m[1],mn=+m[2];const a=m[3].toUpperCase();
+  if(a==='PM'&&h!==12)h+=12;if(a==='AM'&&h===12)h=0;
+  return h*60+mn;
+}
+function tKey(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
+function mAbbr(){return new Date().toLocaleString('en-US',{month:'short'});}
+function tData(){
+  const mo=mAbbr(),k=tKey();
+  if(prayerData?.[mo]?.[k])return prayerData[mo][k];
+  for(const m in prayerData)if(prayerData[m][k])return prayerData[m][k];
+  return null;
+}
+function fT(t){
+  if(!t)return '—';
+  const m=t.match(/^([\d:]+)\s*(AM|PM)$/i);
+  return m?`${m[1]}<span class="am">${m[2]}</span>`:t;
+}
+
+/* Cursor */
+let cT;
+function showC(){document.body.classList.remove('cursor-hidden');clearTimeout(cT);cT=setTimeout(()=>document.body.classList.add('cursor-hidden'),3000);}
+document.addEventListener('mousemove',showC);
+document.addEventListener('mousedown',showC);
+cT=setTimeout(()=>document.body.classList.add('cursor-hidden'),3000);
+
+/* Format time for table display: "4:38" + "AM" separately */
+function fTbl(t){
+  if(!t)return {time:'—',ap:''};
+  const m=t.match(/^([\d:]+)\s*(AM|PM)$/i);
+  return m ? {time:m[1], ap:m[2]} : {time:t, ap:''};
+}
+
+/* Prayer Rows — clean table */
+function buildPrayer(){
+  const d=tData(),el=document.getElementById('prayer-rows');
+  if(!d){el.innerHTML='<div style="color:#999;text-align:center;padding:40px;">No prayer data for today</div>';return;}
+
+  const now=new Date(),cur=now.getHours()*60+now.getMinutes();
+  // Highlight the next upcoming prayer based on iqamah time
+  let act=null;
+  for(let i=0;i<PRS.length;i++){
+    const iq=pTime(d[PRS[i].iK]);
+    if(iq!==null&&cur<iq){act=PRS[i].k;break;}
+  }
+  // If all iqamahs have passed, highlight fajr (next day's first prayer)
+  if(!act) act='fajr';
+
+  let h='';
+  PRS.forEach(p=>{
+    const isActive = p.k===act;
+    const st=fTbl(d[p.sK]), iq=fTbl(d[p.iK]);
+    h+=`<div class="pt-row ${isActive?'active':''}">
+      <div class="pt-cell pt-ic"><i class="fas ${p.ic}"></i></div>
+      <div class="pt-cell pt-name">${p.n.toUpperCase()}</div>
+      <div class="pt-cell pt-time">${st.time}<span class="pt-ap">${st.ap}</span></div>
+      <div class="pt-cell pt-time">${iq.time}<span class="pt-ap">${iq.ap}</span></div>
+    </div>`;
+  });
+  el.innerHTML=h;
+
+  // Sunrise / Sunset
+  const sr=d.sunrise||'—', ss=d.maghrib||'—';
+  const srt2=document.getElementById('sunrise-t2');
+  const sst2=document.getElementById('sunset-t2');
+  if(srt2) srt2.innerHTML=sr.replace(/(AM|PM)/,'<span class="sun-ap">$1</span>');
+  if(sst2) sst2.innerHTML=ss.replace(/(AM|PM)/,'<span class="sun-ap">$1</span>');
+
+  // Jumu'ah times (fixed)
+  const js=document.getElementById('jumuah-start');
+  const ji=document.getElementById('jumuah-iqamah');
+  if(js) js.innerHTML='1:25<span class="jap">PM</span>';
+  if(ji) ji.innerHTML='1:55<span class="jap">PM</span>';
+
+  iqCD();
+}
+
+function iqCD(){
+  const d=tData(),el=document.getElementById('niq-cd');
+  if(!d){el.textContent='—';return;}
+  const now=new Date();
+  const curMin=now.getHours()*60+now.getMinutes();
+  const curSec=now.getSeconds();
+  let np=null,nm=Infinity;
+  PRS.forEach(p=>{const q=pTime(d[p.iK]);if(q!==null&&q>curMin&&q<nm){nm=q;np=p.n;}});
+  if(!np){el.textContent='—';return;}
+  // Difference in seconds
+  const totalSec=(nm-curMin)*60-curSec;
+  if(totalSec<=0){el.textContent='—';return;}
+  const hr=Math.floor(totalSec/3600);
+  const mn=Math.floor((totalSec%3600)/60);
+  const sc=totalSec%60;
+  if(hr>0) el.innerHTML=`${hr}<small>h</small> ${String(mn).padStart(2,'0')}<small>m</small> ${String(sc).padStart(2,'0')}<small>s</small>`;
+  else el.innerHTML=`${mn}<small>m</small> ${String(sc).padStart(2,'0')}<small>s</small>`;
+}
+
+/* Clock */
+function updateClocks(){
+  const n=new Date();let h=n.getHours();
+  const m=String(n.getMinutes()).padStart(2,'0'),ap=h>=12?'PM':'AM';
+  h=h%12||12;
+  const t=`${h}:${m}`;
+  document.getElementById('rc-time').textContent=t;
+  document.getElementById('rc-ampm').textContent=ap;
+
+  const dn=n.toLocaleDateString('en-US',{weekday:'long'}).toUpperCase();
+  const mn=n.toLocaleDateString('en-US',{month:'short'}).toUpperCase();
+  document.getElementById('d-greg').textContent=`${dn}, ${mn} ${n.getDate()}`;
+
+  try{
+    const hij=n.toLocaleDateString('en-US',{calendar:'islamic-umalqura',day:'numeric',month:'long',year:'numeric'});
+    document.getElementById('d-hijri').textContent=hij.toUpperCase();
+  }catch(e){document.getElementById('d-hijri').textContent='';}
+}
+
+function buildTicker(){}
+
+/* Resources (Calendar + App QR codes) */
+function buildRes(){
+  new QRious({element:document.getElementById('qr-calendar'),value:CAL_URL,size:300,foreground:'#0b1d14',background:'#fff',level:'H'});
+  new QRious({element:document.getElementById('qr-app'),value:APP_URL,size:300,foreground:'#0b1d14',background:'#fff',level:'H'});
+}
+
+/* Donation */
+let pieAnimated = false;
+function buildDon(){
+  new QRious({element:document.getElementById('qr-canvas'),value:DON_URL,size:300,foreground:'#0b1d14',background:'#fff',level:'H'});
+}
+function animatePie(){
+  if(pieAnimated) return;
+  pieAnimated = true;
+  const pie = document.getElementById('fund-pie');
+  const pctEl = document.getElementById('pie-pct');
+  if(!pie || !pctEl) return;
+  pctEl.textContent = '0';
+  pie.style.background = `conic-gradient(#55c28d 0deg, #55c28d 0deg, rgba(255,255,255,0.08) 0deg, rgba(255,255,255,0.08) 360deg)`;
+  const targetPct = RAISED/GOAL*100;
+  const targetDeg = RAISED/GOAL*360;
+  const duration = 1800;
+  const start = performance.now();
+  function tick(now){
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    const curDeg = (ease * targetDeg).toFixed(1);
+    const curPct = Math.round(ease * targetPct);
+    pie.style.background = `conic-gradient(#55c28d 0deg, #55c28d ${curDeg}deg, rgba(255,255,255,0.08) ${curDeg}deg, rgba(255,255,255,0.08) 360deg)`;
+    pctEl.textContent = curPct;
+    if(progress < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+/* Events */
+function buildEv(){
+  const ic={Monday:'fa-star',Tuesday:'fa-book-open',Wednesday:'fa-lightbulb',Thursday:'fa-hands-praying',Friday:'fa-mosque',Saturday:'fa-language',Sunday:'fa-graduation-cap'};
+  let h='';
+  EVS.forEach(e=>{
+    h+=`<div class="ev-card">
+      <div class="ev-badge"><i class="fas ${ic[e.d]||'fa-calendar'}"></i> ${e.d}</div>
+      <div class="ev-ttl">${e.t}</div>
+      <div class="ev-meta"><span><i class="fas fa-clock"></i> ${e.tm}</span><span><i class="fas fa-user"></i> ${e.w}</span></div>
+      <div class="ev-desc">${e.ds}</div>
+    </div>`;
+  });
+  document.getElementById('ev-grid').innerHTML=h;
+}
+
+/* Slideshow */
+let ci=0;const sls=document.querySelectorAll('.slide'),dts=document.querySelectorAll('.dot');
+let tmr;
+function go(i){sls[ci].classList.remove('active');dts[ci].classList.remove('on');ci=i%sls.length;sls[ci].classList.add('active');dts[ci].classList.add('on');if(sls[ci].id==='slide-donation'){pieAnimated=false;animatePie();}}
+function nx(){go(ci+1);}
+function st(){tmr=setInterval(nx,SLIDE_MS);}
+dts.forEach(d=>d.addEventListener('click',()=>{clearInterval(tmr);go(+d.dataset.s);st();}));
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' '){clearInterval(tmr);nx();st();}
+  else if(e.key==='ArrowLeft'){clearInterval(tmr);go(ci-1+sls.length);st();}
+  else if(e.key==='f'||e.key==='F'){document.documentElement.requestFullscreen?.();}
+});
+
+/* Init */
+function init(){
+  // Slide 1
+  updateClocks();
+  iqCD();
+  setInterval(()=>{ updateClocks(); iqCD(); }, 1000);
+  buildPrayer();
+  setInterval(buildPrayer, 60000);
+
+  // Slides 2, 3 & 4
+  buildRes();
+  buildDon();
+  buildEv();
+
+  // Slideshow
+  st();
+}
+document.readyState==='loading'?document.addEventListener('DOMContentLoaded',init):init();
+})();
+</script>
+</body>
+</html>
