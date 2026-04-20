@@ -86,10 +86,11 @@ body.cursor-hidden { cursor: none; }
    ═══════════════════════════════════════════ */
 .slideshow { position: relative; width: 100vw; height: 100vh; }
 .slide {
-  position: absolute; inset: 0; opacity: 0; visibility: hidden;
-  transition: opacity 1s ease, visibility 0s 1s;
+  position: absolute; inset: 0; opacity: 0; visibility: hidden; z-index: 1;
+  transition: opacity 0.6s ease, visibility 0s 0.6s;
 }
-.slide.active { opacity: 1; visibility: visible; transition: opacity 1s ease, visibility 0s 0s; }
+.slide.active { opacity: 1; visibility: visible; z-index: 3; transition: opacity 0.6s ease, visibility 0s 0s; }
+.slide.exiting { opacity: 0; visibility: visible; z-index: 2; transition: opacity 0.6s ease; }
 
 /* Diamond pattern — fade out in bottom-left where mosque image is */
 #slide-prayer::before,
@@ -1006,7 +1007,7 @@ body.cursor-hidden { cursor: none; }
   flex: 1; width: 100%; max-height: 68vh;
 }
 .ev-flyer {
-  flex: 0 1 28%; border-radius: 1vw; overflow: hidden;
+  flex: 0 1 23%; border-radius: 1vw; overflow: hidden;
   box-shadow: 0 8px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(212,168,67,0.1);
   opacity: 0; transform: translateY(60px);
   transition: opacity 0.7s ease-out, transform 0.7s ease-out;
@@ -1587,7 +1588,17 @@ function animatePie(){
 /* Slideshow */
 let ci=0;const sls=document.querySelectorAll('.slide'),dts=document.querySelectorAll('.dot');
 let tmr;
-function go(i){sls[ci].classList.remove('active');dts[ci].classList.remove('on');ci=i%sls.length;sls[ci].classList.add('active');dts[ci].classList.add('on');if(sls[ci].id==='slide-donation'){pieAnimated=false;animatePie();}}
+function go(i){
+  const prev=ci;
+  sls[prev].classList.remove('active');
+  sls[prev].classList.add('exiting');
+  dts[prev].classList.remove('on');
+  ci=i%sls.length;
+  sls[ci].classList.add('active');
+  dts[ci].classList.add('on');
+  if(sls[ci].id==='slide-donation'){pieAnimated=false;animatePie();}
+  setTimeout(()=>{sls[prev].classList.remove('exiting');},700);
+}
 function nx(){go(ci+1);}
 function st(){tmr=setInterval(nx,SLIDE_MS);}
 dts.forEach(d=>d.addEventListener('click',()=>{clearInterval(tmr);go(+d.dataset.s);st();}));
