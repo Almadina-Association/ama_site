@@ -1109,6 +1109,21 @@ body.cursor-hidden { cursor: none; }
 <body>
 
 <!-- Mobile / Tablet block message -->
+<!-- Fullscreen start overlay (for Firestick / TV browsers) -->
+<div id="fs-overlay" style="
+  position:fixed; inset:0; z-index:10000;
+  background:linear-gradient(160deg,#0f2419 0%,#0b1d14 40%,#0d1f16 100%);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:30px;
+  cursor:pointer;
+">
+  <i class="fas fa-mosque" style="font-size:4rem; color:#d4a843;"></i>
+  <h2 style="font-family:'Josefin Sans',sans-serif; font-size:2.4rem; font-weight:700; color:#f2f0e6; letter-spacing:2px;">Al-Madina Association</h2>
+  <p style="font-family:'Quattrocento Sans',sans-serif; font-size:1.3rem; color:rgba(242,240,230,0.5);">Press OK or click anywhere to start</p>
+  <div style="width:60px; height:60px; border:2px solid #d4a843; border-radius:50%; display:flex; align-items:center; justify-content:center;">
+    <i class="fas fa-play" style="font-size:1.4rem; color:#d4a843; margin-left:4px;"></i>
+  </div>
+</div>
+
 <div class="mobile-block">
   <i class="fas fa-tv"></i>
   <h2>TV & Desktop Display Only</h2>
@@ -1630,6 +1645,25 @@ function init(){
 
   // Slideshow
   st();
+
+  // Fullscreen overlay
+  const fsOv = document.getElementById('fs-overlay');
+  if(fsOv){
+    function launchFS(){
+      document.documentElement.requestFullscreen?.().catch(()=>{});
+      fsOv.style.transition='opacity 0.5s ease';
+      fsOv.style.opacity='0';
+      setTimeout(()=>{fsOv.remove();},600);
+      document.body.classList.add('cursor-hidden');
+    }
+    fsOv.addEventListener('click', launchFS);
+    document.addEventListener('keydown', function fsKey(e){
+      if(e.key==='Enter'||e.key===' '||e.key==='OK'){
+        launchFS();
+        document.removeEventListener('keydown', fsKey);
+      }
+    });
+  }
 }
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',init):init();
 })();
