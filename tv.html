@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=1920, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Al-Madina Association — TV Display</title>
 <link rel="shortcut icon" type="image/png" href="images/logos/square.png" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -147,12 +147,12 @@ body.cursor-hidden { cursor: none; }
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px 60px;
+  padding: 3vh 4vw;
 }
 #slide-eid .eid-card {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 60px;
+  gap: clamp(20px, 3vw, 60px);
   max-width: 1600px;
   width: 100%;
   align-items: center;
@@ -160,11 +160,11 @@ body.cursor-hidden { cursor: none; }
 #slide-eid .eid-left {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: clamp(10px, 1.5vh, 20px);
 }
 #slide-eid .eid-eyebrow {
   font-family: 'Quattrocento Sans', sans-serif;
-  font-size: 1.1rem;
+  font-size: clamp(0.7rem, 0.9vw, 1.1rem);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 4px;
@@ -172,7 +172,7 @@ body.cursor-hidden { cursor: none; }
 }
 #slide-eid .eid-title {
   font-family: 'Playfair Display', serif;
-  font-size: 4.5rem;
+  font-size: clamp(2rem, 3.5vw, 4.5rem);
   font-weight: 900;
   color: #f2f0e6;
   line-height: 1.1;
@@ -184,7 +184,7 @@ body.cursor-hidden { cursor: none; }
 }
 #slide-eid .eid-subtitle {
   font-family: 'Amiri', serif;
-  font-size: 2.2rem;
+  font-size: clamp(1.2rem, 1.7vw, 2.2rem);
   color: rgba(212,168,67,0.7);
   margin: -5px 0 10px;
 }
@@ -197,28 +197,28 @@ body.cursor-hidden { cursor: none; }
 #slide-eid .eid-detail-row {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: clamp(8px, 1vw, 16px);
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(212,168,67,0.15);
   border-radius: 12px;
-  padding: 16px 24px;
+  padding: clamp(10px, 1.2vh, 16px) clamp(14px, 1.5vw, 24px);
 }
 #slide-eid .eid-detail-row i {
-  font-size: 1.6rem;
+  font-size: clamp(1rem, 1.2vw, 1.6rem);
   color: #d4a843;
-  width: 36px;
+  width: clamp(24px, 2.5vw, 36px);
   text-align: center;
   flex-shrink: 0;
 }
 #slide-eid .eid-detail-row .eid-dl {
-  font-size: 0.85rem;
+  font-size: clamp(0.55rem, 0.65vw, 0.85rem);
   text-transform: uppercase;
   letter-spacing: 2px;
   color: rgba(242,240,230,0.4);
   font-weight: 600;
 }
 #slide-eid .eid-detail-row .eid-dv {
-  font-size: 1.5rem;
+  font-size: clamp(0.9rem, 1.15vw, 1.5rem);
   color: #f2f0e6;
   font-weight: 600;
   margin-top: 2px;
@@ -239,19 +239,19 @@ body.cursor-hidden { cursor: none; }
   background: rgba(212,168,67,0.08);
   border: 1px solid rgba(212,168,67,0.2);
   border-radius: 16px;
-  padding: 28px 20px;
+  padding: clamp(14px, 2vh, 28px) clamp(10px, 1.5vw, 20px);
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: clamp(6px, 0.8vh, 12px);
 }
 #slide-eid .eid-act i {
-  font-size: 2.4rem;
+  font-size: clamp(1.4rem, 1.8vw, 2.4rem);
   color: #d4a843;
 }
 #slide-eid .eid-act span {
-  font-size: 1.15rem;
+  font-size: clamp(0.7rem, 0.9vw, 1.15rem);
   color: #f2f0e6;
   font-weight: 600;
   text-transform: uppercase;
@@ -261,12 +261,12 @@ body.cursor-hidden { cursor: none; }
   background: linear-gradient(135deg, rgba(212,168,67,0.15), rgba(212,168,67,0.05));
   border: 2px solid rgba(212,168,67,0.35);
   border-radius: 20px;
-  padding: 30px 40px;
+  padding: clamp(16px, 2.5vh, 30px) clamp(20px, 3vw, 40px);
   text-align: center;
   width: 100%;
 }
 #slide-eid .eid-rsvp-title {
-  font-size: 1.3rem;
+  font-size: clamp(0.8rem, 1vw, 1.3rem);
   text-transform: uppercase;
   letter-spacing: 3px;
   color: #d4a843;
@@ -274,7 +274,7 @@ body.cursor-hidden { cursor: none; }
   margin-bottom: 10px;
 }
 #slide-eid .eid-rsvp-link {
-  font-size: 2rem;
+  font-size: clamp(1.2rem, 1.5vw, 2rem);
   color: #f2f0e6;
   font-weight: 700;
   letter-spacing: 1px;
@@ -288,7 +288,7 @@ body.cursor-hidden { cursor: none; }
   padding: 8px;
 }
 #slide-eid .eid-rsvp-note {
-  font-size: 1rem;
+  font-size: clamp(0.6rem, 0.75vw, 1rem);
   color: rgba(242,240,230,0.5);
   margin-top: 12px;
   font-style: italic;
@@ -304,12 +304,12 @@ body.cursor-hidden { cursor: none; }
   margin-top: 5px;
 }
 #slide-eid .eid-price-badge .eid-price {
-  font-size: 2rem;
+  font-size: clamp(1.2rem, 1.5vw, 2rem);
   font-weight: 900;
   color: #d4a843;
 }
 #slide-eid .eid-price-badge .eid-price-label {
-  font-size: 0.9rem;
+  font-size: clamp(0.55rem, 0.7vw, 0.9rem);
   color: rgba(242,240,230,0.5);
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -626,19 +626,19 @@ body.cursor-hidden { cursor: none; }
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 12px;
+  gap: 0.8vw;
   background: rgba(0,0,0,0.3);
-  padding: 16px 24px;
+  padding: 1.2vh 1.5vw;
   border-radius: 10px;
 }
 #slide-prayer .bottom-bar img {
-  height: 36px;
+  height: clamp(20px, 3vh, 36px);
   filter: brightness(10);
   opacity: 0.7;
 }
 #slide-prayer .bottom-bar .masjid-name {
   font-family: 'Josefin Sans', sans-serif;
-  font-size: 0.95rem; font-weight: 600;
+  font-size: clamp(0.55rem, 0.7vw, 0.95rem); font-weight: 600;
   color: var(--td); text-transform: uppercase;
   letter-spacing: 6px;
 }
@@ -1238,68 +1238,68 @@ body.cursor-hidden { cursor: none; }
 
 /* ═══ RESPONSIVE ═══ */
 @media (max-height: 900px) {
-  #slide-prayer .s-content { padding: 30px 40px; gap: 14px; }
-  #slide-prayer .prayer-main { grid-template-columns: 1fr clamp(340px, 35vw, 560px); }
-  #slide-prayer .pt-header .pt-hcell { padding: 16px 30px; font-size: 1.8rem; }
-  #slide-prayer .pt-cell { padding: 0 30px; }
-  #slide-prayer .pt-cell.pt-time { font-size: 3.6rem; }
-  #slide-prayer .pt-cell.pt-name { font-size: 2.2rem; letter-spacing: 4px; }
-  #slide-prayer .pt-ic i { font-size: 2.4rem; }
-  #slide-prayer .info-panel { padding: 28px 32px; gap: 4px; }
-  #slide-prayer .info-clock { font-size: 7rem; }
-  #slide-prayer .info-clock .info-ap { font-size: 1.6rem; }
-  #slide-prayer .info-hijri { font-size: 1.2rem; }
-  #slide-prayer .info-greg { font-size: 1rem; margin-bottom: 10px; }
-  #slide-prayer .info-niq { padding: 14px 0; margin-top: 8px; }
-  #slide-prayer .info-niq-label { font-size: 0.9rem; }
-  #slide-prayer .info-niq-time { font-size: 3.2rem; }
-  #slide-prayer .info-niq-time small { font-size: 1.2rem; }
-  #slide-prayer .info-jumuah { padding: 12px 0; }
-  #slide-prayer .info-jumuah-title { font-size: 1.1rem; margin-bottom: 10px; }
-  #slide-prayer .info-jumuah-col .jtime { font-size: 2.8rem; }
-  #slide-prayer .info-jumuah-col .jtime .jap { font-size: 0.8rem; }
-  #slide-prayer .info-jumuah-col .jlabel { font-size: 0.75rem; }
-  #slide-prayer .info-sun { padding-top: 12px; gap: 5px; }
-  #slide-prayer .info-sun-row { padding: 10px 16px; gap: 12px; }
-  #slide-prayer .info-sun-row .sun-label { font-size: 0.9rem; }
-  #slide-prayer .info-sun-row .sun-time { font-size: 1.6rem; }
-  #slide-prayer .info-sun-row i { font-size: 1.1rem; }
+  #slide-prayer .s-content { padding: 2.5vh 2.5vw; gap: 1.2vh; }
+  #slide-prayer .prayer-main { grid-template-columns: 1fr clamp(280px, 35vw, 560px); }
+  #slide-prayer .pt-header .pt-hcell { padding: 1.8vh 2vw; font-size: clamp(1rem, 2.2vh, 1.8rem); }
+  #slide-prayer .pt-cell { padding: 0 2vw; }
+  #slide-prayer .pt-cell.pt-time { font-size: clamp(1.8rem, 4.5vh, 3.6rem); }
+  #slide-prayer .pt-cell.pt-name { font-size: clamp(1.2rem, 2.8vh, 2.2rem); letter-spacing: 4px; }
+  #slide-prayer .pt-ic i { font-size: clamp(1.4rem, 3vh, 2.4rem); }
+  #slide-prayer .info-panel { padding: 2vh 2vw; gap: 0.4vh; }
+  #slide-prayer .info-clock { font-size: clamp(3rem, 8vh, 7rem); }
+  #slide-prayer .info-clock .info-ap { font-size: clamp(0.8rem, 2vh, 1.6rem); }
+  #slide-prayer .info-hijri { font-size: clamp(0.7rem, 1.4vh, 1.2rem); }
+  #slide-prayer .info-greg { font-size: clamp(0.6rem, 1.2vh, 1rem); margin-bottom: 1vh; }
+  #slide-prayer .info-niq { padding: 1.5vh 0; margin-top: 0.8vh; }
+  #slide-prayer .info-niq-label { font-size: clamp(0.55rem, 1.1vh, 0.9rem); }
+  #slide-prayer .info-niq-time { font-size: clamp(1.6rem, 4vh, 3.2rem); }
+  #slide-prayer .info-niq-time small { font-size: clamp(0.7rem, 1.5vh, 1.2rem); }
+  #slide-prayer .info-jumuah { padding: 1.2vh 0; }
+  #slide-prayer .info-jumuah-title { font-size: clamp(0.65rem, 1.3vh, 1.1rem); margin-bottom: 1vh; }
+  #slide-prayer .info-jumuah-col .jtime { font-size: clamp(1.4rem, 3.5vh, 2.8rem); }
+  #slide-prayer .info-jumuah-col .jtime .jap { font-size: clamp(0.5rem, 1vh, 0.8rem); }
+  #slide-prayer .info-jumuah-col .jlabel { font-size: clamp(0.45rem, 0.9vh, 0.75rem); }
+  #slide-prayer .info-sun { padding-top: 1.2vh; gap: 0.5vh; }
+  #slide-prayer .info-sun-row { padding: 1vh 1.2vw; gap: 0.8vw; }
+  #slide-prayer .info-sun-row .sun-label { font-size: clamp(0.55rem, 1.1vh, 0.9rem); }
+  #slide-prayer .info-sun-row .sun-time { font-size: clamp(0.9rem, 2vh, 1.6rem); }
+  #slide-prayer .info-sun-row i { font-size: clamp(0.65rem, 1.3vh, 1.1rem); }
 }
 @media (max-height: 750px) {
-  #slide-prayer .s-content { padding: 18px 24px; gap: 10px; }
-  #slide-prayer .prayer-main { grid-template-columns: 1fr clamp(280px, 30vw, 440px); }
+  #slide-prayer .s-content { padding: 1.5vh 1.5vw; gap: 0.8vh; }
+  #slide-prayer .prayer-main { grid-template-columns: 1fr clamp(220px, 30vw, 440px); }
   #slide-prayer .pt-header,
-  #slide-prayer .pt-row { grid-template-columns: 80px 180px 1fr 1fr; }
-  #slide-prayer .pt-header .pt-hcell { padding: 12px 20px; font-size: 1.4rem; }
-  #slide-prayer .pt-cell { padding: 0 20px; }
-  #slide-prayer .pt-cell.pt-time { font-size: 2.6rem; }
-  #slide-prayer .pt-time .pt-ap { font-size: 1rem; }
-  #slide-prayer .pt-cell.pt-name { font-size: 1.6rem; letter-spacing: 3px; }
-  #slide-prayer .pt-ic i { font-size: 1.8rem; }
-  #slide-prayer .info-panel { padding: 18px 22px; gap: 2px; }
-  #slide-prayer .info-clock { font-size: 5rem; }
-  #slide-prayer .info-clock .info-ap { font-size: 1.2rem; }
-  #slide-prayer .info-hijri { font-size: 0.95rem; }
-  #slide-prayer .info-greg { font-size: 0.8rem; margin-bottom: 6px; }
-  #slide-prayer .info-niq { padding: 10px 0; margin-top: 6px; }
-  #slide-prayer .info-niq-label { font-size: 0.75rem; }
-  #slide-prayer .info-niq-time { font-size: 2.2rem; }
-  #slide-prayer .info-niq-time small { font-size: 0.9rem; }
-  #slide-prayer .info-jumuah { padding: 8px 0; }
-  #slide-prayer .info-jumuah-title { font-size: 0.85rem; margin-bottom: 8px; }
-  #slide-prayer .info-jumuah-col .jtime { font-size: 2rem; }
-  #slide-prayer .info-jumuah-col .jlabel { font-size: 0.65rem; }
-  #slide-prayer .info-sun { padding-top: 8px; gap: 4px; }
-  #slide-prayer .info-sun-row { padding: 8px 14px; }
-  #slide-prayer .info-sun-row .sun-label { font-size: 0.75rem; }
-  #slide-prayer .info-sun-row .sun-time { font-size: 1.3rem; }
+  #slide-prayer .pt-row { grid-template-columns: clamp(50px, 5vw, 80px) clamp(120px, 12vw, 180px) 1fr 1fr; }
+  #slide-prayer .pt-header .pt-hcell { padding: 1.2vh 1.5vw; font-size: clamp(0.8rem, 1.8vh, 1.4rem); }
+  #slide-prayer .pt-cell { padding: 0 1.5vw; }
+  #slide-prayer .pt-cell.pt-time { font-size: clamp(1.4rem, 3.5vh, 2.6rem); }
+  #slide-prayer .pt-time .pt-ap { font-size: clamp(0.6rem, 1.3vh, 1rem); }
+  #slide-prayer .pt-cell.pt-name { font-size: clamp(0.9rem, 2.2vh, 1.6rem); letter-spacing: 3px; }
+  #slide-prayer .pt-ic i { font-size: clamp(1rem, 2.4vh, 1.8rem); }
+  #slide-prayer .info-panel { padding: 1.5vh 1.5vw; gap: 0.2vh; }
+  #slide-prayer .info-clock { font-size: clamp(2.2rem, 6.5vh, 5rem); }
+  #slide-prayer .info-clock .info-ap { font-size: clamp(0.6rem, 1.6vh, 1.2rem); }
+  #slide-prayer .info-hijri { font-size: clamp(0.55rem, 1.2vh, 0.95rem); }
+  #slide-prayer .info-greg { font-size: clamp(0.5rem, 1vh, 0.8rem); margin-bottom: 0.6vh; }
+  #slide-prayer .info-niq { padding: 1vh 0; margin-top: 0.6vh; }
+  #slide-prayer .info-niq-label { font-size: clamp(0.45rem, 0.9vh, 0.75rem); }
+  #slide-prayer .info-niq-time { font-size: clamp(1.2rem, 3vh, 2.2rem); }
+  #slide-prayer .info-niq-time small { font-size: clamp(0.5rem, 1.1vh, 0.9rem); }
+  #slide-prayer .info-jumuah { padding: 0.8vh 0; }
+  #slide-prayer .info-jumuah-title { font-size: clamp(0.5rem, 1.1vh, 0.85rem); margin-bottom: 0.8vh; }
+  #slide-prayer .info-jumuah-col .jtime { font-size: clamp(1.1rem, 2.7vh, 2rem); }
+  #slide-prayer .info-jumuah-col .jlabel { font-size: clamp(0.4rem, 0.8vh, 0.65rem); }
+  #slide-prayer .info-sun { padding-top: 0.8vh; gap: 0.4vh; }
+  #slide-prayer .info-sun-row { padding: 0.8vh 1vw; }
+  #slide-prayer .info-sun-row .sun-label { font-size: clamp(0.45rem, 0.9vh, 0.75rem); }
+  #slide-prayer .info-sun-row .sun-time { font-size: clamp(0.7rem, 1.7vh, 1.3rem); }
 }
 
 /* ── Iqamah countdown bar on non-prayer slides ── */
 .iq-bar{
   position:fixed;top:0;left:0;right:0;z-index:20;
   display:flex;align-items:center;justify-content:space-between;
-  padding:18px 40px;
+  padding:1vw 2vw;
   background:#040d08;
   border-bottom:2px solid rgba(212,168,67,.3);
   box-shadow:0 4px 24px rgba(0,0,0,.4);
@@ -1307,27 +1307,27 @@ body.cursor-hidden { cursor: none; }
   opacity:0;transition:opacity .4s;pointer-events:none;
 }
 .iq-bar.visible{opacity:1}
-.iq-bar-left{display:flex;flex-direction:column;align-items:flex-start;gap:4px;flex-shrink:0}
-.iq-bar-clock{font-size:3.6rem;font-weight:700;letter-spacing:.04em;font-feature-settings:"tnum"}
+.iq-bar-left{display:flex;flex-direction:column;align-items:flex-start;gap:.3vw;flex-shrink:0}
+.iq-bar-clock{font-size:clamp(1.6rem,2.8vw,3.6rem);font-weight:700;letter-spacing:.04em;font-feature-settings:"tnum"}
 .iq-bar-clock small{font-size:.45em;opacity:.6;margin-left:5px;font-weight:400}
-.iq-bar-next-label{font-size:1.3rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(242,240,230,.5)}
-.iq-bar-next-label strong{color:#d4a843;font-size:1.5rem;letter-spacing:.04em}
+.iq-bar-next-label{font-size:clamp(.7rem,1vw,1.3rem);letter-spacing:.12em;text-transform:uppercase;color:rgba(242,240,230,.5)}
+.iq-bar-next-label strong{color:#d4a843;font-size:clamp(.8rem,1.15vw,1.5rem);letter-spacing:.04em}
 .iq-bar-center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
-.iq-bar-cd-label{font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(242,240,230,.4)}
-.iq-bar-cd{font-size:3.4rem;font-weight:700;font-feature-settings:"tnum";letter-spacing:.04em;color:#f2f0e6}
+.iq-bar-cd-label{font-size:clamp(.5rem,.6vw,.75rem);letter-spacing:.15em;text-transform:uppercase;color:rgba(242,240,230,.4)}
+.iq-bar-cd{font-size:clamp(1.6rem,2.6vw,3.4rem);font-weight:700;font-feature-settings:"tnum";letter-spacing:.04em;color:#f2f0e6}
 .iq-bar-cd small{font-size:.55em;opacity:.5;margin-left:3px}
-.iq-bar-times{display:flex;gap:10px;flex-shrink:0}
+.iq-bar-times{display:flex;gap:.6vw;flex-shrink:0}
 .iq-bar-pt{
-  display:flex;flex-direction:column;align-items:center;gap:6px;
-  padding:16px 30px;border-radius:10px;
-  background:rgba(242,240,230,.05);min-width:150px;
+  display:flex;flex-direction:column;align-items:center;gap:.4vw;
+  padding:.8vw 1.5vw;border-radius:10px;
+  background:rgba(242,240,230,.05);min-width:7vw;
 }
 .iq-bar-pt.active{background:rgba(212,168,67,.18);border:1px solid rgba(212,168,67,.35)}
 .iq-bar-pt:not(.active){border:1px solid transparent}
-.iq-bar-pt-name{font-size:1.1rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(242,240,230,.5)}
+.iq-bar-pt-name{font-size:clamp(.55rem,.85vw,1.1rem);font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(242,240,230,.5)}
 .iq-bar-pt.active .iq-bar-pt-name{color:#d4a843}
-.iq-bar-pt-adhan{font-size:2rem;font-weight:700;font-feature-settings:"tnum"}
-.iq-bar-pt-iq{font-size:1.2rem;color:rgba(242,240,230,.45);font-feature-settings:"tnum"}
+.iq-bar-pt-adhan{font-size:clamp(1rem,1.5vw,2rem);font-weight:700;font-feature-settings:"tnum"}
+.iq-bar-pt-iq{font-size:clamp(.6rem,.9vw,1.2rem);color:rgba(242,240,230,.45);font-feature-settings:"tnum"}
 .iq-bar-pt.active .iq-bar-pt-iq{color:rgba(212,168,67,.7)}
 
 /* ── Iqamah fullscreen takeover ── */
