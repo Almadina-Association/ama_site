@@ -89,7 +89,9 @@ body.cursor-hidden { cursor: none; }
   position: absolute; inset: 0; opacity: 0; visibility: hidden; z-index: 1;
   transition: opacity 0.6s ease, visibility 0s 0.6s, transform 0.6s ease;
   transform: translateY(0);
+  padding-top: 120px;
 }
+#slide-prayer{padding-top:0}
 .slide.active { opacity: 1; visibility: visible; z-index: 3; transition: opacity 0.6s ease, visibility 0s 0s, transform 0.6s ease; }
 .slide.exiting { opacity: 0; visibility: visible; z-index: 2; transition: opacity 0.6s ease, transform 0.6s ease; }
 
@@ -100,6 +102,7 @@ body.cursor-hidden { cursor: none; }
 
 /* Diamond pattern — fade out in bottom-left where mosque image is */
 #slide-prayer::before,
+#slide-eid::before,
 #slide-resources::before,
 #slide-donation::before,
 #slide-whatsapp::before,
@@ -123,6 +126,193 @@ body.cursor-hidden { cursor: none; }
               linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 50%, transparent 90%);
   mask-composite: intersect;
   pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════
+   SLIDE — EID DINNER EVENT
+   ═══════════════════════════════════════════ */
+#slide-eid {
+  font-family: 'Josefin Sans', sans-serif;
+  background: linear-gradient(160deg, #0f2419 0%, #0b1d14 40%, #0d1f16 100%);
+}
+#slide-eid::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M40 0L80 40L40 80L0 40Z' fill='none' stroke='%23d4a843' stroke-width='0.4'/%3E%3Cpath d='M40 12L68 40L40 68L12 40Z' fill='none' stroke='%23d4a843' stroke-width='0.25'/%3E%3C/svg%3E");
+  opacity: 0.04;
+}
+#slide-eid .s-content {
+  position: relative; z-index: 1;
+  width: 100%; height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 60px;
+}
+#slide-eid .eid-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  max-width: 1600px;
+  width: 100%;
+  align-items: center;
+}
+#slide-eid .eid-left {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+#slide-eid .eid-eyebrow {
+  font-family: 'Quattrocento Sans', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: #d4a843;
+}
+#slide-eid .eid-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 4.5rem;
+  font-weight: 900;
+  color: #f2f0e6;
+  line-height: 1.1;
+  margin: 0;
+}
+#slide-eid .eid-title em {
+  font-style: normal;
+  color: #d4a843;
+}
+#slide-eid .eid-subtitle {
+  font-family: 'Amiri', serif;
+  font-size: 2.2rem;
+  color: rgba(212,168,67,0.7);
+  margin: -5px 0 10px;
+}
+#slide-eid .eid-details {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 10px;
+}
+#slide-eid .eid-detail-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(212,168,67,0.15);
+  border-radius: 12px;
+  padding: 16px 24px;
+}
+#slide-eid .eid-detail-row i {
+  font-size: 1.6rem;
+  color: #d4a843;
+  width: 36px;
+  text-align: center;
+  flex-shrink: 0;
+}
+#slide-eid .eid-detail-row .eid-dl {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: rgba(242,240,230,0.4);
+  font-weight: 600;
+}
+#slide-eid .eid-detail-row .eid-dv {
+  font-size: 1.5rem;
+  color: #f2f0e6;
+  font-weight: 600;
+  margin-top: 2px;
+}
+#slide-eid .eid-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+#slide-eid .eid-activities {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+}
+#slide-eid .eid-act {
+  flex: 1;
+  background: rgba(212,168,67,0.08);
+  border: 1px solid rgba(212,168,67,0.2);
+  border-radius: 16px;
+  padding: 28px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+#slide-eid .eid-act i {
+  font-size: 2.4rem;
+  color: #d4a843;
+}
+#slide-eid .eid-act span {
+  font-size: 1.15rem;
+  color: #f2f0e6;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+#slide-eid .eid-rsvp-box {
+  background: linear-gradient(135deg, rgba(212,168,67,0.15), rgba(212,168,67,0.05));
+  border: 2px solid rgba(212,168,67,0.35);
+  border-radius: 20px;
+  padding: 30px 40px;
+  text-align: center;
+  width: 100%;
+}
+#slide-eid .eid-rsvp-title {
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #d4a843;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+#slide-eid .eid-rsvp-link {
+  font-size: 2rem;
+  color: #f2f0e6;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+#slide-eid .eid-rsvp-qr {
+  margin-top: 16px;
+}
+#slide-eid .eid-rsvp-qr canvas {
+  border-radius: 10px;
+  background: #fff;
+  padding: 8px;
+}
+#slide-eid .eid-rsvp-note {
+  font-size: 1rem;
+  color: rgba(242,240,230,0.5);
+  margin-top: 12px;
+  font-style: italic;
+}
+#slide-eid .eid-price-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(212,168,67,0.2);
+  border: 1px solid rgba(212,168,67,0.4);
+  border-radius: 50px;
+  padding: 10px 28px;
+  margin-top: 5px;
+}
+#slide-eid .eid-price-badge .eid-price {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #d4a843;
+}
+#slide-eid .eid-price-badge .eid-price-label {
+  font-size: 0.9rem;
+  color: rgba(242,240,230,0.5);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 /* ═══════════════════════════════════════════
@@ -162,7 +352,7 @@ body.cursor-hidden { cursor: none; }
 /* ── MAIN 2-PANEL ── */
 #slide-prayer .prayer-main {
   display: grid;
-  grid-template-columns: 1fr 720px;
+  grid-template-columns: 1fr clamp(380px, 38vw, 720px);
   overflow: hidden;
   border-radius: 14px;
   border: 1px solid rgba(255,255,255,0.06);
@@ -1049,7 +1239,7 @@ body.cursor-hidden { cursor: none; }
 /* ═══ RESPONSIVE ═══ */
 @media (max-height: 900px) {
   #slide-prayer .s-content { padding: 30px 40px; gap: 14px; }
-  #slide-prayer .prayer-main { grid-template-columns: 1fr 560px; }
+  #slide-prayer .prayer-main { grid-template-columns: 1fr clamp(340px, 35vw, 560px); }
   #slide-prayer .pt-header .pt-hcell { padding: 16px 30px; font-size: 1.8rem; }
   #slide-prayer .pt-cell { padding: 0 30px; }
   #slide-prayer .pt-cell.pt-time { font-size: 3.6rem; }
@@ -1077,7 +1267,7 @@ body.cursor-hidden { cursor: none; }
 }
 @media (max-height: 750px) {
   #slide-prayer .s-content { padding: 18px 24px; gap: 10px; }
-  #slide-prayer .prayer-main { grid-template-columns: 1fr 440px; }
+  #slide-prayer .prayer-main { grid-template-columns: 1fr clamp(280px, 30vw, 440px); }
   #slide-prayer .pt-header,
   #slide-prayer .pt-row { grid-template-columns: 80px 180px 1fr 1fr; }
   #slide-prayer .pt-header .pt-hcell { padding: 12px 20px; font-size: 1.4rem; }
@@ -1104,6 +1294,65 @@ body.cursor-hidden { cursor: none; }
   #slide-prayer .info-sun-row .sun-label { font-size: 0.75rem; }
   #slide-prayer .info-sun-row .sun-time { font-size: 1.3rem; }
 }
+
+/* ── Iqamah countdown bar on non-prayer slides ── */
+.iq-bar{
+  position:fixed;top:0;left:0;right:0;z-index:20;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 40px;
+  background:#040d08;
+  border-bottom:2px solid rgba(212,168,67,.3);
+  box-shadow:0 4px 24px rgba(0,0,0,.4);
+  color:#f2f0e6;font-family:'Josefin Sans',sans-serif;
+  opacity:0;transition:opacity .4s;pointer-events:none;
+}
+.iq-bar.visible{opacity:1}
+.iq-bar-left{display:flex;flex-direction:column;align-items:flex-start;gap:4px;flex-shrink:0}
+.iq-bar-clock{font-size:3.6rem;font-weight:700;letter-spacing:.04em;font-feature-settings:"tnum"}
+.iq-bar-clock small{font-size:.45em;opacity:.6;margin-left:5px;font-weight:400}
+.iq-bar-next-label{font-size:1.3rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(242,240,230,.5)}
+.iq-bar-next-label strong{color:#d4a843;font-size:1.5rem;letter-spacing:.04em}
+.iq-bar-center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.iq-bar-cd-label{font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(242,240,230,.4)}
+.iq-bar-cd{font-size:3.4rem;font-weight:700;font-feature-settings:"tnum";letter-spacing:.04em;color:#f2f0e6}
+.iq-bar-cd small{font-size:.55em;opacity:.5;margin-left:3px}
+.iq-bar-times{display:flex;gap:10px;flex-shrink:0}
+.iq-bar-pt{
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  padding:16px 30px;border-radius:10px;
+  background:rgba(242,240,230,.05);min-width:150px;
+}
+.iq-bar-pt.active{background:rgba(212,168,67,.18);border:1px solid rgba(212,168,67,.35)}
+.iq-bar-pt:not(.active){border:1px solid transparent}
+.iq-bar-pt-name{font-size:1.1rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(242,240,230,.5)}
+.iq-bar-pt.active .iq-bar-pt-name{color:#d4a843}
+.iq-bar-pt-adhan{font-size:2rem;font-weight:700;font-feature-settings:"tnum"}
+.iq-bar-pt-iq{font-size:1.2rem;color:rgba(242,240,230,.45);font-feature-settings:"tnum"}
+.iq-bar-pt.active .iq-bar-pt-iq{color:rgba(212,168,67,.7)}
+
+/* ── Iqamah fullscreen takeover ── */
+.iq-takeover{
+  position:fixed;inset:0;z-index:9999;
+  display:none;flex-direction:column;align-items:center;justify-content:center;gap:40px;
+  background:linear-gradient(160deg,#0a1810 0%,#060e09 40%,#081209 100%);
+  text-align:center;
+}
+.iq-takeover.active{display:flex}
+.iq-takeover-icon{font-size:7rem;color:#d4a843;animation:iqPulse 2s ease-in-out infinite}
+.iq-takeover h2{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(4rem,7vw,7rem);
+  font-weight:700;color:#f2f0e6;margin:0;line-height:1.15;letter-spacing:.02em;
+}
+.iq-takeover h2 em{font-style:italic;color:#d4a843}
+.iq-takeover p{
+  font-family:'Cormorant Garamond',serif;font-size:2.8rem;
+  color:rgba(242,240,230,.45);margin:0;letter-spacing:.06em;font-style:italic;
+}
+.iq-takeover-prayer{
+  font-family:'Josefin Sans',sans-serif;font-size:2.8rem;
+  letter-spacing:.3em;text-transform:uppercase;color:#d4a843;font-weight:700;
+}
+@keyframes iqPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.1);opacity:.8}}
 </style>
 </head>
 <body>
@@ -1122,6 +1371,25 @@ body.cursor-hidden { cursor: none; }
   <div style="width:60px; height:60px; border:2px solid #d4a843; border-radius:50%; display:flex; align-items:center; justify-content:center;">
     <i class="fas fa-play" style="font-size:1.4rem; color:#d4a843; margin-left:4px;"></i>
   </div>
+</div>
+
+<!-- Iqamah countdown bar (floats over non-prayer slides) -->
+<div class="iq-bar" id="iqBar">
+  <div class="iq-bar-left">
+    <span class="iq-bar-clock" id="iqBarClock"></span>
+    <span class="iq-bar-next-label" id="iqBarNextLabel"></span>
+  </div>
+  <div class="iq-bar-center">
+    <span class="iq-bar-cd-label">Next Iqamah in</span>
+    <span class="iq-bar-cd" id="iqBarCD"></span>
+  </div>
+  <div class="iq-bar-times" id="iqBarTimes"></div>
+</div>
+
+<!-- Iqamah fullscreen takeover -->
+<div class="iq-takeover" id="iqTakeover">
+  <div class="iq-takeover-icon"><i class="fas fa-mosque"></i></div>
+  <h2>It's Time for <em>Iqamah</em></h2>
 </div>
 
 <div class="mobile-block">
@@ -1197,6 +1465,7 @@ body.cursor-hidden { cursor: none; }
   </div>
 </div>
 
+<!-- ═══════════════ SLIDE — EID DINNER EVENT ═══════════════ -->
 <!-- ═══════════════ SLIDE 2 — RESOURCES (Calendar + App) ═══════════════ -->
 <div class="slide" id="slide-resources">
   <div class="s-content">
@@ -1288,10 +1557,10 @@ body.cursor-hidden { cursor: none; }
     <div class="don-right-panel">
       <div class="don-images">
         <div class="don-img-big">
-          <img src="images/slider/3.jpg" alt="Masjid Side View"/>
+          <img src="images/slider/newImages/3.png" alt="Masjid Side View"/>
         </div>
         <div class="don-img-small">
-          <img src="images/slider/full_new_masjid.PNG" alt="Masjid Aerial View"/>
+          <img src="images/slider/newImages/full_new_masjid.png" alt="Masjid Aerial View"/>
         </div>
       </div>
       <div class="don-goal-box">
@@ -1398,7 +1667,6 @@ body.cursor-hidden { cursor: none; }
     <div class="ev-flyers">
       <div class="ev-flyer"><img src="images/pages/TV/fiqh.png" alt="Fiqh Foundations"></div>
       <div class="ev-flyer"><img src="images/pages/TV/tafsir.png" alt="Tafsir of the Quran"></div>
-      <div class="ev-flyer"><img src="images/pages/TV/teachings.png" alt="Gathering of Knowledge"></div>
     </div>
   </div>
 </div>
@@ -1428,15 +1696,15 @@ const RAISED = 740000, GOAL = 1600000;
 
 const MSGS = [
   'Please donate generously for the new masjid!',
-  'Weekly Halqa by Mufti Atif on Wednesdays after Isha!',
+  'Fiqh Foundations on Mondays &amp; Tafsir Halaqah on Wednesdays — both after Maghrib!',
   'Join our WhatsApp group for announcements — see the front desk.',
   'Weekend Islamic School every Sunday 10 AM – 1 PM.',
   'May Allah accept your prayers and good deeds.'
 ];
 
 const EVS = [
-  {d:'Every Wednesday',t:'Tafsir Halaqah',tm:'After Maghrib',w:'Mufti Aatif Shah',ds:'Topic: Tafsir of Surah An-Nisa'},
-  {d:'Every Friday',t:'Halaqah by Sheikh Fathi',tm:'5:15 PM – 6:15 PM',w:'Sheikh Fathi Thamer',ds:'Topic: Riyad As-Saliheen — Teachings of the Prophet (PBUH).'}
+  {d:'Every Monday',t:'Fiqh Foundations',tm:'After Maghrib',w:'Mufti Aatif Shah',ds:'Understanding Comparative Islamic Jurisprudence Across the Four Schools'},
+  {d:'Every Wednesday',t:'Tafsir Halaqah',tm:'After Maghrib',w:'Mufti Aatif Shah',ds:'Topic: Tafsir of Surah An-Nisa'}
 ];
 
 const PRS = [
@@ -1536,8 +1804,19 @@ function iqCD(){
   const curSec=now.getSeconds();
   let np=null,nm=Infinity;
   PRS.forEach(p=>{const q=pTime(d[p.iK]);if(q!==null&&q>curMin&&q<nm){nm=q;np=p.n;}});
-  if(!np){el.textContent='—';return;}
-  // Difference in seconds
+  if(!np){
+    // All iqamahs passed — count down to tomorrow's Fajr
+    const fajrMin=pTime(d['fajr_iqamah']);
+    if(fajrMin===null){el.textContent='—';return;}
+    const minsLeft=(24*60 - curMin) + fajrMin;
+    const totalSec=minsLeft*60 - curSec;
+    if(totalSec<=0){el.textContent='—';return;}
+    const hr=Math.floor(totalSec/3600);
+    const mn=Math.floor((totalSec%3600)/60);
+    const sc=totalSec%60;
+    el.innerHTML=`${hr}<small>h</small> ${String(mn).padStart(2,'0')}<small>m</small> ${String(sc).padStart(2,'0')}<small>s</small>`;
+    return;
+  }
   const totalSec=(nm-curMin)*60-curSec;
   if(totalSec<=0){el.textContent='—';return;}
   const hr=Math.floor(totalSec/3600);
@@ -1618,6 +1897,7 @@ function go(i){
   sls[ci].classList.add('active');
   dts[ci].classList.add('on');
   if(sls[ci].id==='slide-donation'){pieAnimated=false;animatePie();}
+  updateIqBar();
   setTimeout(()=>{sls[prev].classList.remove('exiting');},700);
 }
 function nx(){go(ci+1);}
@@ -1629,24 +1909,129 @@ document.addEventListener('keydown',e=>{
   else if(e.key==='f'||e.key==='F'){document.documentElement.requestFullscreen?.();}
 });
 
+/* ── Iqamah countdown bar + takeover ── */
+let iqTakeoverActive = false;
+let iqTakeoverDone = {}; // track which iqamah already triggered this session
+
+function updateIqBar(){
+  const d = tData();
+  const bar = document.getElementById('iqBar');
+  const barClock = document.getElementById('iqBarClock');
+  const barNextLabel = document.getElementById('iqBarNextLabel');
+  const barCD = document.getElementById('iqBarCD');
+  const barTimes = document.getElementById('iqBarTimes');
+  const takeover = document.getElementById('iqTakeover');
+
+  const now = new Date();
+  const curMin = now.getHours()*60 + now.getMinutes();
+  const curSec = now.getSeconds();
+
+  // Update clock
+  let ch = now.getHours(), cAP = 'AM';
+  if(ch >= 12){ cAP = 'PM'; if(ch > 12) ch -= 12; }
+  if(ch === 0) ch = 12;
+  barClock.innerHTML = ch + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(curSec).padStart(2,'0') + '<small>' + cAP + '</small>';
+
+  const onPrayerSlide = sls[ci] && sls[ci].id === 'slide-prayer';
+
+
+  if(!d){
+    if(!onPrayerSlide){ barNextLabel.textContent=''; barCD.textContent=''; barTimes.innerHTML=''; bar.classList.add('visible'); }
+    else { bar.classList.remove('visible'); }
+    return;
+  }
+
+  // Find next iqamah
+  let nextP = null, nextMin = Infinity;
+  PRS.forEach(p=>{
+    const q = pTime(d[p.iK]);
+    if(q !== null && q > curMin && q < nextMin){ nextMin = q; nextP = p; }
+  });
+
+  // Check if AT iqamah time (within 0-1 min window)
+  let atIqamah = null;
+  PRS.forEach(p=>{
+    const q = pTime(d[p.iK]);
+    if(q !== null && curMin >= q && curMin < q+1 && !iqTakeoverDone[p.k]){
+      atIqamah = p;
+    }
+  });
+
+  // Takeover logic
+  if(atIqamah && !iqTakeoverActive){
+    iqTakeoverActive = true;
+    iqTakeoverDone[atIqamah.k] = true;
+    takeover.classList.add('active');
+    clearInterval(tmr);
+    setTimeout(()=>{
+      takeover.classList.remove('active');
+      iqTakeoverActive = false;
+      st();
+    }, 60000);
+  }
+
+  // Show bar on non-prayer slides
+  if(!onPrayerSlide && !iqTakeoverActive){
+    // Next iqamah label + countdown
+    if(nextP){
+      const totalSec = (nextMin - curMin)*60 - curSec;
+      barNextLabel.innerHTML = 'Next Iqamah &nbsp;<strong>'+nextP.n+'</strong> &nbsp; ' + (d[nextP.iK]||'');
+      if(totalSec > 0){
+        const hr = Math.floor(totalSec/3600);
+        const mn = Math.floor((totalSec%3600)/60);
+        const sc = totalSec%60;
+        if(hr > 0) barCD.innerHTML = hr+'<small>h</small> '+String(mn).padStart(2,'0')+'<small>m</small> '+String(sc).padStart(2,'0')+'<small>s</small>';
+        else barCD.innerHTML = mn+'<small>m</small> '+String(sc).padStart(2,'0')+'<small>s</small>';
+      } else {
+        barCD.textContent = 'Now';
+      }
+    } else {
+      // All iqamahs passed — count down to tomorrow's Fajr
+      const fajrMin = pTime(d['fajr_iqamah']);
+      barNextLabel.innerHTML = 'Next Iqamah &nbsp;<strong>Fajr</strong> &nbsp; ' + (d['fajr_iqamah']||'');
+      if(fajrMin !== null){
+        const minsLeft = (24*60 - curMin) + fajrMin;
+        const totalSec = minsLeft*60 - curSec;
+        if(totalSec > 0){
+          const hr = Math.floor(totalSec/3600);
+          const mn = Math.floor((totalSec%3600)/60);
+          const sc = totalSec%60;
+          barCD.innerHTML = hr+'<small>h</small> '+String(mn).padStart(2,'0')+'<small>m</small> '+String(sc).padStart(2,'0')+'<small>s</small>';
+        } else {
+          barCD.textContent = d['fajr_iqamah'] || '—';
+        }
+      } else {
+        barCD.textContent = d['fajr_iqamah'] || '—';
+      }
+    }
+
+    // Build prayer time cells (only rebuild once per minute to avoid flicker)
+    const minKey = curMin+'_bar';
+    if(barTimes.dataset.mk !== minKey){
+      barTimes.dataset.mk = minKey;
+      let h = '';
+      PRS.forEach(p=>{
+        const adhan = d[p.sK] || '—';
+        const iq = d[p.iK] || '—';
+        const isNext = nextP && p.k === nextP.k;
+        h += '<div class="iq-bar-pt'+(isNext?' active':'')+'">';
+        h += '<span class="iq-bar-pt-name">'+p.n+'</span>';
+        h += '<span class="iq-bar-pt-adhan">'+adhan+'</span>';
+        h += '<span class="iq-bar-pt-iq">Iqamah '+iq+'</span>';
+        h += '</div>';
+      });
+      barTimes.innerHTML = h;
+    }
+
+    bar.classList.add('visible');
+  } else {
+    bar.classList.remove('visible');
+  }
+}
+
 /* Init */
 function init(){
-  // Slide 1
-  updateClocks();
-  iqCD();
-  setInterval(()=>{ updateClocks(); iqCD(); }, 1000);
-  buildPrayer();
-  setInterval(buildPrayer, 60000);
-
-  // Slides 2, 3 & 4
-  buildRes();
-  buildDon();
-  /* flyers are static HTML now */
-
-  // Slideshow
-  st();
-
-  // Fullscreen overlay
+  // Fullscreen overlay — register FIRST so click always works
   const fsOv = document.getElementById('fs-overlay');
   if(fsOv){
     function launchFS(){
@@ -1664,6 +2049,22 @@ function init(){
       }
     });
   }
+
+  // Slide 1
+  updateClocks();
+  iqCD();
+  updateIqBar();
+  setInterval(()=>{ updateClocks(); iqCD(); updateIqBar(); }, 1000);
+  buildPrayer();
+  setInterval(buildPrayer, 60000);
+
+  // Slides 2, 3 & 4
+  buildRes();
+  buildDon();
+  /* flyers are static HTML now */
+
+  // Slideshow
+  st();
 }
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',init):init();
 })();
