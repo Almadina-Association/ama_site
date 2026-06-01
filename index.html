@@ -1,1229 +1,1897 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html class="no-js">
-<!--<![endif]-->
-
+<!doctype html>
+<html lang="en">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta name="description" content="Al Madina Association">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Al-Madina Association | Rosemount</title>
+<link rel="icon" type="image/png" href="images/logos/square.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Hanken+Grotesk:wght@400;500;600;700;800&family=Marck+Script&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="js/prayerData.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+<style>
+  :root{
+    --ink:#0F3B2E;
+    --ink-2:#1B5240;
+    --ink-soft:#3A5A50;
+    --cream:#F6F1E6;
+    --cream-2:#EFE7D2;
+    --paper:#FAF7EF;
+    --gold:#C8A45E;
+    --gold-soft:#E0C68A;
+    --mint:#7FD1A8;
+    --rule:rgba(15,59,46,.14);
+    --shadow:0 30px 60px -30px rgba(15,59,46,.35);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:"Hanken Grotesk", system-ui, sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    letter-spacing:-.006em;
+  }
+  .serif{font-family:"Cormorant Garamond", serif;font-weight:500;letter-spacing:-.005em}
+  .script{font-family:"Marck Script", cursive;font-weight:400}
+  a{color:inherit}
+  img{max-width:100%;display:block}
+  .wrap{max-width:1280px;margin:0 auto;padding:0 32px}
+  @media (max-width:720px){ .wrap{padding:0 20px} }
 
-	<meta name="author" content="Romo Islam">
+  /* ---------- NAV (dark) ---------- */
+  .nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(8,28,22,.96);
+    backdrop-filter:saturate(140%) blur(14px);
+    border-bottom:1px solid rgba(224,198,138,.18);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:78px}
+  .brand{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--cream)}
+  .brand-logo{height:46px;width:auto;border-radius:4px}
+  .brand-name{display:flex;flex-direction:column;line-height:1}
+  .brand-name b{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:22px;letter-spacing:.01em}
+  .brand-name span{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(246,241,230,.55);margin-top:4px}
+  .nav-links{display:flex;gap:30px;align-items:center}
+  .nav-links a{text-decoration:none;font-size:14px;font-weight:500;color:var(--cream);opacity:.78;transition:opacity .2s}
+  .nav-links a:hover{opacity:1}
+  .nav-cta{
+    background:var(--gold);color:var(--ink);
+    padding:11px 20px;border-radius:999px;font-size:13px;font-weight:700;letter-spacing:.02em;
+    text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+    transition:transform .2s, background .2s;
+  }
+  .nav-cta:hover{background:var(--gold-soft);transform:translateY(-1px)}
+  .hamburger{display:none;background:none;border:none;color:var(--cream);cursor:pointer;padding:8px}
+  @media (max-width:880px){
+    .nav-links{display:none;position:absolute;top:78px;left:0;right:0;background:rgba(8,28,22,.97);flex-direction:column;padding:20px 32px;gap:18px;border-bottom:1px solid rgba(224,198,138,.18)}
+    .nav-links.open{display:flex}
+    .hamburger{display:block}
+    .nav-cta{display:none}
+  }
 
-	<title>Al-Madina Association</title>
+  /* ---------- PRAYER TIMES BAR (cream, between nav and hero) ---------- */
+  .prayer-bar{
+    background:var(--cream);color:var(--ink);
+    padding:24px 0;position:relative;
+    border-bottom:1px solid var(--rule);
+  }
+  .prayer-grid{
+    display:grid;grid-template-columns:auto repeat(5, 1fr) auto auto;
+    gap:8px;align-items:center;
+  }
+  .prayer-daynav{
+    display:flex;align-items:center;gap:10px;
+    padding-right:24px;
+    border-right:1px solid var(--rule);
+  }
+  .daynav-btn{
+    width:34px;height:34px;border-radius:50%;
+    background:transparent;
+    border:1px solid var(--rule);
+    color:var(--ink);
+    display:grid;place-items:center;cursor:pointer;
+    transition:background .2s, border-color .2s;
+    padding:0;
+  }
+  .daynav-btn:hover{background:var(--cream-2);border-color:var(--gold)}
+  .daynav-btn[disabled]{opacity:.35;cursor:not-allowed}
+  .daynav-date{
+    min-width:110px;text-align:center;
+    line-height:1.05;
+  }
+  .daynav-date .d{
+    font-family:"Cormorant Garamond",serif;
+    font-size:22px;font-style:italic;color:var(--ink-soft);
+  }
+  .daynav-date .s{
+    display:block;font-size:10px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--ink);opacity:.55;margin-top:4px;font-feature-settings:"tnum";
+  }
+  .prayer{
+    text-align:center;padding:6px 4px;
+    border-right:1px dashed rgba(15,59,46,.16);
+  }
+  .prayer-name{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px;font-weight:700}
+  .prayer-iqamah{font-family:"Cormorant Garamond",serif;font-size:30px;font-weight:700;line-height:1;color:var(--ink);font-feature-settings:"tnum"}
+  .prayer-adhan{font-size:11px;color:rgba(15,59,46,.55);margin-top:4px;font-feature-settings:"tnum";font-weight:600}
+  .prayer.next-prayer{background:var(--ink);border-radius:10px;border-color:transparent;padding:10px 8px}
+  .prayer.next-prayer .prayer-name{color:var(--gold)}
+  .prayer.next-prayer .prayer-iqamah{color:var(--cream)}
+  .prayer.next-prayer .prayer-adhan{color:rgba(246,241,230,.5)}
+  .prayer-jummah-box{
+    text-align:center;padding:10px 16px;
+    background:var(--ink);border-radius:10px;
+    border-left:none;
+  }
+  .prayer-jummah-box .prayer-name{color:var(--gold)}
+  .prayer-jummah-box .prayer-iqamah{color:var(--cream)}
+  .prayer-jummah-box .prayer-adhan{color:rgba(246,241,230,.5)}
 
-	<!-- Mobile Specific Meta
-		================================================== -->
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+  /* Prayer bar responsive */
+  @media (max-width:1200px){
+    .prayer-name{font-size:10px;letter-spacing:.16em}
+    .prayer-iqamah{font-size:24px}
+    .prayer-adhan{font-size:9px}
+    .prayer-jummah-box{padding:8px 12px}
+  }
+  @media (max-width:960px){
+    .prayer-grid{grid-template-columns:auto repeat(5,1fr) auto auto;gap:6px}
+    .prayer-name{font-size:9px;letter-spacing:.12em}
+    .prayer-iqamah{font-size:20px}
+    .prayer-adhan{font-size:8px}
+    .prayer-jummah-box{padding:6px 8px}
+    .prayer-jummah-box .prayer-adhan{font-size:8px}
+    .daynav-date .d{font-size:17px}
+    .daynav-date .s{font-size:8px}
+    .prayer-daynav{padding-right:12px;gap:6px}
+    .prayer-calendar{padding-left:12px}
+    .calendar-btn{font-size:10px;padding:8px 12px 8px 10px}
+  }
+  @media (max-width:768px){
+    .prayer-bar{padding:16px 0}
+    .prayer-grid{
+      grid-template-columns:repeat(3,1fr);
+      gap:8px;
+    }
+    .prayer-daynav{
+      grid-column:1/-1;border-right:none;
+      padding-right:0;justify-content:center;padding-bottom:8px;
+      border-bottom:1px solid var(--rule);margin-bottom:4px;
+    }
+    .prayer{padding:8px 4px}
+    .prayer-name{font-size:11px;letter-spacing:.14em;font-weight:800}
+    .prayer-iqamah{font-size:26px;font-weight:800}
+    .prayer-adhan{font-size:10px;font-weight:700}
+    .prayer-jummah-box{
+      padding:8px 4px;
+    }
+    .prayer-jummah-box .prayer-iqamah{font-size:26px}
+    .prayer-jummah-box .prayer-adhan{font-size:10px}
+    .prayer-calendar{
+      grid-column:1/-1;padding-left:0;justify-content:center;
+      padding-top:8px;border-top:1px solid var(--rule);margin-top:4px;
+    }
+  }
+  @media (max-width:480px){
+    .prayer-grid{grid-template-columns:repeat(2,1fr);gap:6px}
+    .prayer-name{font-size:10px;font-weight:800}
+    .prayer-iqamah{font-size:24px;font-weight:800}
+    .prayer-adhan{font-size:9px;font-weight:700}
+  }
 
-	<!-- Favicon -->
-	<link rel="shortcut icon" type="image/png" href="images/logos/square.png" />
+  .prayer-calendar{
+    padding-left:24px;
+    display:flex;align-items:center;
+  }
+  .calendar-btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:10px 16px 10px 14px;border-radius:999px;
+    background:var(--ink);color:var(--cream);
+    border:1px solid var(--ink);
+    cursor:pointer;font-family:inherit;
+    font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;
+    transition:background .2s, border-color .2s;
+  }
+  .calendar-btn:hover{background:#0a2a20;border-color:#0a2a20}
+  .calendar-btn svg{color:var(--gold-soft)}
+  @media (max-width:980px){
+    .prayer-grid{grid-template-columns:repeat(3,1fr);gap:18px 12px}
+    .prayer-daynav{grid-column:1 / -1;justify-content:space-between;padding:0 0 18px;border-right:0;border-bottom:1px solid var(--rule);margin-bottom:8px}
+    .prayer-calendar{grid-column:1 / -1;padding:18px 0 0;border-top:1px solid var(--rule);justify-content:center}
+    .prayer{border-right:0;border-bottom:1px dashed rgba(15,59,46,.12);padding-bottom:14px}
+  }
 
-	<!-- CSS
-		================================================== -->
-	<!-- Fontawesome Icon font -->
-	<link rel="stylesheet" href="plugins/themefisher-font/style.css">
-	<!-- bootstrap.min css -->
-	<link rel="stylesheet" href="plugins/bootstrap/dist/css/bootstrap.min.css">
-	<!-- Animate.css -->
-	<link rel="stylesheet" href="plugins/animate-css/animate.css">
-	<!-- Magnific popup css -->
-	<link rel="stylesheet" href="plugins/magnific-popup/dist/magnific-popup.css">
-	<!-- Slick Carousel -->
-	<link rel="stylesheet" href="plugins/slick-carousel/slick/slick.css">
-	<link rel="stylesheet" href="plugins/slick-carousel/slick/slick-theme.css">
-	<!-- Main Stylesheet -->
-	<link rel="stylesheet" href="css/style.css">
-	
-	<style>
-		.prayer-pagination {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			gap: 8px;
-			margin: 10px 0;
-			padding: 0 15px 10px 15px;
-			background: transparent;
-			border-bottom: 1px solid #ddd;
-		}
-		.date-nav {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			gap: 20px;
-			width: 100%;
-		}
-		.prayer-pagination #current-date-display {
-			font-family: 'Josefin Sans', sans-serif;
-			font-weight: 600;
-			font-size: 0.85em;
-			color: #444;
-			text-transform: uppercase;
-			letter-spacing: 1px;
-			text-align: center;
-			white-space: nowrap;
-		}
-		.prayer-pagination .btn-pagination {
-			background: transparent;
-			color: #2b5a4a;
-			border: 1px solid #2b5a4a;
-			width: 24px;
-			height: 24px;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			border-radius: 50%;
-			cursor: pointer;
-			transition: all 0.3s ease;
-			font-size: 0.65em;
-		}
-		.prayer-pagination .btn-pagination:hover:not(:disabled) {
-			background: #2b5a4a;
-			color: white;
-		}
-		.prayer-pagination .btn-pagination:disabled {
-			opacity: 0.3;
-			cursor: not-allowed;
-			border-color: #ccc;
-			color: #ccc;
-		}
-		.calendar-btn {
-			background: #2b5a4a;
-			color: white;
-			border: none;
-			padding: 4px 12px;
-			border-radius: 4px;
-			font-size: 0.65em;
-			cursor: pointer;
-			font-family: 'Josefin Sans', sans-serif;
-			transition: background 0.3s;
-			display: inline-flex;
-			align-items: center;
-			gap: 5px;
-			text-transform: uppercase;
-			font-weight: 600;
-		}
-		.calendar-btn:hover {
-			background: #1e3f34;
-		}
-		.calendar-btn i,
-		.calendar-btn span {
-			display: inline-block;
-			vertical-align: middle;
-			line-height: 1;
-		}
-		.calendar-btn i {
-			transform: translateY(-1px);
-		}
+  /* ====================================================================
+     HERO -- FULL-WIDTH 2-COLUMN SPLIT SLIDER (v4 design)
+     ==================================================================== */
+  .hero{
+    position:relative;
+    height:calc(100vh - var(--header-h, 179px));
+    min-height:500px;
+    padding:0;
+    overflow:hidden;
+    background:
+      radial-gradient(ellipse 90% 60% at 75% 0%, rgba(27,82,64,.55) 0%, transparent 60%),
+      linear-gradient(165deg, #103b2e 0%, #0c2e23 55%, #081f18 100%);
+    color:var(--cream);
+  }
+  .hero-silhouette{
+    position:absolute;left:0;bottom:0;width:560px;height:480px;z-index:0;
+    opacity:.10;color:var(--gold-soft);pointer-events:none;
+    -webkit-mask-image:linear-gradient(0deg, #000 30%, transparent 95%);
+            mask-image:linear-gradient(0deg, #000 30%, transparent 95%);
+  }
+  .hero-fog{
+    position:absolute;left:0;bottom:0;width:60%;height:55%;z-index:0;pointer-events:none;
+    background:radial-gradient(ellipse 80% 70% at 20% 100%, rgba(127,209,168,.10) 0%, transparent 60%);
+  }
 
-		/* ── Become a Member nav CTA ── */
-		.member-nav-cta {
-			background: rgba(255,255,255,0.2) !important;
-			color: #fff !important;
-			border: 1px solid rgba(255,255,255,0.3) !important;
-			border-radius: 5px !important;
-			padding: 7px 16px !important;
-			font-size: 20px !important;
-			font-weight: 400 !important;
-			letter-spacing: 0;
-			text-transform: none !important;
-			transition: all 0.25s;
-			line-height: 1.4;
-			vertical-align: middle;
-			display: inline-block;
-			margin-top: 5px;
-			margin-left: 15px;
-		}
-		.member-nav-cta:hover {
-			background: rgba(255,255,255,0.35) !important;
-			color: #fff !important;
-		}
+  .slides{position:absolute;inset:0;z-index:1}
+  .slide{
+    position:absolute;inset:0;
+    opacity:0;visibility:hidden;
+    transition:opacity .7s ease, visibility .7s;
+    display:grid;
+    grid-template-columns:45% 55%;
+  }
+  .slide.is-active{opacity:1;visibility:visible;z-index:2}
 
-		/* ── Membership Benefits Section ── */
-		.membership-cta-section {
-			background: linear-gradient(160deg, #192b24 0%, #2b5a4a 100%);
-			padding: 80px 20px;
-			text-align: center;
-			position: relative;
-			overflow: hidden;
-		}
-		.membership-cta-section::before {
-			content: '';
-			position: absolute;
-			top: -80px; right: -80px;
-			width: 320px; height: 320px;
-			border-radius: 50%;
-			background: rgba(255,255,255,0.04);
-		}
-		.membership-cta-section::after {
-			content: '';
-			position: absolute;
-			bottom: -100px; left: -60px;
-			width: 260px; height: 260px;
-			border-radius: 50%;
-			border-radius: 50%;
-			background: rgba(255,255,255,0.04);
-		}
-		.membership-cta-inner {
-			max-width: 1100px;
-			margin: 0 auto;
-			position: relative;
-			z-index: 2;
-		}
-		.membership-cta-section .eyebrow {
-			font-family: "Quattrocento Sans", sans-serif;
-			font-size: 13px;
-			font-weight: 700;
-			text-transform: uppercase;
-			letter-spacing: 3px;
-			color: #7ecba1;
-			margin-bottom: 14px;
-			line-height: 1;
-		}
-		.membership-cta-section h2 {
-			color: #fff;
-			font-size: 48px;
-			font-weight: 700;
-			text-transform: capitalize;
-			margin: 0 0 16px;
-			line-height: 1.15;
-			font-family: "Quattrocento Sans", sans-serif;
-		}
-		.membership-cta-section h2 span { color: #7ecba1; }
-		.membership-cta-section .lead {
-			font-family: "Quattrocento Sans", sans-serif;
-			color: rgba(255,255,255,0.80);
-			font-size: 20px;
-			max-width: 620px;
-			margin: 0 auto 50px;
-			line-height: 1.65;
-		}
-		.benefits-grid {
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-			gap: 20px;
-			margin-bottom: 48px;
-		}
-		.benefit-card {
-			background: #192b24;
-			border: 1px solid rgba(126,203,161,0.25);
-			border-radius: 14px;
-			padding: 28px 20px;
-			text-align: center;
-			transition: all 0.3s;
-		}
-		.benefit-card:hover {
-			background: #1e3830;
-			transform: translateY(-5px);
-			border-color: rgba(126,203,161,0.55);
-		}
-		.benefit-icon {
-			width: 56px; height: 56px;
-			background: rgba(126,203,161,0.15);
-			border-radius: 50%;
-			display: flex; align-items: center; justify-content: center;
-			margin: 0 auto 16px;
-			font-size: 1.4rem;
-			color: #7ecba1;
-		}
-		.benefit-card h4 {
-			font-family: "Quattrocento Sans", sans-serif;
-			color: #fff;
-			font-size: 16px;
-			font-weight: 700;
-			text-transform: uppercase;
-			letter-spacing: 0.5px;
-			margin: 0 0 10px;
-			line-height: 1.3;
-		}
-		.benefit-card p {
-			font-family: "Quattrocento Sans", sans-serif;
-			color: rgba(255,255,255,0.70);
-			font-size: 16px;
-			margin: 0;
-			line-height: 1.6;
-		}
-		.btn-member-cta {
-			display: inline-flex;
-			align-items: center;
-			gap: 10px;
-			background: #192b24;
-			color: #fff;
-			border-radius: 4px;
-			padding: 14px 40px;
-			font-family: "Quattrocento Sans", sans-serif;
-			font-size: 16px;
-			font-weight: 800;
-			text-transform: uppercase;
-			letter-spacing: 1px;
-			text-decoration: none;
-			transition: all 0.25s;
-			box-shadow: 0 8px 24px rgba(0,0,0,0.25);
-		}
-		.btn-member-cta:hover {
-			background: #1e3830;
-			color: #fff;
-			text-decoration: none;
-			transform: translateY(-2px);
-			box-shadow: 0 12px 30px rgba(0,0,0,0.32);
-		}
+  /* RIGHT -- content panel */
+  .slide-panel{
+    position:relative;z-index:2;
+    padding:36px 48px 44px;
+    display:flex;flex-direction:column;justify-content:center;
+    gap:14px;overflow:hidden;
+    border-left:1px solid rgba(224,198,138,.18);
+    order:2;
+  }
+  .slide-panel.center{align-items:flex-start}
 
-		/* ── Eid Announcement Banner ── */
-		.eid-announcement-banner {
-			background: linear-gradient(135deg, #c8f0da 0%, #a8e4c0 100%);
-			color: #1a3d2b;
-			padding: 28px 30px;
-			text-align: center;
-			border-top: 4px solid #3a8f5f;
-			border-bottom: 4px solid #3a8f5f;
-			position: relative;
-			z-index: 999;
-		}
-		.eid-banner-inner {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			gap: 24px;
-			max-width: 1100px;
-			margin: 0 auto;
-		}
-		.eid-banner-icon {
-			font-size: 2.8rem;
-			flex-shrink: 0;
-			color: #2b6b45;
-		}
-		.eid-banner-content {
-			flex: 1;
-		}
-		.eid-banner-line1 {
-			margin: 0 0 10px;
-			font-size: 1.5rem;
-			font-family: 'Josefin Sans', sans-serif;
-			line-height: 1.6;
-			color: #1a3d2b;
-		}
-		.eid-banner-line2 {
-			margin: 0;
-			font-size: 1.5rem;
-			font-family: 'Josefin Sans', sans-serif;
-			color: #1a3d2b;
-			line-height: 1.6;
-		}
-		.eid-banner-line1 strong,
-		.eid-banner-line2 strong {
-			color: #145c30;
-		}
-		@media (max-width: 600px) {
-			.eid-banner-icon { display: none; }
-			.eid-banner-line1 { font-size: 1.1rem; }
-			.eid-banner-line2 { font-size: 0.95rem; }
-		}
-	</style>
+  /* LEFT -- media column */
+  .slide-media{
+    position:relative;overflow:hidden;
+    background:linear-gradient(155deg,#14442f 0%,#0c2e23 58%,#081f18 100%);
+    order:1;
+  }
+  .slide-media img.media-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;animation:slowZoom 18s ease-in-out infinite alternate}
+  .slide-media::after{
+    content:"";position:absolute;inset:0;z-index:3;pointer-events:none;
+    background:linear-gradient(270deg, rgba(8,31,24,.5) 0%, rgba(8,31,24,.12) 20%, transparent 55%);
+  }
+  .media-glow{position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:radial-gradient(ellipse 72% 62% at 52% 38%, rgba(224,198,138,.15) 0%, transparent 62%)}
+  .media-ornament{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:74%;max-width:520px;opacity:.10;color:var(--gold-soft);z-index:1;pointer-events:none}
+  .media-showcase{
+    position:absolute;inset:0;z-index:2;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:22px;text-align:center;padding:56px;
+  }
+  .media-chip{
+    position:absolute;z-index:4;bottom:34px;right:34px;
+    display:inline-flex;align-items:center;gap:10px;
+    padding:11px 16px;border-radius:999px;
+    background:rgba(8,28,22,.62);backdrop-filter:blur(6px);
+    border:1px solid rgba(224,198,138,.3);
+    color:var(--cream);font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;
+  }
+  .media-chip .dot{width:7px;height:7px;border-radius:50%;background:var(--mint)}
 
-	<!-- ================================== -->
-	<!--    Cinzel Decorative Font -->
-	<!-- ================================== -->
-	<link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative: 900|Josefin+Sans|Lobster|Bangers"
-		rel="stylesheet">
+  /* shared slide pieces */
+  .s-eyebrow{
+    display:inline-flex;align-items:center;gap:12px;
+    font-size:13px;letter-spacing:.26em;text-transform:uppercase;font-weight:700;
+    color:var(--gold);margin:0 0 6px;
+  }
+  .s-eyebrow.plain::before{display:none}
+  .s-subeyebrow{font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:rgba(246,241,230,.45);margin:0 0 22px}
+  .s-title{
+    font-family:"Cormorant Garamond",serif;font-weight:600;
+    font-size:clamp(40px,3.4vw,62px);line-height:1.0;letter-spacing:-.015em;
+    margin:0;color:var(--cream);
+  }
+  .s-title .gold{color:var(--gold)}
+  .s-arabic{font-family:"Cormorant Garamond",serif;font-style:italic;color:var(--gold-soft);font-size:24px;margin:0 0 14px}
+  .s-lede{font-size:17px;line-height:1.6;color:rgba(246,241,230,.84);max-width:500px;margin:0;font-weight:400}
 
-	<!-- ================================== -->
-	<!--    Font Awesome import -->
-	<!-- ================================== -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+  /* QR block */
+  .qr-card{
+    background:#fff;border-radius:14px;padding:14px;
+    width:200px;box-shadow:0 18px 40px -18px rgba(0,0,0,.7);
+    border:2px solid var(--gold);
+    display:flex;flex-direction:column;align-items:center;
+  }
+  .qr-card img{width:100%;height:auto;border-radius:6px}
+  .qr-card canvas{width:100%;height:auto;display:block;border-radius:6px}
+  .qr-caption{text-align:center;font-size:12px;color:#0c2e23;margin-top:10px;font-weight:600;word-break:break-all}
+  .qr-scan{font-size:16px;letter-spacing:.18em;text-transform:uppercase;font-weight:800;color:var(--gold);margin:0}
+  .qr-scan small{display:block;font-size:11px;letter-spacing:.18em;color:rgba(246,241,230,.45);font-weight:600;margin-top:4px}
 
+  .s-btn{
+    display:inline-flex;align-items:center;gap:13px;
+    background:var(--gold);color:var(--ink);text-decoration:none;
+    padding:16px 30px;border-radius:8px;font-weight:800;
+    font-size:14px;letter-spacing:.08em;text-transform:uppercase;
+    transition:background .2s,transform .2s;
+  }
+  .s-btn:hover{background:var(--gold-soft);transform:translateY(-2px)}
+  .s-btn.ghost{background:transparent;color:var(--cream);border:1px solid rgba(224,198,138,.4)}
+  .s-btn.ghost:hover{background:rgba(224,198,138,.1)}
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"></script>
-	<script src="js/prayerData.js"></script>
+  /* Campaign goal card */
+  .goal-card{
+    background:rgba(8,28,22,.6);border:1px solid rgba(224,198,138,.16);
+    border-radius:16px;padding:18px 22px;display:flex;align-items:center;gap:20px;
+  }
+  .donut{
+    width:88px;height:88px;border-radius:50%;flex-shrink:0;
+    display:grid;place-items:center;position:relative;
+    background:conic-gradient(var(--mint) 0 46%, rgba(246,241,230,.12) 46% 100%);
+  }
+  .donut::before{content:"";position:absolute;inset:11px;border-radius:50%;background:#0a2820}
+  .donut .pct{position:relative;text-align:center;line-height:1}
+  .donut .pct b{font-size:21px;font-weight:800;color:var(--cream)}
+  .donut .pct small{display:block;font-size:9px;letter-spacing:.2em;color:rgba(246,241,230,.55);margin-top:4px}
+  .goal-info{flex:1;min-width:0}
+  .goal-tag{display:flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:rgba(246,241,230,.55);margin-bottom:6px}
+  .goal-tag .chk{width:18px;height:18px;border-radius:50%;background:var(--mint);display:grid;place-items:center;color:#0a2820}
+  .goal-num{font-size:30px;font-weight:800;color:var(--cream);line-height:1;margin-bottom:12px;letter-spacing:-.01em}
+  .goal-split{display:flex;gap:24px;flex-wrap:wrap}
+  .goal-split .gs-k{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(246,241,230,.5);margin-bottom:4px}
+  .goal-split .gs-v{font-size:19px;font-weight:800}
+  .goal-split .raised .gs-v{color:var(--mint)}
+  .goal-split .remain .gs-v{color:#E8965A}
+  .camp-quote{
+    font-family:"Cormorant Garamond",serif;font-style:italic;font-size:17px;line-height:1.35;
+    color:rgba(246,241,230,.75);padding:4px 0 4px 18px;border-left:3px solid var(--gold);margin:0;
+  }
+  .camp-quote small{display:block;font-style:normal;font-family:"Hanken Grotesk",sans-serif;font-size:12px;color:var(--gold-soft);margin-top:6px;letter-spacing:.02em}
 
+  /* WhatsApp features */
+  .wa-icon{width:48px;height:48px;border-radius:50%;border:2px solid var(--gold);display:grid;place-items:center;color:var(--gold);margin-bottom:6px}
+  .feat-list{display:flex;flex-direction:column;gap:18px}
+  .feat{display:flex;gap:14px;align-items:flex-start}
+  .feat .fi{width:36px;height:36px;flex-shrink:0;display:grid;place-items:center;color:var(--gold)}
+  .feat h4{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:20px;margin:0 0 3px;color:var(--cream)}
+  .feat p{margin:0;font-size:13.5px;color:rgba(246,241,230,.65);line-height:1.5}
 
+  /* Prayer/Athan slide: dual QR rows */
+  .qr-row{display:flex;align-items:center;gap:14px;padding:14px;border:1px solid rgba(224,198,138,.2);border-radius:14px;background:rgba(8,28,22,.4);flex:1;min-width:200px}
+  .qr-row .qr-card{width:84px;padding:8px;border-width:1px;flex-shrink:0}
+
+  /* Floating animations for phone mock / mini cal */
+  @keyframes floatA {
+    0%, 100% { transform: rotate(-3deg) translateY(0); }
+    50% { transform: rotate(-3deg) translateY(-12px); }
+  }
+  @keyframes floatB {
+    0%, 100% { transform: rotate(3deg) translateY(0); }
+    50% { transform: rotate(3deg) translateY(-12px); }
+  }
+  .mini-cal{
+    width:280px;border-radius:16px;overflow:hidden;border:1px solid rgba(224,198,138,.25);
+    background:#0a2820;box-shadow:0 22px 50px -20px rgba(0,0,0,.8);font-size:10px;
+    transform:rotate(-3deg);
+    animation:floatA 4s ease-in-out infinite;
+  }
+  .mini-cal .mc-head{text-align:center;padding:14px 8px 8px;background:rgba(246,241,230,.04)}
+  .mini-cal .mc-head b{font-family:"Cormorant Garamond",serif;font-size:18px;color:var(--cream);display:block}
+  .mini-cal .mc-head span{font-size:11px;letter-spacing:.18em;color:var(--gold-soft)}
+  .mini-cal table{width:100%;border-collapse:collapse}
+  .mini-cal th{font-size:9px;letter-spacing:.08em;color:var(--gold-soft);padding:6px 3px;text-transform:uppercase}
+  .mini-cal td{font-size:9.5px;color:rgba(246,241,230,.75);padding:4px 3px;text-align:center;border-top:1px solid rgba(224,198,138,.08);font-feature-settings:"tnum"}
+  .mini-cal td:first-child{color:rgba(246,241,230,.5);text-align:left;padding-left:8px}
+  .phone-mock{
+    width:260px;border-radius:30px;border:6px solid #16382b;background:#0a2820;
+    padding:28px 22px;box-shadow:0 24px 55px -20px rgba(0,0,0,.85);position:relative;
+    transform:rotate(3deg);
+    animation:floatB 4s ease-in-out infinite 1s;
+  }
+  .phone-mock::before{content:"";position:absolute;top:10px;left:50%;transform:translateX(-50%);width:46px;height:5px;border-radius:3px;background:rgba(246,241,230,.18)}
+  .pm-time{font-family:"Cormorant Garamond",serif;font-size:64px;font-weight:600;color:var(--cream);line-height:1;text-align:center;margin-top:10px;font-feature-settings:"tnum"}
+  .pm-next{text-align:center;font-size:15px;letter-spacing:.18em;color:var(--gold);margin:8px 0 2px;font-weight:700}
+  .pm-iqamah{text-align:center;font-size:11px;letter-spacing:.16em;color:rgba(246,241,230,.5);margin-bottom:18px}
+  .pm-row{display:flex;justify-content:space-between;padding:10px 14px;border-radius:8px;font-size:15px}
+  .pm-row.on{background:rgba(224,198,138,.14);color:var(--gold)}
+  .pm-row .pn{color:rgba(246,241,230,.8)}
+  .pm-row.on .pn{color:var(--gold)}
+  .pm-row .pt{font-feature-settings:"tnum";font-weight:600;color:var(--cream)}
+  .pm-row.on .pt{color:var(--gold)}
+
+  /* Membership slide pills */
+  .eid-pill{
+    display:flex;align-items:center;gap:11px;
+    background:rgba(246,241,230,.04);border:1px solid rgba(224,198,138,.22);
+    border-radius:12px;padding:14px 18px;
+  }
+  .eid-pill .ic{width:34px;height:34px;border-radius:9px;background:rgba(224,198,138,.12);display:grid;place-items:center;color:var(--gold-soft);flex-shrink:0}
+  .eid-pill .k{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:3px}
+  .eid-pill .v{font-size:16px;font-weight:700;color:var(--cream)}
+
+  /* slider controls */
+  .hero-controls{
+    position:absolute;left:0;right:0;bottom:30px;z-index:6;
+    display:flex;align-items:center;justify-content:center;
+    pointer-events:none;
+  }
+  .hero-controls > *{pointer-events:auto}
+  .hero-dots{display:flex;gap:9px;align-items:center}
+  .hero-dot{
+    width:9px;height:9px;border-radius:50%;
+    background:rgba(246,241,230,.25);border:0;cursor:pointer;padding:0;
+    transition:background .3s, width .3s;
+  }
+  .hero-dot.is-active{background:var(--gold);width:30px;border-radius:5px}
+  .hero-arrow{
+    position:absolute;top:50%;transform:translateY(-50%);z-index:6;
+    width:50px;height:50px;border-radius:50%;
+    background:rgba(8,28,22,.5);
+    border:1px solid rgba(246,241,230,.18);
+    color:var(--cream);
+    display:grid;place-items:center;cursor:pointer;
+    transition:background .2s;
+  }
+  .hero-arrow:hover{background:rgba(8,28,22,.85)}
+  #prev{left:20px}
+  #next{right:20px}
+  .slide-counter{
+    position:absolute;top:30px;right:40px;z-index:6;
+    font-size:12px;letter-spacing:.2em;color:var(--gold-soft);
+    font-feature-settings:"tnum";
+  }
+  .slide-counter b{color:var(--cream);font-weight:700;font-size:14px}
+
+  /* Hero responsive */
+  @media (max-width:1024px){
+    .hero{height:auto;min-height:auto;overflow:visible}
+    .slides{position:relative;inset:auto}
+    .slide{position:relative;inset:auto;grid-template-columns:1fr;
+      transition:none;display:none}
+    .slide.is-active{display:grid}
+    .slide-panel{padding:56px 36px;border-left:0;order:1;
+      background:linear-gradient(155deg,#14442f 0%,#0c2e23 58%,#081f18 100%);
+    }
+    .slide-media{display:none}
+  }
+  @media (max-width:620px){
+    .slide-panel{padding:44px 24px 64px}
+    .goal-card{flex-direction:column;text-align:center;gap:16px}
+    .goal-split{justify-content:center}
+    .hero-arrow{display:none}
+  }
+
+  /* On phone/tablet, drop the QR codes -- tappable buttons remain */
+  @media (max-width:1024px), (hover:none) and (pointer:coarse){
+    .qr-card, .qr-scan, .qr-row, .pay-qr, .dw-scan{display:none !important}
+    .wa-join{justify-content:flex-start}
+    .slide[data-screen-label="WhatsApp"] .slide-media{min-height:200px}
+  }
+
+  /* progress bar at top of hero */
+  .hero-progress{position:absolute;top:0;left:0;right:0;height:2px;background:rgba(246,241,230,.08);z-index:6}
+  .hero-progress-fill{height:100%;background:var(--gold);width:0%;transition:width .15s linear}
+
+  /* Calendar modal */
+  .cal-backdrop{
+    position:fixed;inset:0;z-index:100;
+    background:rgba(8,28,22,.6);backdrop-filter:blur(8px);
+    display:none;align-items:center;justify-content:center;
+    padding:24px;
+    opacity:0;transition:opacity .25s;
+  }
+  .cal-backdrop.is-open{display:flex;opacity:1}
+  .cal-modal{
+    background:var(--cream);color:var(--ink);
+    width:min(620px,100%);max-height:90vh;overflow:auto;
+    border-radius:10px;box-shadow:var(--shadow);
+    transform:translateY(12px);transition:transform .25s;
+    border:1px solid var(--rule);
+  }
+  .cal-backdrop.is-open .cal-modal{transform:translateY(0)}
+  .cal-head{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:24px 28px;border-bottom:1px solid var(--rule);
+    background:var(--ink);color:var(--cream);
+    border-radius:10px 10px 0 0;
+  }
+  .cal-head h3{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:26px;margin:0;letter-spacing:-.005em}
+  .cal-head h3 em{font-style:italic;color:var(--gold-soft)}
+  .cal-close{
+    width:34px;height:34px;border-radius:50%;
+    background:rgba(224,198,138,.1);border:1px solid rgba(224,198,138,.25);
+    color:var(--cream);cursor:pointer;display:grid;place-items:center;
+  }
+  .cal-monthnav{display:flex;align-items:center;gap:10px;padding:18px 28px;border-bottom:1px solid var(--rule)}
+  .cal-monthnav .label{flex:1;font-family:"Cormorant Garamond",serif;font-size:22px;font-style:italic}
+  .cal-monthnav button{
+    width:34px;height:34px;border-radius:50%;border:1px solid var(--rule);
+    background:var(--paper);color:var(--ink);cursor:pointer;display:grid;place-items:center;
+  }
+  .cal-monthnav button:hover{background:var(--cream-2)}
+  .cal-grid{
+    display:grid;grid-template-columns:repeat(7,1fr);gap:4px;
+    padding:18px 28px;
+  }
+  .cal-dow{
+    font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--ink-soft);text-align:center;padding:6px 0;
+  }
+  .cal-day{
+    aspect-ratio:1;display:flex;align-items:center;justify-content:center;
+    border-radius:6px;cursor:pointer;
+    font-feature-settings:"tnum";font-size:14px;font-weight:500;
+    background:transparent;border:1px solid transparent;color:var(--ink);
+    transition:background .15s, border-color .15s;
+  }
+  .cal-day:hover{background:var(--cream-2)}
+  .cal-day.is-other{color:var(--ink-soft);opacity:.35}
+  .cal-day.is-today{border-color:var(--gold);color:var(--ink);font-weight:700}
+  .cal-day.is-selected{background:var(--ink);color:var(--cream)}
+  .cal-day.no-data{opacity:.3;cursor:default}
+  .cal-detail{
+    padding:20px 28px 28px;border-top:1px solid var(--rule);
+    background:var(--paper);border-radius:0 0 10px 10px;
+  }
+  .cal-detail-head{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:20px;margin:0 0 14px}
+  .cal-detail-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
+  .cal-detail-cell{padding:10px 6px;text-align:center;background:#fff;border-radius:6px;border:1px solid var(--rule)}
+  .cal-detail-cell .n{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:4px}
+  .cal-detail-cell .v{font-family:"Cormorant Garamond",serif;font-size:20px;font-weight:600;color:var(--ink);font-feature-settings:"tnum"}
+  .cal-detail-cell .adhan-time{font-size:10px;color:var(--ink-soft);margin-top:2px;font-feature-settings:"tnum"}
+  @media (max-width:520px){
+    .cal-detail-grid{grid-template-columns:repeat(5,1fr)}
+    .cal-detail-cell{padding:8px 2px}
+    .cal-detail-cell .v{font-size:16px}
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:120px 0;position:relative}
+  @media (max-width:720px){ section{padding:80px 0} }
+  .eyebrow{
+    font-size:11px;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--ink-soft);
+    display:inline-flex;align-items:center;gap:14px;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{content:"";width:32px;height:1px;background:var(--gold)}
+  .section-title{
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(40px, 5.4vw, 68px);
+    line-height:1.02;letter-spacing:-.012em;
+    margin:0 0 24px;font-weight:500;
+  }
+  .section-title em{font-style:italic;color:var(--ink-soft)}
+  .section-lede{font-size:18px;line-height:1.6;color:var(--ink-soft);max-width:640px;margin:0}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:80px;align-items:center}
+  @media (max-width:880px){.about-grid{grid-template-columns:1fr;gap:48px}}
+  .about-stats{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+    margin-top:56px;border-top:1px solid var(--rule);
+  }
+  .stat{padding:28px 0 0;border-right:1px solid var(--rule)}
+  .stat:last-child{border-right:0;padding-left:24px}
+  .stat:nth-child(2){padding-left:24px}
+  .stat-num{font-family:"Cormorant Garamond",serif;font-size:54px;line-height:1;color:var(--ink);font-weight:500}
+  .stat-num sup{font-size:22px;color:var(--gold);font-weight:600;margin-left:2px}
+  .stat-lab{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);margin-top:10px}
+
+  .image-frame{
+    position:relative;border-radius:6px;overflow:hidden;
+    aspect-ratio:4/5;background:var(--cream-2);
+    box-shadow:var(--shadow);
+  }
+  .image-frame::before{
+    content:"";position:absolute;inset:18px;border:1px solid rgba(246,241,230,.4);z-index:2;pointer-events:none;
+    border-radius:2px;
+  }
+  .image-frame img{width:100%;height:100%;object-fit:cover;animation:slowZoom 18s ease-in-out infinite alternate}
+  .frame-cap{
+    position:absolute;left:18px;bottom:18px;z-index:3;
+    color:var(--cream);font-family:"Cormorant Garamond",serif;font-style:italic;font-size:22px;
+    text-shadow:0 2px 12px rgba(0,0,0,.3);
+  }
+
+  /* ---------- DONATE ---------- */
+  .donate{background:var(--ink);color:var(--cream)}
+  .donate .eyebrow{color:var(--gold-soft)}
+  .donate .eyebrow::before{background:var(--gold-soft)}
+  .donate .section-title{color:var(--cream)}
+  .donate .section-title em{color:var(--gold-soft)}
+  .donate .section-lede{color:rgba(246,241,230,.7)}
+  .donate-quote{
+    font-family:"Cormorant Garamond",serif;font-style:italic;
+    font-size:24px;line-height:1.45;color:var(--gold-soft);
+    max-width:760px;margin:40px 0 0;
+    padding-left:24px;border-left:2px solid var(--gold);
+  }
+  .donate-quote small{display:block;margin-top:14px;font-size:13px;letter-spacing:.18em;color:rgba(246,241,230,.6);font-style:normal;text-transform:uppercase;font-family:"Hanken Grotesk",sans-serif}
+  .pay-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+    margin-top:72px;
+  }
+  @media (max-width:880px){.pay-grid{grid-template-columns:1fr}}
+  .pay{
+    background:rgba(246,241,230,.04);
+    border:1px solid rgba(224,198,138,.18);
+    border-radius:8px;padding:32px;
+    display:flex;flex-direction:column;
+    transition:border-color .25s, background .25s;
+  }
+  .pay:hover{border-color:rgba(224,198,138,.4);background:rgba(246,241,230,.06)}
+  .pay-logo{
+    height:34px;width:fit-content;
+    padding:6px 14px;border-radius:6px;
+    font-weight:800;font-size:15px;letter-spacing:-.01em;
+    display:flex;align-items:center;
+    margin-bottom:24px;color:#fff;
+  }
+  .pay h3{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:30px;margin:0 0 8px;color:var(--cream)}
+  .pay p{margin:0 0 24px;color:rgba(246,241,230,.7);font-size:14px;line-height:1.5}
+  .pay-handle{
+    font-family:ui-monospace, monospace;
+    font-size:13px;color:var(--gold-soft);
+    padding:14px 16px;background:rgba(15,59,46,.6);
+    border:1px dashed rgba(224,198,138,.3);
+    border-radius:4px;margin-bottom:18px;word-break:break-all;
+  }
+  .pay-qr{
+    margin-top:auto;width:120px;
+    background:var(--cream);border-radius:4px;overflow:hidden;
+  }
+  .pay-qr img{width:100%;height:auto;display:block}
+
+  /* ---------- MEMBERSHIP ---------- */
+  .member{background:var(--cream)}
+  .member-head{display:grid;grid-template-columns:1.2fr 1fr;gap:80px;align-items:end;margin-bottom:72px}
+  @media (max-width:880px){.member-head{grid-template-columns:1fr;gap:32px}}
+  .member-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+  @media (max-width:880px){.member-grid{grid-template-columns:1fr}}
+  .pillar{
+    padding:40px 32px;border-right:1px solid var(--rule);
+    border-bottom:1px solid var(--rule);
+    background:var(--cream);
+    transition:background .2s;
+  }
+  .pillar:hover{background:var(--cream-2)}
+  .pillar:nth-child(3n){border-right:0}
+  .pillar:nth-last-child(-n+2){border-bottom:1px solid var(--rule)}
+  .pillar-num{font-family:"Cormorant Garamond",serif;font-size:14px;font-style:italic;color:var(--gold);margin-bottom:24px;font-feature-settings:"tnum"}
+  .pillar h4{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:26px;margin:0 0 12px;letter-spacing:-.005em}
+  .pillar p{margin:0;font-size:14.5px;line-height:1.6;color:var(--ink-soft)}
+  .member-cta-row{display:flex;justify-content:space-between;align-items:center;margin-top:56px;flex-wrap:wrap;gap:20px}
+  .btn-primary{
+    display:inline-flex;align-items:center;gap:14px;
+    background:var(--ink);color:var(--cream);
+    padding:18px 32px;border-radius:999px;
+    text-decoration:none;font-weight:600;font-size:14px;letter-spacing:.04em;
+    transition:transform .2s, background .2s;
+  }
+  .btn-primary:hover{background:#0a2a20;transform:translateY(-1px)}
+  .btn-arrow{
+    width:28px;height:28px;border-radius:50%;background:var(--gold);
+    display:grid;place-items:center;color:var(--ink);
+  }
+
+  /* ---------- CONTACT ---------- */
+  .wa-card-full{margin-bottom:32px}
+  .wa-card-full .wa-join{display:flex;align-items:center;gap:24px}
+
+  /* WhatsApp join card (dark) */
+  .wa-card{
+    background:linear-gradient(165deg,#103b2e,#0c2e23);
+    border:1px solid rgba(224,198,138,.2);border-radius:16px;
+    padding:38px;color:var(--cream);
+    display:flex;flex-direction:column;gap:18px;
+  }
+  .wa-card .wa-head{display:flex;align-items:center;gap:16px}
+  .wa-card .wa-badge{width:52px;height:52px;border-radius:50%;border:2px solid var(--gold);display:grid;place-items:center;color:var(--gold);flex-shrink:0}
+  .wa-card h4{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:30px;margin:0;color:var(--cream)}
+  .wa-card h4 .gold{color:var(--gold)}
+  .wa-card p{margin:0;font-size:15.5px;line-height:1.55;color:rgba(246,241,230,.72)}
+  .wa-join{
+    display:flex;align-items:center;gap:24px;flex-wrap:wrap;
+    margin-top:6px;padding:22px;border-radius:14px;
+    background:rgba(8,28,22,.5);border:1px solid rgba(224,198,138,.16);
+  }
+  .wa-join .qr-card{width:150px;flex-shrink:0;margin:0}
+  .wa-join-cta{display:flex;flex-direction:column;gap:12px;flex:1;min-width:170px}
+  .wa-join-cta .lab{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-soft);font-weight:700}
+  .wa-join-cta .sub{font-size:13px;color:rgba(246,241,230,.6);margin:-4px 0 4px}
+  .wa-btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    background:var(--gold);color:var(--ink);text-decoration:none;
+    padding:15px 22px;border-radius:8px;font-weight:800;font-size:14px;letter-spacing:.1em;text-transform:uppercase;
+    transition:background .2s,transform .2s;
+  }
+  .wa-btn:hover{background:var(--gold-soft);transform:translateY(-2px)}
+
+  /* Donate & Journey widget card (dark) */
+  .donate-widget{
+    background:linear-gradient(165deg,#103b2e,#0c2e23);
+    border:1px solid rgba(224,198,138,.2);border-radius:16px;
+    padding:38px;color:var(--cream);
+    display:flex;flex-direction:column;align-items:center;text-align:center;
+  }
+  .dw-eyebrow{font-size:15px;letter-spacing:.2em;text-transform:uppercase;font-weight:900;color:var(--cream);margin-bottom:24px}
+  .dw-apps{display:flex;gap:12px;margin-bottom:18px}
+  .dw-app{width:50px;height:50px;border-radius:14px;display:grid;place-items:center;text-decoration:none;box-shadow:0 8px 18px -8px rgba(0,0,0,.6);transition:transform .2s;color:#fff}
+  .dw-app:hover{transform:translateY(-3px)}
+  .dw-app i{font-size:23px}
+  .dw-link{font-size:15px;font-weight:600;color:var(--gold-soft);text-decoration:none;margin-bottom:20px;word-break:break-all}
+  .dw-link:hover{color:var(--cream)}
+  .donate-widget .qr-card{width:168px;margin-bottom:14px;background:#0e1f14;border-color:rgba(200,164,94,.3)}
+  .dw-scan{font-size:16px;font-style:italic;font-weight:600;font-family:"Cormorant Garamond",serif;color:rgba(246,241,230,.7);margin:0 0 22px}
+  .dw-donate{display:block;width:100%;max-width:300px;background:var(--gold);color:var(--ink);padding:16px 24px;border-radius:8px;text-decoration:none;font-weight:800;font-size:15px;letter-spacing:.12em;text-transform:uppercase;transition:background .2s,transform .2s;text-align:center}
+  .dw-donate:hover{background:var(--gold-soft);transform:translateY(-1px)}
+  .dw-handle{font-size:15px;font-weight:600;color:rgba(246,241,230,.65);margin:14px 0 18px}
+  .dw-socials{display:flex;gap:20px;color:var(--cream)}
+  .dw-socials a{color:var(--cream);opacity:.85;transition:opacity .2s,transform .2s;font-size:20px}
+  .dw-socials a:hover{opacity:1;transform:translateY(-2px)}
+  .dw-divider{height:1px;width:100%;background:rgba(224,198,138,.2);margin:28px 0}
+  .dw-athan-text{font-size:16px;line-height:1.55;color:rgba(246,241,230,.75);margin:0 0 18px;max-width:300px}
+  .dw-athan-text strong{color:var(--cream);font-weight:800}
+  .dw-athan-btn{display:inline-block;background:transparent;color:var(--cream);border:1px solid rgba(224,198,138,.4);padding:14px 32px;border-radius:8px;text-decoration:none;font-weight:800;font-size:14px;letter-spacing:.12em;text-transform:uppercase;transition:background .2s}
+  .dw-athan-btn:hover{background:rgba(224,198,138,.12)}
+
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+  @media (max-width:880px){.contact-grid{grid-template-columns:1fr}}
+  .contact-card{
+    border:1px solid var(--rule);border-radius:8px;padding:36px;background:var(--paper);
+  }
+  .contact-card h4{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:28px;margin:0 0 8px}
+  .contact-card p{color:var(--ink-soft);line-height:1.55;margin:0 0 24px}
+  .contact-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:14px}
+  .contact-list li{display:flex;align-items:center;gap:14px;font-size:14.5px}
+  .contact-list .ico{width:34px;height:34px;border-radius:50%;background:var(--cream);display:grid;place-items:center;color:var(--ink);flex-shrink:0}
+  .map-frame{
+    border-radius:14px;overflow:hidden;
+    aspect-ratio:4/3;background:var(--cream-2);
+    position:relative;border:1px solid var(--rule);
+  }
+  .map-frame iframe{display:block;width:100%;height:100%}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:#081C16;color:rgba(246,241,230,.65);padding:80px 0 32px}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;margin-bottom:64px}
+  @media (max-width:880px){.foot-grid{grid-template-columns:1fr 1fr;gap:32px}}
+  footer h5{color:var(--cream);font-size:12px;letter-spacing:.22em;text-transform:uppercase;margin:0 0 18px;font-weight:600}
+  footer ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+  footer a{color:rgba(246,241,230,.65);text-decoration:none;font-size:14px;transition:color .2s}
+  footer a:hover{color:var(--cream)}
+  .foot-brand{font-family:"Cormorant Garamond",serif;font-size:32px;color:var(--cream);font-weight:500;margin-bottom:8px}
+  .foot-tag{font-style:italic;color:var(--gold-soft);font-family:"Cormorant Garamond",serif;font-size:18px;margin-bottom:24px}
+  .foot-bottom{padding-top:32px;border-top:1px solid rgba(246,241,230,.08);display:flex;justify-content:space-between;align-items:center;font-size:12px;letter-spacing:.1em}
+  @media (max-width:560px){.foot-bottom{flex-direction:column;gap:14px}}
+
+  /* ---------- KEYFRAMES ---------- */
+  /* ---------- MEDIA GRID (campaign 3-image layout) ---------- */
+  .media-grid{
+    position:absolute;inset:0;z-index:2;
+    display:grid;grid-template-rows:1fr 1fr;grid-template-columns:1fr 1fr;gap:0;
+  }
+  .media-grid .mg-item{
+    position:relative;overflow:hidden;cursor:pointer;
+  }
+  .media-grid .mg-item.wide{grid-column:1/-1}
+  .media-grid .mg-item img{
+    width:100%;height:100%;object-fit:cover;display:block;
+    transition:transform .4s ease, filter .3s ease;
+    animation:slowZoom 18s ease-in-out infinite alternate;
+  }
+  .media-grid .mg-item::before{
+    content:"View Full Screen";
+    position:absolute;inset:0;z-index:3;
+    display:flex;align-items:center;justify-content:center;
+    background:rgba(8,28,22,.5);
+    color:var(--cream);font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+    opacity:0;transition:opacity .3s ease;
+    pointer-events:none;
+  }
+  .media-grid .mg-item:hover::before{opacity:1}
+  .media-grid .mg-item:hover img{transform:scale(1.04);filter:brightness(.85)}
+  .media-grid .mg-item:nth-child(2) img{animation-delay:-6s}
+  .media-grid .mg-item:nth-child(3) img{animation-delay:-12s}
+  /* ---------- CLASS CARDS ---------- */
+  .class-cards{display:flex;flex-direction:column;gap:14px}
+  .class-card{
+    padding:20px 22px;border-radius:14px;
+    background:rgba(8,28,22,.35);
+    border:1px solid rgba(224,198,138,.15);
+    transition:border-color .3s;
+  }
+  .class-card:hover{border-color:rgba(224,198,138,.35)}
+  .class-day{
+    font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--gold);margin-bottom:6px;
+  }
+  .class-name{
+    font-family:"Cormorant Garamond",serif;font-weight:600;font-size:22px;
+    color:var(--cream);margin:0 0 6px;
+  }
+  .class-desc{font-size:13px;color:rgba(246,241,230,.6);margin:0 0 12px;line-height:1.5}
+  .class-meta{display:flex;flex-wrap:wrap;gap:16px}
+  .class-meta span{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:12px;color:rgba(246,241,230,.5);font-weight:500;
+  }
+  .class-meta svg{color:var(--gold-soft);flex-shrink:0}
+
+  @keyframes slowZoom{
+    0%{transform:scale(1)}
+    100%{transform:scale(1.08)}
+  }
+
+  /* ---------- LIGHTBOX ---------- */
+  .v2-lightbox{
+    position:fixed;inset:0;z-index:200;
+    background:rgba(8,28,22,.88);backdrop-filter:blur(12px);
+    display:none;align-items:center;justify-content:center;
+    cursor:pointer;
+  }
+  .v2-lightbox.is-open{display:flex}
+  .v2-lightbox img{
+    max-width:92vw;max-height:82vh;object-fit:contain;
+    border-radius:6px;
+    box-shadow:0 40px 80px rgba(0,0,0,.5);
+    cursor:default;
+  }
+  .v2-lightbox-caption{
+    position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
+    color:var(--cream);font-family:"Cormorant Garamond",serif;
+    font-size:18px;font-style:italic;font-weight:500;letter-spacing:.04em;
+    text-align:center;white-space:nowrap;
+    opacity:.8;
+  }
+  .v2-lightbox-counter{
+    position:absolute;bottom:62px;left:50%;transform:translateX(-50%);
+    color:rgba(246,241,230,.5);font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  }
+  .v2-lightbox-arrow{
+    position:absolute;top:50%;transform:translateY(-50%);
+    width:50px;height:50px;border-radius:50%;
+    background:rgba(246,241,230,.1);border:1px solid rgba(246,241,230,.2);
+    color:var(--cream);font-size:20px;
+    display:grid;place-items:center;cursor:pointer;
+    transition:background .2s;
+  }
+  .v2-lightbox-arrow:hover{background:rgba(246,241,230,.25)}
+  .v2-lightbox-arrow.prev{left:24px}
+  .v2-lightbox-arrow.next{right:24px}
+  .v2-lightbox-close{
+    position:absolute;top:24px;right:28px;
+    width:44px;height:44px;border-radius:50%;
+    background:rgba(246,241,230,.12);border:1px solid rgba(246,241,230,.2);
+    color:var(--cream);font-size:22px;
+    display:grid;place-items:center;cursor:pointer;
+    transition:background .2s;
+  }
+  .v2-lightbox-close:hover{background:rgba(246,241,230,.25)}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  .slide.is-active .slide-panel > *{animation:fadeUp .9s ease both}
+  .slide.is-active .slide-panel > *:nth-child(1){animation-delay:.08s}
+  .slide.is-active .slide-panel > *:nth-child(2){animation-delay:.16s}
+  .slide.is-active .slide-panel > *:nth-child(3){animation-delay:.24s}
+  .slide.is-active .slide-panel > *:nth-child(4){animation-delay:.32s}
+  .slide.is-active .slide-panel > *:nth-child(5){animation-delay:.40s}
+  .slide.is-active .slide-panel > *:nth-child(6){animation-delay:.48s}
+  .slide.is-active .slide-panel > *:nth-child(7){animation-delay:.56s}
+  .slide.is-active .slide-panel > *:nth-child(8){animation-delay:.64s}
+</style>
 </head>
+<body>
 
+<!-- NAV -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">
+      <img class="brand-logo" src="images/logos/logo.png" alt="Al-Madina Association Logo">
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="prayerTime.html">Prayer Times</a>
+      <a href="#about">About</a>
+      <a href="#donate">Donate</a>
+      <a href="pages/membership.html">Membership</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="nav-cta" href="#donate">
+      Donate
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+    </button>
+  </div>
+</header>
 
-
-<body id="body" data-spy="scroll" data-target=".navbar" data-offset="50">
-
-
-	<!--
-	    Start Preloader
-	    ==================================== -->
-	<!-- <div id="preloader">
-		<div class="preloader">
-			<div class="sk-cube-grid">
-				<div class="sk-cube sk-cube1"></div>
-				<div class="sk-cube sk-cube2"></div>
-				<div class="sk-cube sk-cube3"></div>
-				<div class="sk-cube sk-cube4"></div>
-				<div class="sk-cube sk-cube5"></div>
-				<div class="sk-cube sk-cube6"></div>
-				<div class="sk-cube sk-cube7"></div>
-				<div class="sk-cube sk-cube8"></div>
-				<div class="sk-cube sk-cube9"></div>
-			</div>
-		</div>
-	</div> -->
-	<!--
-        End Preloader
-        ==================================== -->
-	<!-- 
-  Fixed Navigation
-  ==================================== -->
-
-
-	<header id="navigation" class="navbar navigation">
-
-		<div class="container">
-
-			<div class="navbar-header">
-				<!-- responsive nav button -->
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<!-- /responsive nav button -->
-
-				<!-- logo -->
-				<a class="navbar-brand logo" href="#body">
-					<img src="images/logos/logo.png" alt="Website Logo" />
-
-				</a>
-				<!-- /logo -->
-			</div>
-
-
-			<!-- main nav -->
-			<nav class="collapse navbar-collapse navbar-right" role="Navigation">
-				<ul id="nav" class="nav navbar-nav navigation-menu">
-
-					<!-- Mobile Menu Item -->
-					<li id="menuItemMobile">
-						<a class="menuItemMobile" data-toggle="collapse" data-target=".navbar-collapse" data-scroll
-							href="#body">Home</a>
-					</li>
-					<!-- Normal Menu Item -->
-					<li id="menuItem">
-						<a data-scroll href="#body">Home</a>
-					</li>
-
-
-			
-					<!-- Mobile Menu Item -->
-					<li id="menuItemMobile">
-						<a class="menuItemMobile" data-toggle="collapse" data-target=".navbar-collapse" data-scroll
-							href="#donate">Donate</a>
-					</li>
-
-					<li id="menuItem">
-						<a data-scroll href="#donate">Donate</a>
-					</li>
-
-							<!-- Mobile Menu Item -->
-							<li id="menuItemMobile">
-								<a class="menuItemMobile" data-toggle="collapse" data-target=".navbar-collapse" data-scroll
-									href="#about">About</a>
-							</li>
-							<!-- Normal Menu Item -->
-							<li id="menuItem">
-								<a data-scroll href="#about">About</a>
-							</li>
-
-							<!-- Mobile Menu Item -->
-							<li id="menuItemMobile">
-								<a class="menuItemMobile" data-toggle="collapse" data-target=".navbar-collapse"
-									href="prayerTime.html">Prayer Time</a>
-							</li>
-							<!-- Normal Menu Item -->
-							<li id="menuItem">
-								<a href="prayerTime.html">Prayer Time</a>
-							</li>
-
-					<!-- Mobile Menu Item -->
-					<li id="menuItemMobile">
-						<a class="menuItemMobile" data-toggle="collapse" data-target=".navbar-collapse" data-scroll
-							href="#contact-us">Contact</a>
-					</li>
-					<!-- Normal Menu Item -->
-					<li id="menuItem">
-						<a data-scroll href="#contact-us">Contact</a>
-					</li>
-
-					<li id="menuItemMobile">
-						<a class="menuItemMobile member-nav-cta" data-toggle="collapse" data-target=".navbar-collapse"
-							href="pages/membership.html">Become a Member</a>
-					</li>
-					<!-- Become a Member CTA - Desktop -->
-					<li id="menuItem">
-						<a href="pages/membership.html" class="member-nav-cta">Become a Member</a>
-					</li>
-
-
-
-
-				</ul>
-			</nav>
-			
-			<!-- /main nav -->
-
-
-
-
-		</div>
-	</header>
-	<div class="donationBanner">
-		<a href="#donate" style="width: 100%;"  class="btn btn-main">Donate Now</a>
-	</div>
-
-	<!-- ── Eid al-Fitr Announcement Banner ── -->
-	<div class="eid-announcement-banner">
-		<div class="eid-banner-inner">
-			<div class="eid-banner-icon">☽</div>
-			<div class="eid-banner-content">
-				<p class="eid-banner-line1">
-					According to <strong>ChicagoHilal.com</strong> the moon was able to be sighted.
-					Therefore <strong>Eid al-Fitr will be tomorrow, March 20th</strong>.
-				</p>
-				<p class="eid-banner-line2">
-					🕌 <strong>Eid Prayer</strong> at <strong>Rosemount Community Center</strong>
-					&nbsp;|&nbsp; Takbeer: <strong>8:00 AM</strong>
-					&nbsp;|&nbsp; Prayer: <strong>8:30 AM</strong>
-				</p>
-			</div>
-			<div class="eid-banner-icon">☽</div>
-		</div>
-	</div>
-	<!-- ── End Eid Banner ── -->
-	<script>
-		(function() {
-			var expiry = new Date('2026-03-21T00:00:00');
-			if (new Date() >= expiry) {
-				var banner = document.querySelector('.eid-announcement-banner');
-				if (banner) banner.style.display = 'none';
-			}
-		})();
-	</script>
-	<!--
-End Fixed Navigation
-==================================== -->
-	<!--
-Welcome Slider
-==================================== -->
-<section class="hero-area">
-
-	<div class="hero-area-inner">
-
-		<div class="timeContainer" style="background:#ffffffb8;">
-			<h1 class="timeContainerTitleHeader">Prayer <span style="color: #bfe2d4f5;">Time</span></h1>
-			
-			<div class="prayer-pagination">
-				<button id="calendar-btn" class="calendar-btn" onclick="window.location.href='prayerTime.html'"><i class="fas fa-calendar-alt"></i> <span>Calendar View</span></button>
-				<div class="date-nav">
-					<button id="prev-day" class="btn-pagination"><i class="fas fa-chevron-left"></i></button>
-					<span id="current-date-display">Loading...</span>
-					<button id="next-day" class="btn-pagination"><i class="fas fa-chevron-right"></i></button>
-				</div>
-			</div>
-
-			<div class="timeContainerInner">
-			<table class="GeneratedTable">
-	
-				<tbody>
-					<tr>
-						<td class="prayerName">Fajr</td>
-						<td class="prayerTime" id="fajr_time"></td>
-					</tr>
-					<tr>
-						<td class="iqamah">Iqamah</td>
-						<td class="iqamahTime" id="fajr_iqamah"></td>
-					</tr>
-					<!-- <thead> -->
-					<tr class="sunrise">
-						<th>Sunrise</th>
-						<td id="sunrise"></td>
-					</tr>
-					<!-- </thead> -->
-					<tr>
-						<td class="prayerName">Zuhr</td>
-						<td class="prayerTime" id="zuhr_time"></td>
-					</tr>
-					<tr>
-						<td class="iqamah">Iqamah</td>
-						<td class="iqamahTime" id="zuhr_iqamah"></td>
-					</tr>
-					<tr>
-						<td class="prayerName">Asr</td>
-						<td class="prayerTime" id="asr_time"></td>
-					</tr>
-					<tr>
-						<td class="iqamah">Iqamah</td>
-						<td class="iqamahTime" id="asr_iqamah"></td>
-					</tr>
-					<tr>
-						<td class="prayerName">Maghrib</td>
-						<td class="prayerTime" id="maghrib_time"></td>
-					</tr>
-					<tr>
-						<td class="iqamah">Iqamah</td>
-						<td class="iqamahTime" id="maghrib_iqamah"></td>
-					</tr>
-					<tr>
-						<td class="prayerName"> Isha</td>
-						<td class="prayerTime" id="isha_time"></td>
-					</tr>
-					<tr>
-						<td class="iqamah">Iqamah</td>
-						<td class="iqamahTime" id="isha_iqamah"></td>
-					</tr>
-				</tbody>
-			</table>
-			</div>
-		</div>
-	
-		<div class="promoContainer">
-			<div class="promoContainerHeader"> 
-				<h2> Donate & Journey With Us</h2>
-	
-			</div>
-			<div class="promoContainerBody">
-	
-	
-					<img width="200px" src="./images/slider/payments.png" />
-	
-					<div>
-						<span class="promoContainerLink">https://linktr.ee/almadina.association</span>
-	
-					</div>
-	
-					
-					<div class="promoQRContainer">
-	
-						<img width="200px" src="./images/slider/linktree.png" />
-					</div>
-					<div>
-						<span class="promoContainerLink">Scan or Click the link</span>
-	
-					</div>
-					<div>
-						<a href="https://linktr.ee/almadina.association" class="btn btn-main">Donate and Follow</a>
-	
-					</div>
-					<div>
-						<span class="promoContainerLink">@ama.rosemount</span>
-	
-					</div>
-	
-				<img width="200px" src="./images/slider/socials.png" />
-	
-				<div>
-					<p><span class="promoContainerLink" style="font-size: 20px;">Download Athan+ app by Masjidal from App Store or Google Play</span></p>
-					<div style="margin-top: 0;">
-						<a href="athanplus.html" class="btn btn-main">Get Athan+</a>
-					</div>
-				</div>
-
-			</div>
-	
-
-	
-		</div>
-		<div class="promoContainer">
-			<div class="promoContainerHeader"> 
-				<h2> Build a House of Allah</h2>
-	
-			</div>
-			<div class="promoContainerBody">
-	
-	
-					<img width="310px" src="./images/slider/full_new_masjid.PNG" />
-	<div style="padding-top: 0px;">
-		<img  width="280px" src="./images/slider/fundraiser_goal.png" />
-	</div>
-					
-					<!-- <div>
-						<a href="https://www.launchgood.com/campaign/build_a_house_of_allah_1#!/" class="btn btn-main">Launch Good</a>
-	
-					</div> -->
-
-	
-	
-	
-			</div>
-	
-
-	
-		</div>
-	</div>
-
-	
+<!-- PRAYER BAR (cream, between nav and hero) -->
+<section id="prayer" style="padding:0">
+  <div class="prayer-bar">
+    <div class="wrap">
+      <div class="prayer-grid">
+        <div class="prayer-daynav">
+          <button class="daynav-btn" id="dayPrev" aria-label="Previous day">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <div class="daynav-date">
+            <div class="d" id="dayLabel">Today</div>
+            <span class="s" id="daySub">Wed &middot; May 28</span>
+          </div>
+          <button class="daynav-btn" id="dayNext" aria-label="Next day">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+        <div class="prayer" data-prayer="fajr"><div class="prayer-name">Fajr</div><div class="prayer-iqamah">--:--</div><div class="prayer-adhan">Adhan --:--</div></div>
+        <div class="prayer" data-prayer="zuhr"><div class="prayer-name">Zuhr</div><div class="prayer-iqamah">--:--</div><div class="prayer-adhan">Adhan --:--</div></div>
+        <div class="prayer" data-prayer="asr"><div class="prayer-name">Asr</div><div class="prayer-iqamah">--:--</div><div class="prayer-adhan">Adhan --:--</div></div>
+        <div class="prayer" data-prayer="maghrib"><div class="prayer-name">Maghrib</div><div class="prayer-iqamah">--:--</div><div class="prayer-adhan">Adhan --:--</div></div>
+        <div class="prayer" data-prayer="isha"><div class="prayer-name">Isha</div><div class="prayer-iqamah">--:--</div><div class="prayer-adhan">Adhan --:--</div></div>
+        <div class="prayer-jummah-box">
+          <div class="prayer-name">Jumu'ah</div>
+          <div class="prayer-iqamah">1:55</div>
+          <div class="prayer-adhan">Starts 1:25 PM</div>
+        </div>
+        <div class="prayer-calendar">
+          <a class="calendar-btn" href="prayerTime.html" aria-label="View prayer times calendar">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/></svg>
+            Calendar
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<section id="donate"  class="section about-2 padding-0 bg-dark">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-md-6 padding-0 ">
-				<img class="img-responsive" src="images/about/about.png" alt="">
-			</div>
-			<div style="padding-top: 60px;" class="col-md-6">
-				<div " class="content-block">
-					<div class="titleAlt wow fadeIn" data-wow-duration="1500ms">
-						<h2>
-							<span class="darkTitleAlt"> Donate </span>
-							<span class="lightTitle">Generously</span>
-						</h2>
-						<!-- <div class="borderLight"></div> -->
-					</div>
-					<!-- <h2>Donate To Al Al-Madina</h2> -->
-					<h2>Prophet (PBUH) said: <q><i>Whoever builds a masjid for the sake of Allah, Allah will build
-								for
-								him a house in Paradise.</i></q></h2>
+<!-- CALENDAR MODAL -->
+<div class="cal-backdrop" id="calBackdrop" aria-hidden="true">
+  <div class="cal-modal" role="dialog" aria-modal="true" aria-labelledby="calTitle">
+    <div class="cal-head">
+      <h3 id="calTitle">Prayer <em>Calendar</em></h3>
+      <button class="cal-close" id="calClose" aria-label="Close">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6l-12 12"/></svg>
+      </button>
+    </div>
+    <div class="cal-monthnav">
+      <button id="calMonthPrev" aria-label="Previous month"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="label" id="calMonthLabel">May 2026</div>
+      <button id="calMonthNext" aria-label="Next month"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+    <div class="cal-detail">
+      <p class="cal-detail-head" id="calDetailHead">Iqamah times</p>
+      <div class="cal-detail-grid" id="calDetailGrid"></div>
+    </div>
+  </div>
+</div>
 
+<!-- HERO SLIDER (v4: 2-column split) -->
+<section id="top" class="hero" aria-roledescription="carousel">
+  <div class="hero-progress"><div class="hero-progress-fill" id="progressFill"></div></div>
 
-				
-					<div class="row">
-						<div class="col-md-6">
-							<div class="media">
-								<div class="pull-left">
-									<img width="35px" src="./images/slider/zelle.png" />
-								</div>
-								<div class="media-body">
-									<h3 class="media-heading">Zelle Us</h4>
-										<p>Send us your generous donations using Zelle
-											to almadina.association@gmail.com or scan the QR code:
-											<!-- <a href="#services">View Services...</a> -->
-										</p>
+  <!-- faint masjid silhouette + fog -->
+  <svg class="hero-silhouette" viewBox="0 0 560 480" fill="none" aria-hidden="true">
+    <g stroke="currentColor" stroke-width="2" fill="none">
+      <path d="M120 480 V250 a60 60 0 0 1 120 0 V480"/>
+      <path d="M180 190 a30 30 0 0 1 0 -1 M180 150 v40"/>
+      <circle cx="180" cy="145" r="6" fill="currentColor"/>
+      <path d="M60 480 V320 a20 20 0 0 1 40 0 V480"/>
+      <path d="M260 480 V300 a26 26 0 0 1 52 0 V480"/>
+      <path d="M340 480 V340 a44 44 0 0 1 88 0 V480"/>
+      <path d="M384 290 v30 M384 285 a8 8 0 0 1 0 -1"/>
+      <circle cx="384" cy="282" r="5" fill="currentColor"/>
+    </g>
+  </svg>
+  <div class="hero-fog"></div>
 
-										<!-- <button class="newButton">
-										Our Services
-									</button> -->
+  <div class="slides" id="slides">
 
-								</div>
-							</div>
-						</div>
-						<div class="qrContainer">
-							<img width="110px" src="./images/slider/qr-zelle.png" />
-						</div>
-			
-					</div>
-					<hr class="donate-divider">
-					<div class="row">
-						<div class="col-md-6">
-							<div class="media">
-								<div class="pull-left">
-									<img width="35px" src="./images/slider/venmo.png" />
-								</div>
-								<div class="media-body">
-									<h3 class="media-heading">Venmo Us</h4>
-										<p>Send us your generous donations using Venmo
-											@Al-Madina-Association or scan the QR code:
-											<!-- <a href="#services">View Services...</a> -->
-										</p>
+    <!-- ============ Slide 1 : BUILD A HOUSE OF ALLAH (Campaign) ============ -->
+    <article class="slide is-active" data-slide="0" data-screen-label="Campaign">
+      <div class="slide-panel">
+        <div class="s-eyebrow">Capital Campaign</div>
+        <h1 class="s-title">Build a <span class="gold">House</span><br/>of Allah.</h1>
+        <p class="s-lede">Help us complete our permanent masjid. Every contribution is Sadaqah Jariyah for as long as the masjid stands.</p>
+        <div class="goal-card">
+          <div class="donut"><div class="pct"><b>46%</b><small>RAISED</small></div></div>
+          <div class="goal-info">
+            <div class="goal-tag"><span class="chk"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg></span> Our Campaign Goal</div>
+            <div class="goal-num">$1,600,000</div>
+            <div class="goal-split">
+              <div class="raised"><div class="gs-k">Total Raised (incl. pledges)</div><div class="gs-v">$740,000</div></div>
+              <div class="remain"><div class="gs-k">Remaining</div><div class="gs-v">$860,000</div></div>
+            </div>
+          </div>
+        </div>
+        <p class="camp-quote">"Whoever builds a masjid for the sake of Allah, Allah will build for him a house in Paradise."
+          <small>Prophet Muhammad &#65018;</small></p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+          <a class="s-btn" href="#donate">Donate Generously
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="s-btn ghost" href="#about">Our Story</a>
+        </div>
+      </div>
+      <div class="slide-media">
+        <div class="media-glow"></div>
+        <div class="media-grid">
+          <div class="mg-item wide" onclick="openV2Lightbox(this)"><img src="images/slider/newImages/3.png" alt="New masjid rendering, aerial view"></div>
+          <div class="mg-item" onclick="openV2Lightbox(this)"><img src="images/slider/newImages/front_face_new_masjid.png" alt="New masjid front face"></div>
+          <div class="mg-item" onclick="openV2Lightbox(this)"><img src="images/slider/newImages/full_new_masjid.PNG" alt="New masjid full rendering"></div>
+        </div>
+        <div class="media-chip"><span class="dot"></span>New Masjid &middot; Rendering</div>
+      </div>
+    </article>
 
-										<!-- <button class="newButton">
-										Our Services
-									</button> -->
+    <!-- ============ Slide 2 : WHATSAPP GROUP ============ -->
+    <article class="slide" data-slide="1" data-screen-label="WhatsApp">
+      <div class="slide-panel">
+        <div class="wa-icon" style="margin-bottom:2px"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 1 1 12 20zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-3.2-2.8c-.2-.4.2-.4.6-1.2.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.6 4 5 5 0 0 0 2.3.5 2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg></div>
+        <h1 class="s-title">Join Our<br/><span class="gold">WhatsApp Group</span></h1>
+        <p class="s-lede">Stay connected with Al-Madina. Announcements for every activity and event, straight to your phone.</p>
+        <div class="feat-list" style="gap:16px">
+          <div class="feat">
+            <span class="fi"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l14-7v16L3 13z"/><path d="M7 12v5a2 2 0 0 0 4 0"/></svg></span>
+            <div><h4>Masjid Announcements</h4><p>Updates about prayers, events, and community news.</p></div>
+          </div>
+          <div class="feat">
+            <span class="fi"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18M9 15l2 2 4-4"/></svg></span>
+            <div><h4>Event Reminders</h4><p>Never miss a class, lecture, or gathering.</p></div>
+          </div>
+          <div class="feat">
+            <span class="fi"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+            <div><h4>Schedule Changes</h4><p>Instant alerts for prayer time or event changes.</p></div>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+          <a class="s-btn" href="https://chat.whatsapp.com/KIYEVrr7ZUl6QsyuYj0jEx" target="_blank" rel="noopener">Join the Group
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+      <div class="slide-media">
+        <img class="media-photo" src="images/slider/newImages/whatsapp.png" alt="Community brotherhood" style="opacity:.45">
+        <div class="media-glow"></div>
+        <svg class="media-ornament" viewBox="0 0 400 540" fill="none" aria-hidden="true"><path d="M200 40 C 90 40, 50 150, 50 280 L 50 500 L 350 500 L 350 280 C 350 150, 310 40, 200 40 Z" stroke="currentColor" stroke-width="2"/><circle cx="200" cy="220" r="48" stroke="currentColor" stroke-width="2"/></svg>
+        <div class="media-showcase">
+          <div class="qr-card" style="width:300px"><img src="images/slider/qr-whatsapp.png" alt="WhatsApp QR Code"></div>
+          <p class="qr-scan" style="text-align:center">Scan to Join<small>Point your phone camera</small></p>
+        </div>
+      </div>
+    </article>
 
-								</div>
-							</div>
-						</div>
-						<div class="qrContainer">
-							<img width="110px" src="./images/slider/qr-venmo.png" />
-						</div>
-			
-					</div>
-					<hr class="donate-divider">
-					<div class="row">
-						<div class="col-md-6">
-							<div class="media">
-								<div class="pull-left">
-									<img width="35px" src="./images/slider/paypal.png" />
-								</div>
-								<div class="media-body">
-									<h3 class="media-heading">Paypal Us</h4>
-										<p>Send us your generous donations using Paypal
-											@almadinaassociation or scan the QR code:
-											<!-- <a href="#services">View Services...</a> -->
-										</p>
+    <!-- ============ Slide 3 : PRAYER CALENDAR + ATHAN+ ============ -->
+    <article class="slide" data-slide="2" data-screen-label="Prayer App">
+      <div class="slide-panel">
+        <div class="s-eyebrow">Prayer App &amp; Calendar</div>
+        <h1 class="s-title">Prayer Times,<br/><span class="gold">in Your Pocket.</span></h1>
+        <p class="s-lede">Athan &amp; iqamah times, live countdowns, and notifications, plus the full monthly calendar, anytime.</p>
+        <div style="display:flex;gap:16px;flex-wrap:wrap">
+          <div class="qr-row">
+            <div class="qr-card"><canvas id="qr-athan"></canvas></div>
+            <div><div class="prayer-name" style="color:var(--gold-soft);margin:0 0 4px">Athan+ App</div><div style="font-size:13px;color:rgba(246,241,230,.65);line-height:1.4">Scan to download</div></div>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+          <a class="s-btn" href="athanplus.html">Get Athan+
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="s-btn ghost" href="prayerTime.html">View Calendar</a>
+        </div>
+      </div>
+      <div class="slide-media">
+        <img class="media-photo" src="images/slider/newImages/athan.png" alt="Muezzin giving the athan" style="opacity:.4">
+        <div class="media-glow"></div>
+        <svg class="media-ornament" viewBox="0 0 400 540" fill="none" aria-hidden="true"><path d="M200 40 C 90 40, 50 150, 50 280 L 50 500 L 350 500 L 350 280 C 350 150, 310 40, 200 40 Z" stroke="currentColor" stroke-width="2"/><circle cx="200" cy="220" r="48" stroke="currentColor" stroke-width="2"/></svg>
+        <div class="media-showcase" style="flex-direction:row;gap:36px;padding:40px">
+          <div class="mini-cal" id="miniCalWidget">
+            <div class="mc-head"><b>Al-Madina Association</b><span id="miniCalMonth">MAY 2026</span></div>
+            <table>
+              <thead><tr><th>Day</th><th>Fajr</th><th>Iqm</th><th>Zuhr</th><th>Iqm</th><th>Mgb</th></tr></thead>
+              <tbody id="miniCalBody"></tbody>
+            </table>
+          </div>
+          <div class="phone-mock" id="phoneMock">
+            <div class="pm-time" id="pmTime">1:05</div>
+            <div class="pm-next" id="pmNext">Dhuhr</div>
+            <div class="pm-iqamah" id="pmIqamah">Iqamah in 40 min</div>
+            <div class="pm-row" data-pm="fajr"><span class="pn">Fajr</span><span class="pt">--:--</span></div>
+            <div class="pm-row" data-pm="zuhr"><span class="pn">Dhuhr</span><span class="pt">--:--</span></div>
+            <div class="pm-row" data-pm="asr"><span class="pn">Asr</span><span class="pt">--:--</span></div>
+            <div class="pm-row" data-pm="maghrib"><span class="pn">Maghrib</span><span class="pt">--:--</span></div>
+            <div class="pm-row" data-pm="isha"><span class="pn">Isha</span><span class="pt">--:--</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
 
-										<!-- <button class="newButton">
-										Our Services
-									</button> -->
+    <!-- ============ Slide 4 : WEEKLY CLASSES ============ -->
+    <article class="slide" data-slide="3" data-screen-label="Classes">
+      <div class="slide-panel">
+        <div class="s-eyebrow">Weekly Classes</div>
+        <h1 class="s-title">Join Us for<br/><span class="gold">Knowledge.</span></h1>
+        <p class="s-lede">Deepen your understanding of Islam with our weekly classes, open to everyone in the community.</p>
+        <div class="class-cards">
+          <div class="class-card">
+            <div class="class-day">Every Monday</div>
+            <h3 class="class-name">Fiqh Foundations</h3>
+            <p class="class-desc">Understanding Comparative Islamic Jurisprudence Across the Four Schools</p>
+            <div class="class-meta">
+              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> After Maghrib Prayer</span>
+              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg> Mufti Aatif Shah</span>
+            </div>
+          </div>
+          <div class="class-card">
+            <div class="class-day">Every Wednesday</div>
+            <h3 class="class-name">Tafsir of the Quran</h3>
+            <p class="class-desc">Analytical &amp; Thematic Tafsir Study of Surah An-Nisa</p>
+            <div class="class-meta">
+              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> After Maghrib Prayer</span>
+              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg> Mufti Aatif Shah</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-media">
+        <img class="media-photo" src="images/slider/newImages/classes.png" alt="Islamic classes" style="opacity:.45">
+        <div class="media-glow"></div>
+      </div>
+    </article>
 
-								</div>
-							</div>
-						</div>
-						<div class="qrContainer">
-							<img width="110px" src="./images/slider/qr-paypal.jpg" />
-						</div>
-			
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	</div>
-	</div>
-	</div>
+    <!-- ============ Slide 5 : MEMBERSHIP ============ -->
+    <article class="slide" data-slide="4" data-screen-label="Membership">
+      <div class="slide-panel">
+        <div class="s-eyebrow">Join Our Community</div>
+        <h1 class="s-title">Become a<br/><span class="gold">Member.</span></h1>
+        <p class="s-lede">Every dollar from our members keeps the lights on, the doors open, and our community growing.</p>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div class="eid-pill"><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg></span><div><div class="k">Sustain</div><div class="v">Daily Operations &amp; Prayers</div></div></div>
+          <div class="eid-pill"><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19V5a2 2 0 0 1 2-2h9l5 5v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M9 8h4M9 12h6M9 16h6"/></svg></span><div><div class="k">Fund</div><div class="v">Islamic Education &amp; Youth</div></div></div>
+          <div class="eid-pill"><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-4.5-9-9a4.5 4.5 0 0 1 9-1 4.5 4.5 0 0 1 9 1c-2 4.5-9 9-9 9z"/></svg></span><div><div class="k">Build</div><div class="v">Community &amp; the New Masjid</div></div></div>
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+          <a class="s-btn" href="pages/membership.html">Become a Member
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="s-btn ghost" href="#about">Learn More</a>
+        </div>
+      </div>
+      <div class="slide-media">
+        <div class="media-glow"></div>
+        <img class="media-photo" src="images/slider/newImages/full_new_masjid.png" alt="Rendering of new masjid">
+        <div class="media-chip"><span class="dot"></span>Rendering of New Masjid</div>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="slide-counter"><b id="slideNow">01</b> / <span id="slideTotal">05</span></div>
+
+  <button class="hero-arrow" id="prev" aria-label="Previous"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+  <button class="hero-arrow" id="next" aria-label="Next"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button>
+
+  <div class="hero-controls">
+    <div class="hero-dots" id="dots"></div>
+  </div>
 </section>
-	<!--
-=================================== -->
-
-
-	<!-- ── Membership CTA & Benefits Section ── -->
-	<section class="membership-cta-section" id="membership">
-		<div class="membership-cta-inner">
-			<div class="eyebrow">Join Our Community</div>
-			<h2>Your Membership Helps <span>Run This Masjid</span></h2>
-			<p class="lead">Every dollar from our members keeps the lights on, the doors open, and our community growing. Become a formal part of Al-Madina Association today.</p>
-
-			<div class="benefits-grid">
-				<div class="benefit-card">
-					<div class="benefit-icon"><i class="fas fa-mosque"></i></div>
-					<h4>Sustain Daily Operations</h4>
-					<p>Fund utilities, maintenance, and daily expenses that keep the masjid running five times a day.</p>
-				</div>
-				<div class="benefit-card">
-					<div class="benefit-icon"><i class="fas fa-book-open"></i></div>
-					<h4>Fund Islamic Education</h4>
-					<p>Support Quran classes, youth programs, and our long-term vision for a full-time Islamic school.</p>
-				</div>
-				<div class="benefit-card">
-					<div class="benefit-icon"><i class="fas fa-users"></i></div>
-					<h4>Build Community</h4>
-					<p>Strengthen the bonds of our ummah through events, programs, and a welcoming gathering place.</p>
-				</div>
-				<div class="benefit-card">
-					<div class="benefit-icon"><i class="fas fa-mosque"></i></div>
-					<h4>Build Our New Masjid</h4>
-					<p>Contribute directly to our permanent masjid project — a legacy for generations to come.</p>
-				</div>
-				<div class="benefit-card">
-					<div class="benefit-icon"><i class="fas fa-bullhorn"></i></div>
-					<h4>Have Your Voice Heard</h4>
-					<p>Members participate in community decisions and help shape the future of Al-Madina Association.</p>
-				</div>
-			</div>
-
-			<a href="pages/membership.html" class="btn-member-cta">
-				<i class="fas fa-id-card"></i> Become a Member
-			</a>
-		</div>
-	</section>
-	<!-- ── End Membership Section ── -->
-
-
-	<!--
-		Start About Section
-		==================================== -->
-
-
-
-	<section class="bg-one about section" id="about">
-		<div class="container">
-			<div class="row">
-
-				<!-- section title -->
-				<div class="title text-center wow fadeIn" data-wow-duration="1500ms">
-					<h2>
-						<span class="darkTitle"> About </span>
-						<span class="lightTitle">Us</span>
-					</h2>
-					<div class="borderLight"></div>
-				</div>
-				<!-- /section title -->
-
-				<!-- About item -->
-				<!-- <div class="col-md-4 text-center wow fadeInUp" data-wow-duration="500ms">
-					<div class="block">
-						<div class="icon-box">
-							<i class="tf-tools"></i>
-						</div>
-						<div class="content text-center">
-							<h3 class="ddd">We're Creative</h3>
-							<p>Here at AccTech we take great pride in making each of our projects unique and catchy to
-								the public eye.</p>
-						</div>
-					</div>
-				</div> -->
-				<!-- End About item -->
-
-				<!-- About item -->
-				<div class="col-md-6 text-center wow fadeInUp" data-wow-duration="500ms" data-wow-delay="250ms">
-
-					<img width="100%" height="300" src="./images/slider/front_face_new_masjid.png" />
-					<h2>
-						<span class="aboutTextHeader">Our Story</span>
-					</h2>
-					<h3>
-						<span class="aboutText">
-							In 2010, we set out on an inspiring mission. With just 7 families,
-							 we aimed to create a Masjid where our community could unite, worship, and grow together.
-
-
-
-						</span>
-
-					</h3>
-		
-				</div>
-				<!-- End About item -->
-
-				<!-- About item -->
-				<div class="col-md-6 text-center wow fadeInUp" data-wow-duration="500ms" data-wow-delay="250ms">
-					<img width="100%"  height="300" src="./images/slider/3.jpg" />
-
-					<h2>
-						<span class="aboutTextHeader">Our Mission</span>
-						
-					</h2>
-					<h3>
-						<span class="aboutText">
-							To create a nurturing environment where our community can unite in faith, provide youth with Islamic education, strengthen family and community bonds, and build a foundation for a 
-							full-time Islamic school, all while offering daily five times prayer.
-						</span>
-
-					</h3>
-				</div>
-
-				<!-- End About item -->
-
-			</div>
-			<!-- End row -->
-		</div>
-		<!-- End container -->
-	</section>
-	<!-- End section -->
-
-
-	<section id="contact-us" class="section about-2 padding-0 bg-dark">
-		<div class="container-fluid">
-			<div class="row">
-
-				<div class="col-md-6">
-					<div class="content-block">
-						<div class="titleAlt wow fadeIn" data-wow-duration="1500ms">
-							<h2>
-								<span class="darkTitleAlt"> Get In </span>
-								<span class="lightTitle">Touch</span>
-							</h2>
-						</div>
-
-
-
-						<div class="row">
-							<div class="col-md-6">
-								<div class="media">
-									<div class="pull-left">
-										<i class="fab fa-whatsapp"></i>
-									</div>
-									<div class="media-body">
-										<h3 class="media-heading">Join our WhatsApp group:</h4>
-											<p>Join our WhatsApp group to receive announcements regarding all Al-Madina related activities and events
-											</p>
-											<a href="https://chat.whatsapp.com/KIYEVrr7ZUl6QsyuYj0jEx"
-												class="btn btn-main">Click to
-												join</a>
 
-									</div>
-								</div>
-							</div>
-							<div class="qrContainer">
-								<img width="150px" src="./images/slider/qr-whatsapp.png" />
-							</div>
-
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 padding-0 ">
-					<div style="max-width:100%;overflow:hidden;color:red;width:100%;height:482px;">
-						<div id="my-map-display" style="height:100%; width:100%;max-width:100%;">
-							<iframe style="height:100%;width:100%;border:0;" frameborder="0"
-								src="https://www.google.com/maps/embed/v1/place?q=Al+Madina+Association,+Bonaire+Path+West,+Rosemount,+MN,+USA&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8">
-							</iframe>
-						</div><a class="embedded-map-code" href="https://kbj9qpmy.com/bp"
-							id="get-data-for-embed-map">Broadband
-							Providers</a>
-						<style>
-							#my-map-display .text-marker {}
-
-							.map-generator {
-								max-width: 100%;
-								max-height: 100%;
-								background: none;
-							}
-						</style>
-					</div>
-				</div>
-			</div>
-		</div>
-		</div>
-		</div>
-		</div>
-	</section>
-
-
-	<!--
-Start Call To Action
-==================================== -->
-	<!-- <section class="call-to-action section-sm bg-1">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12 text-center">
-				<h2>Great Design & Incredible Features</h2>
-				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis tenetur odio impedit incidunt? <br> Omnis accusantium ea reiciendis, fugit commodi nostrum.</p>
-				<a href="#" class="btn btn-main">Start a project with us</a>
-			</div>
-		</div> 		
-	</div>   	
-</section>    -->
-
-
-
-
-
-
-
-
-
-
-
-	<div id="prayer-time-error" style="display:none; color: red; text-align: center; padding: 10px; background: #fff; margin: 10px; border-radius: 5px; font-weight: bold;">
-		Error loading prayer times. Please check the console (F12) for details.
-	</div>
-	<!-- end Contact Area
-		========================================== -->
-
-	<footer id="footer" class="bg-one">
-		<div class="container">
-			<!-- <div class="row wow fadeInUp" data-wow-duration="500ms"> -->
-
-			<div class="footerArea" id="footerArea1">
-				@copyright Al-Madina Association
-			</div>
-
-
-
-			<!-- </div> -->
-			<!-- end row -->
-		</div>
-		<!-- end container -->
-	</footer>
-	<!-- end footer -->
-
-	<!-- <div id="scroll-up">
-			up
-		</div> -->
-
-
-
-
-
-
-
-
-
-
-
-	<!-- 
-		Essential Scripts
-		=====================================-->
-
-	<!--
-		===================================================================
-			         mySlides text slider:
-		===================================================================
-		-->
-
-	<script>
-		// var myIndex = 0;
-		// carousel();
-
-		// function carousel() {
-		// 	var i;
-		// 	var x = document.getElementsByClassName("mySlides");
-		// 	for (i = 0; i < x.length; i++) {
-		// 		x[i].style.display = "none";
-		// 	}
-		// 	myIndex++;
-		// 	if (myIndex > x.length) { myIndex = 1 }
-		// 	x[myIndex - 1].style.display = "block";
-		// 	setTimeout(carousel, 10000);
-		// }
-
-
-		function formatTime(timeStr) {
-			console.log("Formatting time:", timeStr, "Type:", typeof timeStr);
-			if (timeStr === null || timeStr === undefined || timeStr === '') return '—';
-			if (typeof timeStr === 'string') return timeStr.trim();
-			
-			// If it's a fractional day from Excel (e.g., 0.25 for 6:00 AM)
-			if (typeof timeStr === 'number') {
-				try {
-					let totalSeconds = Math.round(timeStr * 24 * 3600);
-					let hours = Math.floor(totalSeconds / 3600);
-					let minutes = Math.floor((totalSeconds % 3600) / 60);
-					let ampm = hours >= 12 ? 'PM' : 'AM';
-					hours = hours % 12;
-					hours = hours ? hours : 12;
-					minutes = minutes < 10 ? '0' + minutes : minutes;
-					return hours + ':' + minutes + ' ' + ampm;
-				} catch (e) {
-					console.error("Error formatting numeric time:", timeStr, e);
-					return timeStr;
-				}
-			}
-			return String(timeStr);
-		}
-
-		document.addEventListener('DOMContentLoaded', function() {
-			console.log("DOM loaded, initializing prayer times...");
-			
-			const errorDiv = document.getElementById('prayer-time-error');
-			const dateDisplay = document.getElementById('current-date-display');
-			const prevBtn = document.getElementById('prev-day');
-			const nextBtn = document.getElementById('next-day');
-			
-			let currentDisplayDate = new Date();
-			const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-			function updatePrayerTable(date) {
-				const monthIndex = date.getMonth();
-				const monthName = months[monthIndex];
-				const year = date.getFullYear();
-				const day = date.getDate();
-				
-				const todayStr = year + "-" + 
-								 String(monthIndex + 1).padStart(2, '0') + "-" + 
-								 String(day).padStart(2, '0');
-
-				// Update Display Text
-				const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-				dateDisplay.innerText = date.toLocaleDateString(undefined, options);
-
-				if (typeof prayerData === 'undefined') {
-					console.error("prayerData is not defined!");
-					if (errorDiv) {
-						errorDiv.innerText = "Error: Prayer data not found. Please ensure js/prayerData.js is loaded.";
-						errorDiv.style.display = 'block';
-					}
-					return;
-				}
-
-				const sheetData = prayerData[monthName];
-				function dataExists(date) {
-					const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-					const mName = monthNames[date.getMonth()];
-					const dStr = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
-					return !!(prayerData[mName] && prayerData[mName][dStr]);
-				}
-
-				// Update pagination buttons
-				const prevDate = new Date(date);
-				prevDate.setDate(date.getDate() - 1);
-				const nextDate = new Date(date);
-				nextDate.setDate(date.getDate() + 1);
-
-				prevBtn.disabled = !dataExists(prevDate);
-				nextBtn.disabled = !dataExists(nextDate);
-
-				if (!prayerData) {
-					console.error("No data for month:", monthName);
-					clearTable();
-					return;
-				}
-
-				if (!sheetData) {
-					console.error("No data for month:", monthName);
-					clearTable();
-					return;
-				}
-
-				const data = sheetData[todayStr];
-				if (data) {
-					console.log("Data found for", todayStr, ":", data);
-					try {
-						document.getElementById('fajr_time').innerHTML = data.fajr_na || data.fajr;
-						document.getElementById('fajr_iqamah').innerHTML = data.fajr_iqamah;
-						document.getElementById('sunrise').innerHTML = data.sunrise;
-						document.getElementById('zuhr_time').innerHTML = data.zuhr;
-						document.getElementById('zuhr_iqamah').innerHTML = data.zuhr_iqamah;
-						document.getElementById('asr_time').innerHTML = data.asr_hanafi || data.asr;
-						document.getElementById('asr_iqamah').innerHTML = data.asr_iqamah;
-						document.getElementById('maghrib_time').innerHTML = data.maghrib;
-						document.getElementById('maghrib_iqamah').innerHTML = data.maghrib_iqamah;
-						document.getElementById('isha_time').innerHTML = data.isha;
-						document.getElementById('isha_iqamah').innerHTML = data.isha_iqamah;
-						if (errorDiv) errorDiv.style.display = 'none';
-					} catch (e) {
-						console.error("Error updating UI elements:", e);
-					}
-				} else {
-					console.warn("No data for date:", todayStr);
-					clearTable();
-					if (errorDiv) {
-						errorDiv.innerText = "No data found for: " + todayStr;
-						errorDiv.style.display = 'block';
-					}
-				}
-			}
-
-			function clearTable() {
-				const ids = ['fajr_time', 'fajr_iqamah', 'sunrise', 'zuhr_time', 'zuhr_iqamah', 'asr_time', 'asr_iqamah', 'maghrib_time', 'maghrib_iqamah', 'isha_time', 'isha_iqamah'];
-				ids.forEach(id => {
-					const el = document.getElementById(id);
-					if (el) el.innerHTML = "—";
-				});
-			}
-
-			prevBtn.addEventListener('click', function() {
-				currentDisplayDate.setDate(currentDisplayDate.getDate() - 1);
-				updatePrayerTable(currentDisplayDate);
-			});
-
-			nextBtn.addEventListener('click', function() {
-				currentDisplayDate.setDate(currentDisplayDate.getDate() + 1);
-				updatePrayerTable(currentDisplayDate);
-			});
-
-			// Initial Load
-			updatePrayerTable(currentDisplayDate);
-		});
-	</script>
-
-
-
-
-
-
-
-	<!-- Main jQuery -->
-	<script type="text/javascript" src="plugins/jquery/dist/jquery.min.js"></script>
-
-	<!-- Bootstrap 3.1 -->
-	<script type="text/javascript" src="plugins/bootstrap/dist/js/bootstrap.min.js"></script>
-	<!-- Slick Carousel -->
-	<script type="text/javascript" src="plugins/slick-carousel/slick/slick.min.js"></script>
-	<!-- Portfolio Filtering -->
-	<script type="text/javascript" src="plugins/mixitup/dist/mixitup.min.js"></script>
-	<!-- Smooth Scroll -->
-	<script type="text/javascript" src="plugins/smooth-scroll/dist/js/smooth-scroll.min.js"></script>
-	<!-- Magnific popup -->
-	<script type="text/javascript" src="plugins/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
-	<!-- Google Map API -->
-	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-	<!-- Sticky Nav -->
-	<script type="text/javascript" src="plugins/Sticky/jquery.sticky.js"></script>
-	<!-- Number Counter Script -->
-	<script type="text/javascript" src="plugins/count-to/jquery.countTo.js"></script>
-	<!-- wow.min Script -->
-	<script type="text/javascript" src="plugins/wow/dist/wow.min.js"></script>
-	<!-- Custom js -->
-	<script type="text/javascript" src="js/script.js"></script>
-	<!-- Axios -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"></script>
-
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div>
+        <div class="eyebrow">Our Story</div>
+        <h2 class="section-title">A masjid built<br/>by <em>seven families,</em><br/>now home to many.</h2>
+        <p class="section-lede">In 2010, we set out on an inspiring mission. With just seven families, we aimed to create a masjid where our community could unite, worship, and grow together. Today, we serve daily five-times prayer, host youth programs, and lay the foundation for a full-time Islamic school.</p>
+        <div class="about-stats">
+          <div class="stat"><div class="stat-num">2010<sup>&middot;</sup></div><div class="stat-lab">Founded</div></div>
+          <div class="stat"><div class="stat-num">5<sup>&times;</sup></div><div class="stat-lab">Daily Prayers</div></div>
+        </div>
+      </div>
+      <div class="image-frame">
+        <img src="images/slider/newImages/front_face_new_masjid.png" alt="Rendering of new masjid">
+        <div class="frame-cap">Rendering of New Masjid</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DONATE -->
+<section id="donate" class="donate">
+  <div class="wrap">
+    <div style="max-width:760px">
+      <div class="eyebrow">Donate &amp; Journey With Us</div>
+      <h2 class="section-title">Every gift,<br/>an <em>everlasting</em> charity.</h2>
+      <p class="section-lede">Sadaqah Jariyah for as long as the masjid stands. Send your generous donation through Zelle, Venmo, or PayPal. Every contribution funds operations and our new masjid.</p>
+      <div class="donate-quote">
+        "Whoever builds a masjid for the sake of Allah, Allah will build for him a house in Paradise."
+        <small>Prophet Muhammad &#65018;</small>
+      </div>
+    </div>
+
+    <div class="pay-grid">
+      <div class="pay">
+        <div class="pay-logo" style="background:#6D1ED4">Zelle</div>
+        <h3>Zelle</h3>
+        <p>The fastest way to send tax-deductible donations directly from your bank.</p>
+        <div class="pay-handle">almadina.association@gmail.com</div>
+        <div class="pay-qr"><img src="images/slider/qr-zelle.png" alt="Zelle QR Code"></div>
+      </div>
+      <div class="pay">
+        <div class="pay-logo" style="background:#008CFF">Venmo</div>
+        <h3>Venmo</h3>
+        <p>Tap our handle in the Venmo app, or scan the QR code with your camera.</p>
+        <div class="pay-handle">@Al-Madina-Association</div>
+        <div class="pay-qr"><img src="images/slider/qr-venmo.png" alt="Venmo QR Code"></div>
+      </div>
+      <div class="pay">
+        <div class="pay-logo" style="background:#003087">PayPal</div>
+        <h3>PayPal</h3>
+        <p>Support us internationally or set up a recurring monthly contribution.</p>
+        <div class="pay-handle">@almadinaassociation</div>
+        <div class="pay-qr"><img src="images/slider/qr-paypal.jpg" alt="PayPal QR Code"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBERSHIP -->
+<section id="membership" class="member">
+  <div class="wrap">
+    <div class="member-head">
+      <div>
+        <div class="eyebrow">Membership</div>
+        <h2 class="section-title">Your membership<br/>helps <em>run this masjid.</em></h2>
+      </div>
+      <p class="section-lede">Every dollar from our members keeps the lights on, the doors open, and our community growing. Become a formal part of Al-Madina Association today.</p>
+    </div>
+
+    <div class="member-grid">
+      <div class="pillar">
+        <div class="pillar-num">01</div>
+        <h4>Sustain Daily Operations</h4>
+        <p>Fund utilities, maintenance, and daily expenses that keep the masjid running five times a day.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">02</div>
+        <h4>Fund Islamic Education</h4>
+        <p>Support Quran classes, youth programs, and our long-term vision for a full-time Islamic school.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">03</div>
+        <h4>Build Community</h4>
+        <p>Strengthen the bonds of our ummah through events, programs, and a welcoming gathering place.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">04</div>
+        <h4>Build Our New Masjid</h4>
+        <p>Contribute directly to our permanent masjid project, a legacy for generations to come.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">05</div>
+        <h4>Have Your Voice Heard</h4>
+        <p>Members participate in community decisions and help shape the future of Al-Madina Association.</p>
+      </div>
+      <div class="pillar" style="background:var(--ink);color:var(--cream);display:flex;flex-direction:column;justify-content:space-between">
+        <div>
+          <div class="pillar-num" style="color:var(--gold-soft)">06</div>
+          <h4 style="color:var(--cream)">Join Today.</h4>
+          <p style="color:rgba(246,241,230,.7)">Set up an annual or monthly membership in minutes.</p>
+        </div>
+        <a href="#donate" class="btn-primary" style="margin-top:24px;background:var(--gold);color:var(--ink);padding:14px 22px">
+          Become a Member
+          <span class="btn-arrow" style="background:var(--ink);color:var(--gold)">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="eyebrow">Get In Touch</div>
+    <h2 class="section-title">Visit us, or <em>join the conversation.</em></h2>
+    <p class="section-lede" style="margin-bottom:48px">Join our WhatsApp group to receive announcements regarding all Al-Madina related activities and events.</p>
+
+    <!-- WhatsApp join (full width) -->
+    <div class="wa-card wa-card-full">
+      <div class="wa-head">
+        <span class="wa-badge"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 1 1 12 20zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-3.2-2.8c-.2-.4.2-.4.6-1.2.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.6 4 5 5 0 0 0 2.3.5 2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg></span>
+        <h4>Join Our <span class="gold">WhatsApp Group</span></h4>
+      </div>
+      <p>Stay connected with Al-Madina Association. Get instant announcements for all activities, events, and prayer-time changes.</p>
+      <div class="wa-join">
+        <div class="qr-card" style="width:150px"><img src="images/slider/qr-whatsapp.png" alt="WhatsApp QR Code"></div>
+        <div class="wa-join-cta">
+          <span class="lab">Scan or Click</span>
+          <span class="sub">Point your phone camera, or tap the button to join.</span>
+          <a class="wa-btn" href="https://chat.whatsapp.com/KIYEVrr7ZUl6QsyuYj0jEx" target="_blank" rel="noopener" aria-label="Join WhatsApp Group">
+            <i class="fa-brands fa-whatsapp"></i>
+            Click to Join
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-grid">
+      <!-- Reach the masjid + Map -->
+      <div>
+        <div class="contact-card">
+          <h4>Reach the masjid</h4>
+          <p>Have a question, need to coordinate an event, or want to connect? We'd love to hear from you.</p>
+          <ul class="contact-list">
+            <li><span class="ico"><i class="fa-solid fa-location-dot"></i></span> 2038 Bonaire Path W, Rosemount, MN 55068</li>
+            <li><span class="ico"><i class="fa-solid fa-envelope"></i></span> <a href="mailto:almadina.association@gmail.com">almadina.association@gmail.com</a></li>
+          </ul>
+        </div>
+        <div class="map-frame" style="margin-top:24px">
+          <iframe src="https://www.google.com/maps/embed/v1/place?q=Al+Madina+Association,+Bonaire+Path+West,+Rosemount,+MN,+USA&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8" style="border:0;border-radius:14px;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+      </div>
+
+      <!-- Donate & Journey With Us -->
+      <div class="donate-widget">
+        <div class="dw-eyebrow">Donate &amp; Journey With Us</div>
+        <div class="dw-apps">
+          <a class="dw-app" href="https://linktr.ee/almadina.association" style="background:#6D1ED4" aria-label="Zelle"><i class="fa-solid fa-bolt"></i></a>
+          <a class="dw-app" href="https://linktr.ee/almadina.association" style="background:#008CFF" aria-label="Venmo"><i class="fa-solid fa-v"></i></a>
+          <a class="dw-app" href="https://linktr.ee/almadina.association" style="background:#003087" aria-label="PayPal"><i class="fa-brands fa-paypal"></i></a>
+        </div>
+        <a class="dw-link" href="https://linktr.ee/almadina.association" target="_blank" rel="noopener">https://linktr.ee/almadina.association</a>
+        <div class="qr-card" style="width:168px"><img src="images/slider/linktreeLight.png" alt="Linktree QR Code"></div>
+        <p class="dw-scan">Scan or Click the link</p>
+        <a class="dw-donate" href="https://linktr.ee/almadina.association" target="_blank" rel="noopener">Donate and Follow</a>
+        <p class="dw-handle">@ama.rosemount</p>
+        <div class="dw-socials">
+          <a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+        <div class="dw-divider"></div>
+        <p class="dw-athan-text">Download <strong>Athan+</strong> app by Masjidal from the App Store or Google Play.</p>
+        <a class="dw-athan-btn" href="athanplus.html">Get Athan+</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">Al-Madina</div>
+        <div class="foot-tag">A masjid for Rosemount.</div>
+        <p style="font-size:14px;line-height:1.6;margin:0;max-width:320px">Established 2010 by seven founding families. A daily masjid, a youth program, and the future home of a full-time Islamic school.</p>
+      </div>
+      <div>
+        <h5>Visit</h5>
+        <ul>
+          <li><a href="prayerTime.html">Prayer Times</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Directions</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Support</h5>
+        <ul>
+          <li><a href="#donate">Donate</a></li>
+          <li><a href="pages/membership.html">Membership</a></li>
+          <li><a href="#donate">New Masjid Fund</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Connect</h5>
+        <ul>
+          <li><a href="https://chat.whatsapp.com/KIYEVrr7ZUl6QsyuYj0jEx" target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><a href="#contact">Instagram</a></li>
+          <li><a href="athanplus.html">Athan+ App</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; 2026 AL-MADINA ASSOCIATION</span>
+      <span>ROSEMOUNT &middot; MINNESOTA</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ---------- Auto-size hero to viewport ----------
+(function(){
+  function setHeroHeight(){
+    var nav = document.querySelector('.nav');
+    var bar = document.querySelector('.prayer-bar');
+    var h = (nav ? nav.offsetHeight : 0) + (bar ? bar.offsetHeight : 0);
+    document.documentElement.style.setProperty('--header-h', h + 'px');
+  }
+  setHeroHeight();
+  window.addEventListener('resize', setHeroHeight);
+})();
+
+// ---------- Hamburger menu ----------
+(function(){
+  var btn = document.getElementById('hamburger');
+  var nav = document.getElementById('navLinks');
+  btn.addEventListener('click', function(){
+    nav.classList.toggle('open');
+  });
+  nav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ nav.classList.remove('open'); });
+  });
+})();
+
+// ---------- Prayer data helper ----------
+var PD = (function(){
+  var MONTH_KEYS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var MONTH_LONG = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var DOW = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  var DOW_LONG = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+  function strip(t){
+    if(!t) return '';
+    return t.replace(/\s*(AM|PM)/i,'').trim();
+  }
+
+  function dateKey(d){
+    var y = d.getFullYear();
+    var m = String(d.getMonth()+1).padStart(2,'0');
+    var dd = String(d.getDate()).padStart(2,'0');
+    return y+'-'+m+'-'+dd;
+  }
+
+  function monthKey(d){
+    return MONTH_KEYS[d.getMonth()];
+  }
+
+  function getData(d){
+    if(typeof prayerData === 'undefined') return null;
+    var mk = monthKey(d);
+    var dk = dateKey(d);
+    if(prayerData[mk] && prayerData[mk][dk]) return prayerData[mk][dk];
+    return null;
+  }
+
+  function hasData(d){
+    return getData(d) !== null;
+  }
+
+  return {
+    strip: strip,
+    dateKey: dateKey,
+    monthKey: monthKey,
+    getData: getData,
+    hasData: hasData,
+    MONTH_KEYS: MONTH_KEYS,
+    MONTH_LONG: MONTH_LONG,
+    DOW: DOW,
+    DOW_LONG: DOW_LONG
+  };
+})();
+
+// ---------- Prayer day nav ----------
+(function(){
+  var today = new Date(); today.setHours(0,0,0,0);
+  var activeDate = new Date(today);
+
+  var dayLabel = document.getElementById('dayLabel');
+  var daySub = document.getElementById('daySub');
+  var prevBtn = document.getElementById('dayPrev');
+  var nextBtn = document.getElementById('dayNext');
+
+  function sameDay(a,b){return a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate();}
+
+  function fmtRel(d){
+    var diff = Math.round((d - today)/86400000);
+    if(diff===0) return 'Today';
+    if(diff===1) return 'Tomorrow';
+    if(diff===-1) return 'Yesterday';
+    return PD.DOW_LONG[d.getDay()];
+  }
+
+  function renderBar(){
+    dayLabel.textContent = fmtRel(activeDate);
+    daySub.textContent = PD.DOW[activeDate.getDay()] + ' · ' + PD.MONTH_LONG[activeDate.getMonth()].slice(0,3) + ' ' + activeDate.getDate();
+
+    var data = PD.getData(activeDate);
+    var prayers = document.querySelectorAll('.prayer[data-prayer]');
+    var pbar = document.querySelector('.prayer-bar');
+
+    // Determine next prayer (only for today)
+    var nextPrayer = null;
+    var isToday = sameDay(activeDate, today);
+    if(isToday && data){
+      var now = new Date();
+      var curMin = now.getHours()*60 + now.getMinutes();
+      var pOrder = ['fajr','zuhr','asr','maghrib','isha'];
+      for(var i=0;i<pOrder.length;i++){
+        var iqVal = data[pOrder[i]+'_iqamah'];
+        if(iqVal){
+          var m = iqVal.match(/(\d+):(\d+)\s*(AM|PM)/i);
+          if(m){
+            var h=+m[1],mn=+m[2],ap=m[3].toUpperCase();
+            if(ap==='PM'&&h!==12)h+=12;if(ap==='AM'&&h===12)h=0;
+            if(h*60+mn > curMin){nextPrayer=pOrder[i];break;}
+          }
+        }
+      }
+    }
+
+
+    prayers.forEach(function(el){
+      var k = el.dataset.prayer;
+      var iqEl = el.querySelector('.prayer-iqamah');
+      var adEl = el.querySelector('.prayer-adhan');
+      // Highlight next prayer
+      if(k === nextPrayer) el.classList.add('next-prayer');
+      else el.classList.remove('next-prayer');
+
+      if(data){
+        var iqKey = k + '_iqamah';
+        var adKey = k === 'fajr' ? 'fajr_18' : (k === 'asr' ? 'asr_standard' : k);
+        iqEl.textContent = PD.strip(data[iqKey] || '');
+        adEl.textContent = 'Adhan ' + PD.strip(data[adKey] || '');
+      } else {
+        iqEl.textContent = '--:--';
+        adEl.textContent = 'Adhan --:--';
+      }
+    });
+
+    var prev = new Date(activeDate); prev.setDate(prev.getDate()-1);
+    var nxt = new Date(activeDate); nxt.setDate(nxt.getDate()+1);
+    prevBtn.disabled = !PD.hasData(prev);
+    nextBtn.disabled = !PD.hasData(nxt);
+  }
+
+  prevBtn.addEventListener('click', function(){
+    var prev = new Date(activeDate); prev.setDate(prev.getDate()-1);
+    if(PD.hasData(prev)){ activeDate = prev; renderBar(); }
+  });
+  nextBtn.addEventListener('click', function(){
+    var nxt = new Date(activeDate); nxt.setDate(nxt.getDate()+1);
+    if(PD.hasData(nxt)){ activeDate = nxt; renderBar(); }
+  });
+
+  renderBar();
+
+  window._prayerNav = {
+    getActive: function(){ return activeDate; },
+    setActive: function(d){ activeDate = d; renderBar(); },
+    today: today
+  };
+})();
+
+// ---------- Calendar modal ----------
+(function(){
+  var today = window._prayerNav.today;
+  var calMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+
+  var backdrop = document.getElementById('calBackdrop');
+  var grid = document.getElementById('calGrid');
+  var monthLabel = document.getElementById('calMonthLabel');
+  var detailHead = document.getElementById('calDetailHead');
+  var detailGrid = document.getElementById('calDetailGrid');
+
+  function sameDay(a,b){return a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate();}
+
+  function renderGrid(){
+    var activeDate = window._prayerNav.getActive();
+    monthLabel.textContent = PD.MONTH_LONG[calMonth.getMonth()] + ' ' + calMonth.getFullYear();
+    grid.innerHTML = '';
+    var dowLabels = ['S','M','T','W','T','F','S'];
+    for(var i=0;i<7;i++){
+      var e = document.createElement('div'); e.className='cal-dow'; e.textContent=dowLabels[i]; grid.appendChild(e);
+    }
+    var first = new Date(calMonth);
+    var startDow = first.getDay();
+    var daysInMonth = new Date(calMonth.getFullYear(), calMonth.getMonth()+1, 0).getDate();
+    var prevDays = new Date(calMonth.getFullYear(), calMonth.getMonth(), 0).getDate();
+    for(var j=startDow-1;j>=0;j--){
+      var n = prevDays - j;
+      var date = new Date(calMonth.getFullYear(), calMonth.getMonth()-1, n);
+      grid.appendChild(makeCell(date, true, activeDate));
+    }
+    for(var n=1;n<=daysInMonth;n++){
+      var date = new Date(calMonth.getFullYear(), calMonth.getMonth(), n);
+      grid.appendChild(makeCell(date, false, activeDate));
+    }
+    var total = startDow + daysInMonth;
+    var trail = (7 - (total % 7)) % 7;
+    for(var n=1;n<=trail;n++){
+      var date = new Date(calMonth.getFullYear(), calMonth.getMonth()+1, n);
+      grid.appendChild(makeCell(date, true, activeDate));
+    }
+  }
+
+  function makeCell(date, other, activeDate){
+    var b = document.createElement('button');
+    var hasData = PD.hasData(date);
+    b.className = 'cal-day'
+      + (other?' is-other':'')
+      + (sameDay(date,today)?' is-today':'')
+      + (sameDay(date,activeDate)?' is-selected':'')
+      + (!hasData && !other?' no-data':'');
+    b.textContent = date.getDate();
+    if(hasData){
+      b.addEventListener('click', (function(d){
+        return function(){
+          window._prayerNav.setActive(new Date(d));
+          calMonth = new Date(d.getFullYear(), d.getMonth(), 1);
+          renderGrid(); renderDetail();
+        };
+      })(date));
+    }
+    return b;
+  }
+
+  function renderDetail(){
+    var activeDate = window._prayerNav.getActive();
+    detailHead.textContent = PD.DOW_LONG[activeDate.getDay()] + ', ' + PD.MONTH_LONG[activeDate.getMonth()] + ' ' + activeDate.getDate() + ' | iqamah';
+    var data = PD.getData(activeDate);
+    detailGrid.innerHTML = '';
+    var prayers = [['fajr','Fajr','fajr_iqamah','fajr_18'],['zuhr','Zuhr','zuhr_iqamah','zuhr'],['asr','Asr','asr_iqamah','asr_standard'],['maghrib','Maghrib','maghrib_iqamah','maghrib'],['isha','Isha','isha_iqamah','isha']];
+    for(var i=0;i<prayers.length;i++){
+      var p = prayers[i];
+      var c = document.createElement('div'); c.className='cal-detail-cell';
+      var iq = data ? PD.strip(data[p[2]]) : '--:--';
+      var ad = data ? PD.strip(data[p[3]]) : '--:--';
+      c.innerHTML = '<div class="n">'+p[1]+'</div><div class="v">'+iq+'</div><div class="adhan-time">Adhan '+ad+'</div>';
+      detailGrid.appendChild(c);
+    }
+  }
+
+  function openCal(){
+    var activeDate = window._prayerNav.getActive();
+    calMonth = new Date(activeDate.getFullYear(), activeDate.getMonth(), 1);
+    renderGrid(); renderDetail();
+    backdrop.classList.add('is-open');
+    document.body.style.overflow='hidden';
+  }
+  function closeCal(){
+    backdrop.classList.remove('is-open');
+    document.body.style.overflow='';
+  }
+  var openCalBtn = document.getElementById('openCalendar');
+  if(openCalBtn) openCalBtn.addEventListener('click', openCal);
+  var calSlideBtn = document.getElementById('openCalendarSlide');
+  if(calSlideBtn) calSlideBtn.addEventListener('click', function(e){e.preventDefault();openCal();});
+  document.getElementById('calClose').addEventListener('click', closeCal);
+  backdrop.addEventListener('click', function(e){if(e.target===backdrop) closeCal();});
+  document.addEventListener('keydown', function(e){if(e.key==='Escape' && backdrop.classList.contains('is-open')) closeCal();});
+  document.getElementById('calMonthPrev').addEventListener('click', function(){calMonth=new Date(calMonth.getFullYear(),calMonth.getMonth()-1,1);renderGrid();});
+  document.getElementById('calMonthNext').addEventListener('click', function(){calMonth=new Date(calMonth.getFullYear(),calMonth.getMonth()+1,1);renderGrid();});
+})();
+
+// ---------- Mini calendar in slide 3 ----------
+(function(){
+  var body = document.getElementById('miniCalBody');
+  var monthLabel = document.getElementById('miniCalMonth');
+  if(!body) return;
+
+  var now = new Date();
+  var year = now.getFullYear();
+  var month = now.getMonth();
+  var mk = PD.MONTH_KEYS[month];
+  monthLabel.textContent = PD.MONTH_LONG[month].toUpperCase() + ' ' + year;
+
+  if(typeof prayerData === 'undefined' || !prayerData[mk]) return;
+
+  var daysInMonth = new Date(year, month+1, 0).getDate();
+  var DOW_SHORT = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  var count = 0;
+
+  for(var d=1; d<=daysInMonth && count<8; d++){
+    var date = new Date(year, month, d);
+    var dk = PD.dateKey(date);
+    var data = prayerData[mk] ? prayerData[mk][dk] : null;
+    if(!data) continue;
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td>'+DOW_SHORT[date.getDay()]+' '+d+'</td>'
+      +'<td>'+PD.strip(data.fajr_18)+'</td>'
+      +'<td>'+PD.strip(data.fajr_iqamah)+'</td>'
+      +'<td>'+PD.strip(data.zuhr)+'</td>'
+      +'<td>'+PD.strip(data.zuhr_iqamah)+'</td>'
+      +'<td>'+PD.strip(data.maghrib)+'</td>';
+    body.appendChild(tr);
+    count++;
+  }
+})();
+
+// ---------- Phone mock in slide 3 ----------
+(function(){
+  var data = PD.getData(new Date());
+  if(!data) return;
+  var pmTime = document.getElementById('pmTime');
+  var pmNext = document.getElementById('pmNext');
+  var pmIqamah = document.getElementById('pmIqamah');
+
+  var n = new Date();
+  var h = n.getHours(); var m = n.getMinutes();
+  var h12 = h % 12 || 12;
+  pmTime.textContent = h12 + ':' + String(m).padStart(2,'0');
+
+  function toMin(timeStr){
+    if(!timeStr) return 0;
+    var clean = timeStr.replace(/\s*(AM|PM)/i,'').trim();
+    var parts = clean.split(':');
+    var hr = parseInt(parts[0]); var mn = parseInt(parts[1]||0);
+    if(/PM/i.test(timeStr) && hr!==12) hr+=12;
+    if(/AM/i.test(timeStr) && hr===12) hr=0;
+    return hr*60+mn;
+  }
+  var nowMin = h*60+m;
+  var prayerOrder = [
+    {name:'Fajr',iq:'fajr_iqamah',ad:'fajr_18'},
+    {name:'Dhuhr',iq:'zuhr_iqamah',ad:'zuhr'},
+    {name:'Asr',iq:'asr_iqamah',ad:'asr_standard'},
+    {name:'Maghrib',iq:'maghrib_iqamah',ad:'maghrib'},
+    {name:'Isha',iq:'isha_iqamah',ad:'isha'}
+  ];
+  var nextPrayer = null;
+  for(var i=0;i<prayerOrder.length;i++){
+    var iqMin = toMin(data[prayerOrder[i].iq]);
+    if(iqMin > nowMin){ nextPrayer = prayerOrder[i]; break; }
+  }
+  if(!nextPrayer) nextPrayer = prayerOrder[0];
+  pmNext.textContent = nextPrayer.name;
+  var nextIqMin = toMin(data[nextPrayer.iq]);
+  var diff = nextIqMin - nowMin;
+  if(diff < 0) diff += 24*60;
+  pmIqamah.textContent = 'Iqamah in ' + diff + ' min';
+
+  var rows = document.querySelectorAll('.pm-row[data-pm]');
+  var pmMap = {fajr:'fajr_18',zuhr:'zuhr',asr:'asr_standard',maghrib:'maghrib',isha:'isha'};
+  rows.forEach(function(row){
+    var k = row.dataset.pm;
+    row.querySelector('.pt').textContent = PD.strip(data[pmMap[k]] || '');
+    row.classList.remove('on');
+    if(nextPrayer && k === (nextPrayer.name==='Dhuhr'?'zuhr':nextPrayer.name.toLowerCase())){
+      row.classList.add('on');
+    }
+  });
+})();
+
+// ---------- Hero slider ----------
+(function(){
+  var slides = Array.from(document.querySelectorAll('.slide'));
+  var dotsWrap = document.getElementById('dots');
+  var now = document.getElementById('slideNow');
+  var total = document.getElementById('slideTotal');
+  var progress = document.getElementById('progressFill');
+  var idx = 0, timer = null, progressTimer = null;
+  var DURATION = 7000;
+  var pad = function(n){ return String(n+1).padStart(2,'0'); };
+
+  total.textContent = pad(slides.length-1);
+
+  slides.forEach(function(_,i){
+    var b = document.createElement('button');
+    b.className = 'hero-dot' + (i===0?' is-active':'');
+    b.setAttribute('aria-label','Go to slide '+(i+1));
+    b.addEventListener('click', function(){ go(i, true); });
+    dotsWrap.appendChild(b);
+  });
+
+  function go(n, manual){
+    slides[idx].classList.remove('is-active');
+    dotsWrap.children[idx].classList.remove('is-active');
+    idx = (n+slides.length)%slides.length;
+    slides[idx].classList.add('is-active');
+    dotsWrap.children[idx].classList.add('is-active');
+    now.textContent = pad(idx);
+    restart();
+  }
+  function restart(){
+    clearInterval(timer); clearInterval(progressTimer);
+    var start = Date.now();
+    progress.style.width = '0%';
+    progressTimer = setInterval(function(){
+      var p = Math.min(100, (Date.now()-start)/DURATION*100);
+      progress.style.width = p+'%';
+    }, 100);
+    timer = setTimeout(function(){go(idx+1);}, DURATION);
+  }
+
+  document.getElementById('next').addEventListener('click', function(){ go(idx+1, true); });
+  document.getElementById('prev').addEventListener('click', function(){ go(idx-1, true); });
+
+  // pause on hover
+  var hero = document.querySelector('.hero');
+  hero.addEventListener('mouseenter', function(){clearTimeout(timer);clearInterval(progressTimer);});
+  hero.addEventListener('mouseleave', restart);
+
+  // keyboard
+  document.addEventListener('keydown', function(e){
+    if(e.key==='ArrowRight') go(idx+1, true);
+    if(e.key==='ArrowLeft') go(idx-1, true);
+  });
+
+  // touch swipe
+  var startX = 0;
+  hero.addEventListener('touchstart', function(e){ startX = e.changedTouches[0].clientX; }, {passive:true});
+  hero.addEventListener('touchend', function(e){
+    var diff = e.changedTouches[0].clientX - startX;
+    if(Math.abs(diff) > 50){
+      if(diff < 0) go(idx+1, true);
+      else go(idx-1, true);
+    }
+  }, {passive:true});
+
+  restart();
+})();
+
+// ---------- QR codes (same URLs as tv.html) ----------
+(function(){
+  var CAL_URL = 'file:///c:/Users/Romo/Documents/src/ama/ama_site/prayerTime.html';
+  var APP_URL = 'file:///c:/Users/Romo/Documents/src/ama/ama_site/athanplus.html';
+  var opts = {size:300, foreground:'#0b1d14', background:'#fff', level:'H'};
+
+  var calEl = document.getElementById('qr-calendar');
+  if(calEl) new QRious(Object.assign({element:calEl, value:CAL_URL}, opts));
+
+  var appEl = document.getElementById('qr-athan');
+  if(appEl) new QRious(Object.assign({element:appEl, value:APP_URL}, opts));
+})();
+
+// ---------- Image lightbox with navigation ----------
+var v2LBImages = [
+  'images/slider/newImages/3.png',
+  'images/slider/newImages/front_face_new_masjid.png',
+  'images/slider/newImages/full_new_masjid.PNG'
+];
+var v2LBIndex = 0;
+
+function showV2LBSlide(i){
+  v2LBIndex = (i + v2LBImages.length) % v2LBImages.length;
+  document.getElementById('v2LightboxImg').src = v2LBImages[v2LBIndex];
+  document.getElementById('v2LightboxCounter').textContent = (v2LBIndex+1) + ' / ' + v2LBImages.length;
+}
+
+function openV2Lightbox(el){
+  var src = el.querySelector('img').getAttribute('src');
+  var idx = v2LBImages.indexOf(src);
+  if(idx === -1) idx = 0;
+  document.getElementById('v2Lightbox').classList.add('is-open');
+  document.body.style.overflow = 'hidden';
+  showV2LBSlide(idx);
+}
+
+function navV2Lightbox(dir, e){
+  if(e) e.stopPropagation();
+  showV2LBSlide(v2LBIndex + dir);
+}
+
+function closeV2Lightbox(e){
+  if(e && e.target.tagName === 'IMG') return;
+  if(e && e.target.closest('.v2-lightbox-arrow')) return;
+  document.getElementById('v2Lightbox').classList.remove('is-open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e){
+  var lb = document.getElementById('v2Lightbox');
+  if(!lb.classList.contains('is-open')) return;
+  if(e.key === 'Escape') closeV2Lightbox();
+  if(e.key === 'ArrowLeft') showV2LBSlide(v2LBIndex - 1);
+  if(e.key === 'ArrowRight') showV2LBSlide(v2LBIndex + 1);
+});
+</script>
+
+<!-- Lightbox overlay -->
+<div class="v2-lightbox" id="v2Lightbox" onclick="closeV2Lightbox(event)">
+  <button class="v2-lightbox-close" onclick="closeV2Lightbox()">&times;</button>
+  <button class="v2-lightbox-arrow prev" onclick="navV2Lightbox(-1,event)">&#8249;</button>
+  <img id="v2LightboxImg" src="" alt="Full-screen view">
+  <button class="v2-lightbox-arrow next" onclick="navV2Lightbox(1,event)">&#8250;</button>
+  <div class="v2-lightbox-counter" id="v2LightboxCounter"></div>
+  <div class="v2-lightbox-caption" id="v2LightboxCaption">Rendering of New Masjid</div>
+</div>
 
 </body>
-
 </html>

@@ -19,12 +19,11 @@
     <!-- Google Fonts — async (non-render-blocking) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Cinzel+Decorative:900|Josefin+Sans:400,600|Quattrocento+Sans:400,700|Lobster|Bangers" onload="this.rel='stylesheet'">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Hanken+Grotesk:wght@400;500;600;700;800&family=Marck+Script&display=swap">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cinzel+Decorative:900|Josefin+Sans:400,600|Quattrocento+Sans:400,700|Lobster|Bangers"></noscript>
 
-    <!-- Font Awesome — async (non-render-blocking) -->
-    <link rel="preconnect" href="https://use.fontawesome.com">
-    <link rel="preload" as="style" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" onload="this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"></noscript>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 
     <style>
@@ -48,60 +47,6 @@
             color: var(--text-dark);
             min-height: 100vh;
             font-size: 18px; /* Further increased base size */
-        }
-
-        /* Navbar Stabilization - matched to style.css and index.html */
-        #navigation.navbar {
-            margin-bottom: 0;
-            border: none;
-        }
-        .navigation .logo img {
-            width: 240px; /* Increased from 200px */
-            height: auto;
-        }
-        .navigation .navigation-menu li a {
-            font-size: 20px !important;
-            color: #9fbcb2 !important;
-            text-transform: capitalize !important;
-            font-weight: 400 !important;
-        }
-        .navigation .navigation-menu li a:hover {
-            color: #ffffff !important;
-        }
-
-        .home-btn {
-            background: transparent !important;
-            color: #f8f8f8 !important; /* Slightly softer off-white */
-            border: none !important;
-            padding: 5px 0;
-            text-decoration: none;
-            font-size: 0.7em; /* Even smaller */
-            font-weight: 600; /* Lighter font weight */
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            line-height: 1;
-            margin-top: 5px;
-        }
-        .home-btn i,
-        .home-btn span {
-            display: inline-block;
-            vertical-align: middle;
-            line-height: 1;
-        }
-        .home-btn i {
-            font-size: 0.8em;
-            transform: translateY(-0.5px);
-        }
-        .home-btn:hover,
-        .home-btn:focus {
-            color: white !important;
-            background: transparent !important;
-            text-decoration: none;
-            transform: translateX(-3px);
         }
 
         /* ── Page Loader ── */
@@ -389,32 +334,6 @@
 
         /* Responsiveness Fixes */
         @media (max-width: 768px) {
-            #navigation .container { 
-                display: flex !important; 
-                align-items: center !important; 
-                justify-content: space-between !important; 
-                padding: 10px 15px !important;
-                width: 100% !important;
-            }
-            .navbar-header, .navbar-right { 
-                float: none !important; 
-                display: flex !important; 
-                align-items: center !important;
-                margin: 0 !important;
-                padding: 0 !important;
-            }
-            .navigation .logo img { width: 160px !important; } /* Increased from 120px */
-            .home-btn { 
-                padding: 4px 0 !important; 
-                font-size: 0.65rem !important; /* Even smaller on mobile */
-                white-space: nowrap !important;
-                margin: 0 !important;
-                border: none !important;
-                opacity: 1 !important;
-            }
-            .home-btn i { font-size: 0.65em !important; }
-            .navbar-nav { margin: 0 !important; }
-            .navbar-nav > li { display: block !important; }
             .nav-row { padding: 10px; gap: 10px; }
             .view-switcher { flex-wrap: wrap; gap: 5px; flex-direction: column-reverse; }
             .view-btn, .today-btn { width: 100%; margin: 2px 0 !important; }
@@ -527,28 +446,75 @@
             #view-container {
             }
         }
+
+        /* ── New Nav + Footer (v2) ── */
+        .v2-nav{
+          position:sticky;top:0;z-index:50;
+          background:rgba(8,28,22,.96);
+          backdrop-filter:saturate(140%) blur(14px);
+          border-bottom:1px solid rgba(224,198,138,.18);
+        }
+        .v2-nav-inner{display:flex;align-items:center;justify-content:space-between;height:78px;max-width:1280px;margin:0 auto;padding:0 32px}
+        .v2-brand{display:flex;align-items:center;gap:14px;text-decoration:none;color:#F6F1E6}
+        .v2-brand-logo{height:46px;width:auto;border-radius:4px}
+        .v2-brand-name{display:flex;flex-direction:column;line-height:1}
+        .v2-brand-name b{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:22px;letter-spacing:.01em}
+        .v2-brand-name span{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(246,241,230,.55);margin-top:4px}
+        .v2-nav-links{display:flex;gap:30px;align-items:center}
+        .v2-nav-links a{text-decoration:none;font-size:14px;font-weight:500;color:#F6F1E6;opacity:.78;transition:opacity .2s;font-family:"Hanken Grotesk",system-ui,sans-serif}
+        .v2-nav-links a:hover{opacity:1}
+        .v2-nav-links a.active{opacity:1;border-bottom:2px solid #C8A45E;padding-bottom:2px}
+        .v2-nav-cta{
+          background:#C8A45E;color:#0F3B2E;
+          padding:11px 20px;border-radius:999px;font-size:13px;font-weight:700;letter-spacing:.02em;
+          text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+          transition:transform .2s, background .2s;font-family:"Hanken Grotesk",system-ui,sans-serif;
+        }
+        .v2-nav-cta:hover{background:#E0C68A;transform:translateY(-1px);color:#0F3B2E;text-decoration:none}
+        .v2-hamburger{display:none;background:none;border:none;color:#F6F1E6;cursor:pointer;padding:8px}
+        @media (max-width:880px){
+          .v2-nav-links{display:none;position:absolute;top:78px;left:0;right:0;background:rgba(8,28,22,.97);flex-direction:column;padding:20px 32px;gap:18px;border-bottom:1px solid rgba(224,198,138,.18)}
+          .v2-nav-links.open{display:flex}
+          .v2-hamburger{display:block}
+          .v2-nav-cta-wrap{display:none}
+        }
+
+        .v2-footer{background:#081C16;color:rgba(246,241,230,.65);padding:80px 0 32px;font-family:"Hanken Grotesk",system-ui,sans-serif}
+        .v2-footer .wrap{max-width:1280px;margin:0 auto;padding:0 32px}
+        .v2-foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;margin-bottom:64px}
+        @media (max-width:880px){.v2-foot-grid{grid-template-columns:1fr 1fr;gap:32px}}
+        .v2-footer h5{color:#F6F1E6;font-size:12px;letter-spacing:.22em;text-transform:uppercase;margin:0 0 18px;font-weight:600}
+        .v2-footer ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+        .v2-footer a{color:rgba(246,241,230,.65);text-decoration:none;font-size:14px;transition:color .2s}
+        .v2-footer a:hover{color:#F6F1E6}
+        .v2-foot-brand{font-family:"Cormorant Garamond",serif;font-size:32px;color:#F6F1E6;font-weight:500;margin-bottom:8px}
+        .v2-foot-tag{font-style:italic;color:#E0C68A;font-family:"Cormorant Garamond",serif;font-size:18px;margin-bottom:24px}
+        .v2-foot-bottom{padding-top:32px;border-top:1px solid rgba(246,241,230,.08);display:flex;justify-content:space-between;align-items:center;font-size:12px;letter-spacing:.1em}
+        @media (max-width:560px){.v2-foot-bottom{flex-direction:column;gap:14px}}
     </style>
 </head>
 <body id="body">
 
-    <header id="navigation" class="navbar navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand logo" href="index.html">
-                    <img src="images/logos/logo.png" alt="Al Madina Association" />
-                </a>
-            </div>
-            <nav class="navbar-right" role="Navigation">
-                <ul id="nav" class="nav navbar-nav navigation-menu">
-                    <li>
-                        <a href="index.html" class="home-btn">
-                            <i class="fas fa-chevron-left"></i>
-                            <span>Go Back</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+    <header class="v2-nav">
+      <div class="v2-nav-inner">
+        <a class="v2-brand" href="index.html">
+          <img class="v2-brand-logo" src="images/logos/logo.png" alt="Al-Madina Association Logo">
+        </a>
+        <nav class="v2-nav-links" id="v2NavLinks">
+          <a href="prayerTime.html" class="active">Prayer Times</a>
+          <a href="index.html#about">About</a>
+          <a href="index.html#donate">Donate</a>
+          <a href="pages/membership.html">Membership</a>
+          <a href="index.html#contact">Contact</a>
+        </nav>
+        <a class="v2-nav-cta" href="index.html#donate">
+          Donate
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <button class="v2-hamburger" id="v2Hamburger" aria-label="Toggle menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+      </div>
     </header>
 
     <div class="calendar-wrapper" id="pdf-content">
@@ -1202,6 +1168,46 @@
             populatePDFModal();
         });
     </script>
+    <footer class="v2-footer">
+      <div class="wrap">
+        <div class="v2-foot-grid">
+          <div>
+            <div class="v2-foot-brand">Al-Madina</div>
+            <div class="v2-foot-tag">A masjid for Rosemount.</div>
+            <p style="font-size:14px;line-height:1.6;margin:0;max-width:320px">Established 2010 by seven founding families. A daily masjid, a youth program, and the future home of a full-time Islamic school.</p>
+          </div>
+          <div>
+            <h5>Visit</h5>
+            <ul>
+              <li><a href="prayerTime.html">Prayer Times</a></li>
+              <li><a href="index.html#about">About</a></li>
+              <li><a href="index.html#contact">Directions</a></li>
+            </ul>
+          </div>
+          <div>
+            <h5>Support</h5>
+            <ul>
+              <li><a href="index.html#donate">Donate</a></li>
+              <li><a href="pages/membership.html">Membership</a></li>
+              <li><a href="index.html#donate">New Masjid Fund</a></li>
+            </ul>
+          </div>
+          <div>
+            <h5>Connect</h5>
+            <ul>
+              <li><a href="https://chat.whatsapp.com/KIYEVrr7ZUl6QsyuYj0jEx" target="_blank" rel="noopener">WhatsApp</a></li>
+              <li><a href="index.html#contact">Instagram</a></li>
+              <li><a href="athanplus.html">Athan+ App</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="v2-foot-bottom">
+          <span>&copy; 2026 AL-MADINA ASSOCIATION</span>
+          <span>ROSEMOUNT &middot; MINNESOTA</span>
+        </div>
+      </div>
+    </footer>
+
     <!-- Global Scripts -->
     <script type="text/javascript" src="plugins/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="plugins/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -1213,5 +1219,12 @@
     <script type="text/javascript" src="plugins/count-to/jquery.countTo.js"></script>
     <script type="text/javascript" src="plugins/wow/dist/wow.min.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
+<script>
+(function(){
+  var btn = document.getElementById('v2Hamburger');
+  var nav = document.getElementById('v2NavLinks');
+  if(btn && nav){ btn.addEventListener('click', function(){ nav.classList.toggle('open'); }); }
+})();
+</script>
 </body>
 </html>

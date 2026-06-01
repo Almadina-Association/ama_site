@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="description" content="Al Madina Association">
+
+	<meta name="author" content="Romo Islam">
+
+	<title>Al-Madina Association</title>
+
+	<!-- Mobile Specific Meta
+		================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" type="image/png" href="images/logos/square.png" />
+
+	<!-- CSS
+		================================================== -->
+	<!-- Fontawesome Icon font -->
+	<link rel="stylesheet" href="plugins/themefisher-font/style.css">
+	<!-- bootstrap.min css -->
+	<link rel="stylesheet" href="plugins/bootstrap/dist/css/bootstrap.min.css">
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="plugins/animate-css/animate.css">
+	<!-- Magnific popup css -->
+	<link rel="stylesheet" href="plugins/magnific-popup/dist/magnific-popup.css">
+	<!-- Slick Carousel -->
+	<link rel="stylesheet" href="plugins/slick-carousel/slick/slick.css">
+	<link rel="stylesheet" href="plugins/slick-carousel/slick/slick-theme.css">
+	<!-- Main Stylesheet -->
+	<link rel="stylesheet" href="css/style.css">
+	
+	<style>
+		.prayer-pagination {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 8px;
+			margin: 10px 0;
+			padding: 0 15px 10px 15px;
+			background: transparent;
+			border-bottom: 1px solid #ddd;
+		}
+		.date-nav {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 20px;
+			width: 100%;
+		}
+		.prayer-pagination #current-date-display {
+			font-family: 'Josefin Sans', sans-serif;
+			font-weight: 600;
+			font-size: 0.85em;
+			color: #444;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			text-align: center;
+			white-space: nowrap;
+		}
+		.prayer-pagination .btn-pagination {
+			background: transparent;
+			color: #2b5a4a;
+			border: 1px solid #2b5a4a;
+			width: 24px;
+			height: 24px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 50%;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			font-size: 0.65em;
+		}
+		.prayer-pagination .btn-pagination:hover:not(:disabled) {
+			background: #2b5a4a;
+			color: white;
+		}
+		.prayer-pagination .btn-pagination:disabled {
+			opacity: 0.3;
+			cursor: not-allowed;
+			border-color: #ccc;
+			color: #ccc;
+		}
+		.calendar-btn {
+			background: #2b5a4a;
+			color: white;
+			border: none;
+			padding: 4px 12px;
+			border-radius: 4px;
+			font-size: 0.65em;
+			cursor: pointer;
+			font-family: 'Josefin Sans', sans-serif;
+			transition: background 0.3s;
+			display: inline-flex;
+			align-items: center;
+			gap: 5px;
+			text-transform: uppercase;
+			font-weight: 600;
+		}
+		.calendar-btn:hover {
+			background: #1e3f34;
+		}
+		.calendar-btn i,
+		.calendar-btn span {
+			display: inline-block;
+			vertical-align: middle;
+			line-height: 1;
+		}
+		.calendar-btn i {
+			transform: translateY(-1px);
+		}
+
+		/* ── Become a Member nav CTA ── */
+		.member-nav-cta {
+			background: rgba(255,255,255,0.2) !important;
+			color: #fff !important;
+			border: 1px solid rgba(255,255,255,0.3) !important;
+			border-radius: 5px !important;
+			padding: 7px 16px !important;
+			font-size: 20px !important;
+			font-weight: 400 !important;
+			letter-spacing: 0;
+			text-transform: none !important;
+			transition: all 0.25s;
+			line-height: 1.4;
+			vertical-align: middle;
+			display: inline-block;
+			margin-top: 5px;
+			margin-left: 15px;
+		}
+		.member-nav-cta:hover {
+			background: rgba(255,255,255,0.35) !important;
+			color: #fff !important;
+		}
+
+		/* ── Membership Benefits Section ── */
+		.membership-cta-section {
+			background: linear-gradient(160deg, #192b24 0%, #2b5a4a 100%);
+			padding: 80px 20px;
+			text-align: center;
+			position: relative;
+			overflow: hidden;
+		}
+		.membership-cta-section::before {
+			content: '';
+			position: absolute;
+			top: -80px; right: -80px;
+			width: 320px; height: 320px;
+			border-radius: 50%;
+			background: rgba(255,255,255,0.04);
+		}
+		.membership-cta-section::after {
+			content: '';
+			position: absolute;
+			bottom: -100px; left: -60px;
+			width: 260px; height: 260px;
+			border-radius: 50%;
+			border-radius: 50%;
+			background: rgba(255,255,255,0.04);
+		}
+		.membership-cta-inner {
+			max-width: 1100px;
+			margin: 0 auto;
+			position: relative;
+			z-index: 2;
+		}
+		.membership-cta-section .eyebrow {
+			font-family: "Quattrocento Sans", sans-serif;
+			font-size: 13px;
+			font-weight: 700;
+			text-transform: uppercase;
+			letter-spacing: 3px;
+			color: #7ecba1;
+			margin-bottom: 14px;
+			line-height: 1;
+		}
+		.membership-cta-section h2 {
+			color: #fff;
+			font-size: 48px;
+			font-weight: 700;
+			text-transform: capitalize;
+			margin: 0 0 16px;
+			line-height: 1.15;
+			font-family: "Quattrocento Sans", sans-serif;
+		}
+		.membership-cta-section h2 span { color: #7ecba1; }
+		.membership-cta-section .lead {
+			font-family: "Quattrocento Sans", sans-serif;
+			color: rgba(255,255,255,0.80);
+			font-size: 20px;
+			max-width: 620px;
+			margin: 0 auto 50px;
+			line-height: 1.65;
+		}
+		.benefits-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+			gap: 20px;
+			margin-bottom: 48px;
+		}
+		.benefit-card {
+			background: #192b24;
+			border: 1px solid rgba(126,203,161,0.25);
+			border-radius: 14px;
+			padding: 28px 20px;
+			text-align: center;
+			transition: all 0.3s;
+		}
+		.benefit-card:hover {
+			background: #1e3830;
+			transform: translateY(-5px);
+			border-color: rgba(126,203,161,0.55);
+		}
+		.benefit-icon {
+			width: 56px; height: 56px;
+			background: rgba(126,203,161,0.15);
+			border-radius: 50%;
+			display: flex; align-items: center; justify-content: center;
+			margin: 0 auto 16px;
+			font-size: 1.4rem;
+			color: #7ecba1;
+		}
+		.benefit-card h4 {
+			font-family: "Quattrocento Sans", sans-serif;
+			color: #fff;
+			font-size: 16px;
+			font-weight: 700;
+			text-transform: uppercase;
+			letter-spacing: 0.5px;
+			margin: 0 0 10px;
+			line-height: 1.3;
+		}
+		.benefit-card p {
+			font-family: "Quattrocento Sans", sans-serif;
+			color: rgba(255,255,255,0.70);
+			font-size: 16px;
+			margin: 0;
+			line-height: 1.6;
+		}
+		.btn-member-cta {
+			display: inline-flex;
+			align-items: center;
+			gap: 10px;
+			background: #192b24;
+			color: #fff;
+			border-radius: 4px;
+			padding: 14px 40px;
+			font-family: "Quattrocento Sans", sans-serif;
+			font-size: 16px;
+			font-weight: 800;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			text-decoration: none;
+			transition: all 0.25s;
+			box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+		}
+		.btn-member-cta:hover {
+			background: #1e3830;
+			color: #fff;
+			text-decoration: none;
+			transform: translateY(-2px);
+			box-shadow: 0 12px 30px rgba(0,0,0,0.32);
+		}
+
+		/* ── Eid Announcement Banner ── */
+		.eid-announcement-banner {
+			background: linear-gradient(135deg, #c8f0da 0%, #a8e4c0 100%);
+			color: #1a3d2b;
+			padding: 28px 30px;
+			text-align: center;
+			border-top: 4px solid #3a8f5f;
+			border-bottom: 4px solid #3a8f5f;
+			position: relative;
+			z-index: 999;
+		}
+		.eid-banner-inner {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 24px;
+			max-width: 1100px;
+			margin: 0 auto;
+		}
+		.eid-banner-icon {
+			font-size: 2.8rem;
+			flex-shrink: 0;
+			color: #2b6b45;
+		}
+		.eid-banner-content {
+			flex: 1;
+		}
+		.eid-banner-line1 {
+			margin: 0 0 10px;
+			font-size: 1.5rem;
+			font-family: 'Josefin Sans', sans-serif;
+			line-height: 1.6;
+			color: #1a3d2b;
+		}
+		.eid-banner-line2 {
+			margin: 0;
+			font-size: 1.5rem;
+			font-family: 'Josefin Sans', sans-serif;
+			color: #1a3d2b;
+			line-height: 1.6;
+		}
+		.eid-banner-line1 strong,
+		.eid-banner-line2 strong {
+			color: #145c30;
+		}
+		@media (max-width: 600px) {
+			.eid-banner-icon { display: none; }
+			.eid-banner-line1 { font-size: 1.1rem; }
+			.eid-banner-line2 { font-size: 0.95rem; }
+		}
+	</style>
+
+	<!-- ================================== -->
+	<!--    Cinzel Decorative Font -->
+	<!-- ================================== -->
+	<link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative: 900|Josefin+Sans|Lobster|Bangers"
+		rel="stylesheet">
+
+	<!-- ================================== -->
+	<!--    Font Awesome import -->
+	<!-- ================================== -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"></script>
+	<script src="js/prayerData.js"></script>
+
+
+</head>
+
+
+
+<body id="body" data-spy="scroll" data-target=".navbar" data-offset="50">
+
+
+	<!--
+	    Start Preloader
+	    ==================================== -->
+	<!-- <div id="preloader">
+		<div class="preloader">
+			<div class="sk-cube-grid">
+				<div class="sk-cube sk-cube1"></div>
+				<div class="sk-cube sk-cube2"></div>
+				<div class="sk-cube sk-cube3"></div>
+				<div class="sk-cube sk-cube4"></div>
+				<div class="sk-cube sk-cube5"></div>
+				<div class="sk-cube sk-cube6"></div>
+				<div class="sk-cube sk-cube7"></div>
+				<div class="sk-cube sk-cube8"></div>
+				<div class="sk-cube sk-cube9"></div>
+			</div>
+		</div>
+	</div> -->
+	<!--
+        End Preloader
+        ==================================== -->
+	<!-- 
+  Fixed Navigation
+  ==================================== -->
+
+
+	<header id="navigation" class="navbar navigation">
+
+		<div class="container">
+
+			<div class="navbar-header">
+				<!-- responsive nav button -->
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<!-- /responsive nav button -->
+
+				<!-- logo -->
+				<a class="navbar-brand logo" href="#body">
+					<img src="images/logos/logo.png" alt="Website Logo" />
+
+				</a>
+				<!-- /logo -->
+			</div>
+
+
+			<!-- main nav -->
+			<nav class="collapse navbar-collapse navbar-right" role="Navigation">
+				<ul id="nav" class="nav navbar-nav navigation-menu">
+
+					<!-- Mobile Menu Item -->
+					<li id="menuItemMobile">
+						<a class="menuItemMobile" data-toggle="collapse" data-target=".navbar-collapse" data-scroll
+							href="#body">Home</a>
+					</li>
+					<!-- Normal Menu Item -->
+					<li id="menuItem">
+						<a data-scroll href="#body">Home</a>
+					</li>
+
+
+			
+					<!-- Mobile Menu Item -->
+					<li id="menuItemMobile">
+						<a class="menuItemMobile" data-toggle="collapse" data-target=".navbar-collapse" data-scroll
+							href="#donate">Donate</a>
+					</li>
+
+					<li id="menuItem">
+						<a data-scroll href="#donate">Donate</a>
+					</li>
+
+							<!-- Mobile Menu Item -->
+							<li id="menuItemMobile">
+								<a class="menuItemMobile" data-toggle="collapse" data-target=".navbar-collapse" data-scroll
+									href="#about">About</a>
+							</li>
+							<!-- Normal Menu Item -->
+							<li id="menuItem">
+								<a data-scroll href="#about">About</a>
+							</li>
+
+							<!-- Mobile Menu Item -->
+							<li id="menuItemMobile">
+								<a class="menuItemMobile" data-toggle="collapse" data-target=".navbar-collapse"
+									href="prayerTime.html">Prayer Time</a>
+							</li>
+							<!-- Normal Menu Item -->
+							<li id="menuItem">
+								<a href="prayerTime.html">Prayer Time</a>
+							</li>
+
+					<!-- Mobile Menu Item -->
+					<li id="menuItemMobile">
+						<a class="menuItemMobile" data-toggle="collapse" data-target=".navbar-collapse" data-scroll
+							href="#contact-us">Contact</a>
+					</li>
+					<!-- Normal Menu Item -->
+					<li id="menuItem">
+						<a data-scroll href="#contact-us">Contact</a>
+					</li>
+
+					<li id="menuItemMobile">
+						<a class="menuItemMobile member-nav-cta" data-toggle="collapse" data-target=".navbar-collapse"
+							href="pages/membership.html">Become a Member</a>
+					</li>
+					<!-- Become a Member CTA - Desktop -->
+					<li id="menuItem">
+						<a href="pages/membership.html" class="member-nav-cta">Become a Member</a>
+					</li>
+
+
+
+
+				</ul>
+			</nav>
+			
+			<!-- /main nav -->
+
+
+
+
+		</div>
+	</header>
+	<div class="donationBanner">
+		<a href="#donate" style="width: 100%;"  class="btn btn-main">Donate Now</a>
+	</div>
+
+	<!-- ── Eid al-Fitr Announcement Banner ── -->
+	<div class="eid-announcement-banner">
+		<div class="eid-banner-inner">
+			<div class="eid-banner-icon">☽</div>
+			<div class="eid-banner-content">
+				<p class="eid-banner-line1">
+					According to <strong>ChicagoHilal.com</strong> the moon was able to be sighted.
+					Therefore <strong>Eid al-Fitr will be tomorrow, March 20th</strong>.
+				</p>
+				<p class="eid-banner-line2">
+					🕌 <strong>Eid Prayer</strong> at <strong>Rosemount Community Center</strong>
+					&nbsp;|&nbsp; Takbeer: <strong>8:00 AM</strong>
+					&nbsp;|&nbsp; Prayer: <strong>8:30 AM</strong>
+				</p>
+			</div>
+			<div class="eid-banner-icon">☽</div>
+		</div>
+	</div>
+	<!-- ── End Eid Banner ── -->
+	<script>
+		(function() {
+			var expiry = new Date('2026-03-21T00:00:00');
+			if (new Date() >= expiry) {
+				var banner = document.querySelector('.eid-announcement-banner');
+				if (banner) banner.style.display = 'none';
+			}
+		})();
+	</script>
+	<!--
+End Fixed Navigation
+==================================== -->
+	<!--
+Welcome Slider
+==================================== -->
+<section class="hero-area">
+
+	<div class="hero-area-inner">
+
+		<div class="timeContainer" style="background:#ffffffb8;">
+			<h1 class="timeContainerTitleHeader">Prayer <span style="color: #bfe2d4f5;">Time</span></h1>
+			
+			<div class="prayer-pagination">
+				<button id="calendar-btn" class="calendar-btn" onclick="window.location.href='prayerTime.html'"><i class="fas fa-calendar-alt"></i> <span>Calendar View</span></button>
+				<div class="date-nav">
+					<button id="prev-day" class="btn-pagination"><i class="fas fa-chevron-left"></i></button>
+					<span id="current-date-display">Loading...</span>
+					<button id="next-day" class="btn-pagination"><i class="fas fa-chevron-right"></i></button>
+				</div>
+			</div>
+
+			<div class="timeContainerInner">
+			<table class="GeneratedTable">
+	
+				<tbody>
+					<tr>
+						<td class="prayerName">Fajr</td>
+						<td class="prayerTime" id="fajr_time"></td>
+					</tr>
+					<tr>
+						<td class="iqamah">Iqamah</td>
+						<td class="iqamahTime" id="fajr_iqamah"></td>
+					</tr>
+					<!-- <thead> -->
+					<tr class="sunrise">
+						<th>Sunrise</th>
+						<td id="sunrise"></td>
+					</tr>
+					<!-- </thead> -->
+					<tr>
+						<td class="prayerName">Zuhr</td>
+						<td class="prayerTime" id="zuhr_time"></td>
+					</tr>
+					<tr>
+						<td class="iqamah">Iqamah</td>
+						<td class="iqamahTime" id="zuhr_iqamah"></td>
+					</tr>
+					<tr>
+						<td class="prayerName">Asr</td>
+						<td class="prayerTime" id="asr_time"></td>
+					</tr>
+					<tr>
+						<td class="iqamah">Iqamah</td>
+						<td class="iqamahTime" id="asr_iqamah"></td>
+					</tr>
+					<tr>
+						<td class="prayerName">Maghrib</td>
+						<td class="prayerTime" id="maghrib_time"></td>
+					</tr>
+					<tr>
+						<td class="iqamah">Iqamah</td>
+						<td class="iqamahTime" id="maghrib_iqamah"></td>
+					</tr>
+					<tr>
+						<td class="prayerName"> Isha</td>
+						<td class="prayerTime" id="isha_time"></td>
+					</tr>
+					<tr>
+						<td class="iqamah">Iqamah</td>
+						<td class="iqamahTime" id="isha_iqamah"></td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+		</div>
+	
+		<div class="promoContainer">
+			<div class="promoContainerHeader"> 
+				<h2> Donate & Journey With Us</h2>
+	
+			</div>
+			<div class="promoContainerBody">
+	
+	
+					<img width="200px" src="./images/slider/payments.png" />
+	
+					<div>
+						<span class="promoContainerLink">https://linktr.ee/almadina.association</span>
+	
+					</div>
+	
+					
+					<div class="promoQRContainer">
+	
+						<img width="200px" src="./images/slider/linktree.png" />
+					</div>
+					<div>
+						<span class="promoContainerLink">Scan or Click the link</span>
+	
+					</div>
+					<div>
+						<a href="https://linktr.ee/almadina.association" class="btn btn-main">Donate and Follow</a>
+	
+					</div>
+					<div>
+						<span class="promoContainerLink">@ama.rosemount</span>
+	
+					</div>
+	
+				<img width="200px" src="./images/slider/socials.png" />
+	
+				<div>
+					<p><span class="promoContainerLink" style="font-size: 20px;">Download Athan+ app by Masjidal from App Store or Google Play</span></p>
+					<div style="margin-top: 0;">
+						<a href="athanplus.html" class="btn btn-main">Get Athan+</a>
+					</div>
+				</div>
+
+			</div>
+	
+
+	
+		</div>
+		<div class="promoContainer">
+			<div class="promoContainerHeader"> 
+				<h2> Build a House of Allah</h2>
+	
+			</div>
+			<div class="promoContainerBody">
+	
+	
+					<img width="310px" src="./images/slider/full_new_masjid.PNG" />
+	<div style="padding-top: 0px;">
+		<img  width="280px" src="./images/slider/fundraiser_goal.png" />
+	</div>
+					
+					<!-- <div>
+						<a href="https://www.launchgood.com/campaign/build_a_house_of_allah_1#!/" class="btn btn-main">Launch Good</a>
+	
+					</div> -->
+
+	
+	
+	
+			</div>
+	
+
+	
+		</div>
+	</div>
+
+	
+</section>
+
+<section id="donate"  class="section about-2 padding-0 bg-dark">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-6 padding-0 ">
+				<img class="img-responsive" src="images/about/about.png" alt="">
+			</div>
+			<div style="padding-top: 60px;" class="col-md-6">
+				<div " class="content-block">
+					<div class="titleAlt wow fadeIn" data-wow-duration="1500ms">
+						<h2>
+							<span class="darkTitleAlt"> Donate </span>
+							<span class="lightTitle">Generously</span>
+						</h2>
+						<!-- <div class="borderLight"></div> -->
+					</div>
+					<!-- <h2>Donate To Al Al-Madina</h2> -->
+					<h2>Prophet (PBUH) said: <q><i>Whoever builds a masjid for the sake of Allah, Allah will build
+								for
+								him a house in Paradise.</i></q></h2>
+
+
+				
+					<div class="row">
+						<div class="col-md-6">
+							<div class="media">
+								<div class="pull-left">
+									<img width="35px" src="./images/slider/zelle.png" />
+								</div>
+								<div class="media-body">
+									<h3 class="media-heading">Zelle Us</h4>
+										<p>Send us your generous donations using Zelle
+											to almadina.association@gmail.com or scan the QR code:
+											<!-- <a href="#services">View Services...</a> -->
+										</p>
+
+										<!-- <button class="newButton">
+										Our Services
+									</button> -->
+
+								</div>
+							</div>
+						</div>
+						<div class="qrContainer">
+							<img width="110px" src="./images/slider/qr-zelle.png" />
+						</div>
+			
+					</div>
+					<hr class="donate-divider">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="media">
+								<div class="pull-left">
+									<img width="35px" src="./images/slider/venmo.png" />
+								</div>
+								<div class="media-body">
+									<h3 class="media-heading">Venmo Us</h4>
+										<p>Send us your generous donations using Venmo
+											@Al-Madina-Association or scan the QR code:
+											<!-- <a href="#services">View Services...</a> -->
+										</p>
+
+										<!-- <button class="newButton">
+										Our Services
+									</button> -->
+
+								</div>
+							</div>
+						</div>
+						<div class="qrContainer">
+							<img width="110px" src="./images/slider/qr-venmo.png" />
+						</div>
+			
+					</div>
+					<hr class="donate-divider">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="media">
+								<div class="pull-left">
+									<img width="35px" src="./images/slider/paypal.png" />
+								</div>
+								<div class="media-body">
+									<h3 class="media-heading">Paypal Us</h4>
+										<p>Send us your generous donations using Paypal
+											@almadinaassociation or scan the QR code:
+											<!-- <a href="#services">View Services...</a> -->
+										</p>
+
+										<!-- <button class="newButton">
+										Our Services
+									</button> -->
+
+								</div>
+							</div>
+						</div>
+						<div class="qrContainer">
+							<img width="110px" src="./images/slider/qr-paypal.jpg" />
+						</div>
+			
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	</div>
+	</div>
+</section>
+	<!--
+=================================== -->
+
+
+	<!-- ── Membership CTA & Benefits Section ── -->
+	<section class="membership-cta-section" id="membership">
+		<div class="membership-cta-inner">
+			<div class="eyebrow">Join Our Community</div>
+			<h2>Your Membership Helps <span>Run This Masjid</span></h2>
+			<p class="lead">Every dollar from our members keeps the lights on, the doors open, and our community growing. Become a formal part of Al-Madina Association today.</p>
+
+			<div class="benefits-grid">
+				<div class="benefit-card">
+					<div class="benefit-icon"><i class="fas fa-mosque"></i></div>
+					<h4>Sustain Daily Operations</h4>
+					<p>Fund utilities, maintenance, and daily expenses that keep the masjid running five times a day.</p>
+				</div>
+				<div class="benefit-card">
+					<div class="benefit-icon"><i class="fas fa-book-open"></i></div>
+					<h4>Fund Islamic Education</h4>
+					<p>Support Quran classes, youth programs, and our long-term vision for a full-time Islamic school.</p>
+				</div>
+				<div class="benefit-card">
+					<div class="benefit-icon"><i class="fas fa-users"></i></div>
+					<h4>Build Community</h4>
+					<p>Strengthen the bonds of our ummah through events, programs, and a welcoming gathering place.</p>
+				</div>
+				<div class="benefit-card">
+					<div class="benefit-icon"><i class="fas fa-mosque"></i></div>
+					<h4>Build Our New Masjid</h4>
+					<p>Contribute directly to our permanent masjid project — a legacy for generations to come.</p>
+				</div>
+				<div class="benefit-card">
+					<div class="benefit-icon"><i class="fas fa-bullhorn"></i></div>
+					<h4>Have Your Voice Heard</h4>
+					<p>Members participate in community decisions and help shape the future of Al-Madina Association.</p>
+				</div>
+			</div>
+
+			<a href="pages/membership.html" class="btn-member-cta">
+				<i class="fas fa-id-card"></i> Become a Member
+			</a>
+		</div>
+	</section>
+	<!-- ── End Membership Section ── -->
+
+
+	<!--
+		Start About Section
+		==================================== -->
+
+
+
+	<section class="bg-one about section" id="about">
+		<div class="container">
+			<div class="row">
+
+				<!-- section title -->
+				<div class="title text-center wow fadeIn" data-wow-duration="1500ms">
+					<h2>
+						<span class="darkTitle"> About </span>
+						<span class="lightTitle">Us</span>
+					</h2>
+					<div class="borderLight"></div>
+				</div>
+				<!-- /section title -->
+
+				<!-- About item -->
+				<!-- <div class="col-md-4 text-center wow fadeInUp" data-wow-duration="500ms">
+					<div class="block">
+						<div class="icon-box">
+							<i class="tf-tools"></i>
+						</div>
+						<div class="content text-center">
+							<h3 class="ddd">We're Creative</h3>
+							<p>Here at AccTech we take great pride in making each of our projects unique and catchy to
+								the public eye.</p>
+						</div>
+					</div>
+				</div> -->
+				<!-- End About item -->
+
+				<!-- About item -->
+				<div class="col-md-6 text-center wow fadeInUp" data-wow-duration="500ms" data-wow-delay="250ms">
+
+					<img width="100%" height="300" src="./images/slider/front_face_new_masjid.png" />
+					<h2>
+						<span class="aboutTextHeader">Our Story</span>
+					</h2>
+					<h3>
+						<span class="aboutText">
+							In 2010, we set out on an inspiring mission. With just 7 families,
+							 we aimed to create a Masjid where our community could unite, worship, and grow together.
+
+
+
+						</span>
+
+					</h3>
+		
+				</div>
+				<!-- End About item -->
+
+				<!-- About item -->
+				<div class="col-md-6 text-center wow fadeInUp" data-wow-duration="500ms" data-wow-delay="250ms">
+					<img width="100%"  height="300" src="./images/slider/3.jpg" />
+
+					<h2>
+						<span class="aboutTextHeader">Our Mission</span>
+						
+					</h2>
+					<h3>
+						<span class="aboutText">
+							To create a nurturing environment where our community can unite in faith, provide youth with Islamic education, strengthen family and community bonds, and build a foundation for a 
+							full-time Islamic school, all while offering daily five times prayer.
+						</span>
+
+					</h3>
+				</div>
+
+				<!-- End About item -->
+
+			</div>
+			<!-- End row -->
+		</div>
+		<!-- End container -->
+	</section>
+	<!-- End section -->
+
+
+	<section id="contact-us" class="section about-2 padding-0 bg-dark">
+		<div class="container-fluid">
+			<div class="row">
+
+				<div class="col-md-6">
+					<div class="content-block">
+						<div class="titleAlt wow fadeIn" data-wow-duration="1500ms">
+							<h2>
+								<span class="darkTitleAlt"> Get In </span>
+								<span class="lightTitle">Touch</span>
+							</h2>
+						</div>
+
+
+
+						<div class="row">
+							<div class="col-md-6">
+								<div class="media">
+									<div class="pull-left">
+										<i class="fab fa-whatsapp"></i>
+									</div>
+									<div class="media-body">
+										<h3 class="media-heading">Join our WhatsApp group:</h4>
+											<p>Join our WhatsApp group to receive announcements regarding all Al-Madina related activities and events
+											</p>
+											<a href="https://chat.whatsapp.com/KIYEVrr7ZUl6QsyuYj0jEx"
+												class="btn btn-main">Click to
+												join</a>
+
+									</div>
+								</div>
+							</div>
+							<div class="qrContainer">
+								<img width="150px" src="./images/slider/qr-whatsapp.png" />
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 padding-0 ">
+					<div style="max-width:100%;overflow:hidden;color:red;width:100%;height:482px;">
+						<div id="my-map-display" style="height:100%; width:100%;max-width:100%;">
+							<iframe style="height:100%;width:100%;border:0;" frameborder="0"
+								src="https://www.google.com/maps/embed/v1/place?q=Al+Madina+Association,+Bonaire+Path+West,+Rosemount,+MN,+USA&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8">
+							</iframe>
+						</div><a class="embedded-map-code" href="https://kbj9qpmy.com/bp"
+							id="get-data-for-embed-map">Broadband
+							Providers</a>
+						<style>
+							#my-map-display .text-marker {}
+
+							.map-generator {
+								max-width: 100%;
+								max-height: 100%;
+								background: none;
+							}
+						</style>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+		</div>
+		</div>
+	</section>
+
+
+	<!--
+Start Call To Action
+==================================== -->
+	<!-- <section class="call-to-action section-sm bg-1">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<h2>Great Design & Incredible Features</h2>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis tenetur odio impedit incidunt? <br> Omnis accusantium ea reiciendis, fugit commodi nostrum.</p>
+				<a href="#" class="btn btn-main">Start a project with us</a>
+			</div>
+		</div> 		
+	</div>   	
+</section>    -->
+
+
+
+
+
+
+
+
+
+
+
+	<div id="prayer-time-error" style="display:none; color: red; text-align: center; padding: 10px; background: #fff; margin: 10px; border-radius: 5px; font-weight: bold;">
+		Error loading prayer times. Please check the console (F12) for details.
+	</div>
+	<!-- end Contact Area
+		========================================== -->
+
+	<footer id="footer" class="bg-one">
+		<div class="container">
+			<!-- <div class="row wow fadeInUp" data-wow-duration="500ms"> -->
+
+			<div class="footerArea" id="footerArea1">
+				@copyright Al-Madina Association
+			</div>
+
+
+
+			<!-- </div> -->
+			<!-- end row -->
+		</div>
+		<!-- end container -->
+	</footer>
+	<!-- end footer -->
+
+	<!-- <div id="scroll-up">
+			up
+		</div> -->
+
+
+
+
+
+
+
+
+
+
+
+	<!-- 
+		Essential Scripts
+		=====================================-->
+
+	<!--
+		===================================================================
+			         mySlides text slider:
+		===================================================================
+		-->
+
+	<script>
+		// var myIndex = 0;
+		// carousel();
+
+		// function carousel() {
+		// 	var i;
+		// 	var x = document.getElementsByClassName("mySlides");
+		// 	for (i = 0; i < x.length; i++) {
+		// 		x[i].style.display = "none";
+		// 	}
+		// 	myIndex++;
+		// 	if (myIndex > x.length) { myIndex = 1 }
+		// 	x[myIndex - 1].style.display = "block";
+		// 	setTimeout(carousel, 10000);
+		// }
+
+
+		function formatTime(timeStr) {
+			console.log("Formatting time:", timeStr, "Type:", typeof timeStr);
+			if (timeStr === null || timeStr === undefined || timeStr === '') return '—';
+			if (typeof timeStr === 'string') return timeStr.trim();
+			
+			// If it's a fractional day from Excel (e.g., 0.25 for 6:00 AM)
+			if (typeof timeStr === 'number') {
+				try {
+					let totalSeconds = Math.round(timeStr * 24 * 3600);
+					let hours = Math.floor(totalSeconds / 3600);
+					let minutes = Math.floor((totalSeconds % 3600) / 60);
+					let ampm = hours >= 12 ? 'PM' : 'AM';
+					hours = hours % 12;
+					hours = hours ? hours : 12;
+					minutes = minutes < 10 ? '0' + minutes : minutes;
+					return hours + ':' + minutes + ' ' + ampm;
+				} catch (e) {
+					console.error("Error formatting numeric time:", timeStr, e);
+					return timeStr;
+				}
+			}
+			return String(timeStr);
+		}
+
+		document.addEventListener('DOMContentLoaded', function() {
+			console.log("DOM loaded, initializing prayer times...");
+			
+			const errorDiv = document.getElementById('prayer-time-error');
+			const dateDisplay = document.getElementById('current-date-display');
+			const prevBtn = document.getElementById('prev-day');
+			const nextBtn = document.getElementById('next-day');
+			
+			let currentDisplayDate = new Date();
+			const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+			function updatePrayerTable(date) {
+				const monthIndex = date.getMonth();
+				const monthName = months[monthIndex];
+				const year = date.getFullYear();
+				const day = date.getDate();
+				
+				const todayStr = year + "-" + 
+								 String(monthIndex + 1).padStart(2, '0') + "-" + 
+								 String(day).padStart(2, '0');
+
+				// Update Display Text
+				const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+				dateDisplay.innerText = date.toLocaleDateString(undefined, options);
+
+				if (typeof prayerData === 'undefined') {
+					console.error("prayerData is not defined!");
+					if (errorDiv) {
+						errorDiv.innerText = "Error: Prayer data not found. Please ensure js/prayerData.js is loaded.";
+						errorDiv.style.display = 'block';
+					}
+					return;
+				}
+
+				const sheetData = prayerData[monthName];
+				function dataExists(date) {
+					const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+					const mName = monthNames[date.getMonth()];
+					const dStr = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+					return !!(prayerData[mName] && prayerData[mName][dStr]);
+				}
+
+				// Update pagination buttons
+				const prevDate = new Date(date);
+				prevDate.setDate(date.getDate() - 1);
+				const nextDate = new Date(date);
+				nextDate.setDate(date.getDate() + 1);
+
+				prevBtn.disabled = !dataExists(prevDate);
+				nextBtn.disabled = !dataExists(nextDate);
+
+				if (!prayerData) {
+					console.error("No data for month:", monthName);
+					clearTable();
+					return;
+				}
+
+				if (!sheetData) {
+					console.error("No data for month:", monthName);
+					clearTable();
+					return;
+				}
+
+				const data = sheetData[todayStr];
+				if (data) {
+					console.log("Data found for", todayStr, ":", data);
+					try {
+						document.getElementById('fajr_time').innerHTML = data.fajr_na || data.fajr;
+						document.getElementById('fajr_iqamah').innerHTML = data.fajr_iqamah;
+						document.getElementById('sunrise').innerHTML = data.sunrise;
+						document.getElementById('zuhr_time').innerHTML = data.zuhr;
+						document.getElementById('zuhr_iqamah').innerHTML = data.zuhr_iqamah;
+						document.getElementById('asr_time').innerHTML = data.asr_hanafi || data.asr;
+						document.getElementById('asr_iqamah').innerHTML = data.asr_iqamah;
+						document.getElementById('maghrib_time').innerHTML = data.maghrib;
+						document.getElementById('maghrib_iqamah').innerHTML = data.maghrib_iqamah;
+						document.getElementById('isha_time').innerHTML = data.isha;
+						document.getElementById('isha_iqamah').innerHTML = data.isha_iqamah;
+						if (errorDiv) errorDiv.style.display = 'none';
+					} catch (e) {
+						console.error("Error updating UI elements:", e);
+					}
+				} else {
+					console.warn("No data for date:", todayStr);
+					clearTable();
+					if (errorDiv) {
+						errorDiv.innerText = "No data found for: " + todayStr;
+						errorDiv.style.display = 'block';
+					}
+				}
+			}
+
+			function clearTable() {
+				const ids = ['fajr_time', 'fajr_iqamah', 'sunrise', 'zuhr_time', 'zuhr_iqamah', 'asr_time', 'asr_iqamah', 'maghrib_time', 'maghrib_iqamah', 'isha_time', 'isha_iqamah'];
+				ids.forEach(id => {
+					const el = document.getElementById(id);
+					if (el) el.innerHTML = "—";
+				});
+			}
+
+			prevBtn.addEventListener('click', function() {
+				currentDisplayDate.setDate(currentDisplayDate.getDate() - 1);
+				updatePrayerTable(currentDisplayDate);
+			});
+
+			nextBtn.addEventListener('click', function() {
+				currentDisplayDate.setDate(currentDisplayDate.getDate() + 1);
+				updatePrayerTable(currentDisplayDate);
+			});
+
+			// Initial Load
+			updatePrayerTable(currentDisplayDate);
+		});
+	</script>
+
+
+
+
+
+
+
+	<!-- Main jQuery -->
+	<script type="text/javascript" src="plugins/jquery/dist/jquery.min.js"></script>
+
+	<!-- Bootstrap 3.1 -->
+	<script type="text/javascript" src="plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- Slick Carousel -->
+	<script type="text/javascript" src="plugins/slick-carousel/slick/slick.min.js"></script>
+	<!-- Portfolio Filtering -->
+	<script type="text/javascript" src="plugins/mixitup/dist/mixitup.min.js"></script>
+	<!-- Smooth Scroll -->
+	<script type="text/javascript" src="plugins/smooth-scroll/dist/js/smooth-scroll.min.js"></script>
+	<!-- Magnific popup -->
+	<script type="text/javascript" src="plugins/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+	<!-- Google Map API -->
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+	<!-- Sticky Nav -->
+	<script type="text/javascript" src="plugins/Sticky/jquery.sticky.js"></script>
+	<!-- Number Counter Script -->
+	<script type="text/javascript" src="plugins/count-to/jquery.countTo.js"></script>
+	<!-- wow.min Script -->
+	<script type="text/javascript" src="plugins/wow/dist/wow.min.js"></script>
+	<!-- Custom js -->
+	<script type="text/javascript" src="js/script.js"></script>
+	<!-- Axios -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"></script>
+
+
+</body>
+
+</html>
