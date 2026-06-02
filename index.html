@@ -1534,7 +1534,7 @@ var PD = (function(){
 
       if(data){
         var iqKey = k + '_iqamah';
-        var adKey = k === 'fajr' ? 'fajr_18' : (k === 'asr' ? 'asr_standard' : k);
+        var adKey = k === 'fajr' ? 'fajr_na' : (k === 'asr' ? 'asr_hanafi' : k);
         iqEl.textContent = PD.strip(data[iqKey] || '');
         adEl.textContent = 'Adhan ' + PD.strip(data[adKey] || '');
       } else {
@@ -1635,7 +1635,7 @@ var PD = (function(){
     detailHead.textContent = PD.DOW_LONG[activeDate.getDay()] + ', ' + PD.MONTH_LONG[activeDate.getMonth()] + ' ' + activeDate.getDate() + ' | iqamah';
     var data = PD.getData(activeDate);
     detailGrid.innerHTML = '';
-    var prayers = [['fajr','Fajr','fajr_iqamah','fajr_18'],['zuhr','Zuhr','zuhr_iqamah','zuhr'],['asr','Asr','asr_iqamah','asr_standard'],['maghrib','Maghrib','maghrib_iqamah','maghrib'],['isha','Isha','isha_iqamah','isha']];
+    var prayers = [['fajr','Fajr','fajr_iqamah','fajr_na'],['zuhr','Zuhr','zuhr_iqamah','zuhr'],['asr','Asr','asr_iqamah','asr_hanafi'],['maghrib','Maghrib','maghrib_iqamah','maghrib'],['isha','Isha','isha_iqamah','isha']];
     for(var i=0;i<prayers.length;i++){
       var p = prayers[i];
       var c = document.createElement('div'); c.className='cal-detail-cell';
@@ -1693,7 +1693,7 @@ var PD = (function(){
     if(!data) continue;
     var tr = document.createElement('tr');
     tr.innerHTML = '<td>'+DOW_SHORT[date.getDay()]+' '+d+'</td>'
-      +'<td>'+PD.strip(data.fajr_18)+'</td>'
+      +'<td>'+PD.strip(data.fajr_na)+'</td>'
       +'<td>'+PD.strip(data.fajr_iqamah)+'</td>'
       +'<td>'+PD.strip(data.zuhr)+'</td>'
       +'<td>'+PD.strip(data.zuhr_iqamah)+'</td>'
@@ -1727,9 +1727,9 @@ var PD = (function(){
   }
   var nowMin = h*60+m;
   var prayerOrder = [
-    {name:'Fajr',iq:'fajr_iqamah',ad:'fajr_18'},
+    {name:'Fajr',iq:'fajr_iqamah',ad:'fajr_na'},
     {name:'Dhuhr',iq:'zuhr_iqamah',ad:'zuhr'},
-    {name:'Asr',iq:'asr_iqamah',ad:'asr_standard'},
+    {name:'Asr',iq:'asr_iqamah',ad:'asr_hanafi'},
     {name:'Maghrib',iq:'maghrib_iqamah',ad:'maghrib'},
     {name:'Isha',iq:'isha_iqamah',ad:'isha'}
   ];
@@ -1746,7 +1746,7 @@ var PD = (function(){
   pmIqamah.textContent = 'Iqamah in ' + diff + ' min';
 
   var rows = document.querySelectorAll('.pm-row[data-pm]');
-  var pmMap = {fajr:'fajr_18',zuhr:'zuhr',asr:'asr_standard',maghrib:'maghrib',isha:'isha'};
+  var pmMap = {fajr:'fajr_na',zuhr:'zuhr',asr:'asr_hanafi',maghrib:'maghrib',isha:'isha'};
   rows.forEach(function(row){
     var k = row.dataset.pm;
     row.querySelector('.pt').textContent = PD.strip(data[pmMap[k]] || '');
