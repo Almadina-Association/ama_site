@@ -345,14 +345,14 @@ body.cursor-hidden { cursor: none; }
   display: grid;
   grid-template-rows: 1fr auto;
   height: 100vh;
-  padding: clamp(20px, 4vh, 70px) clamp(24px, 3vw, 70px);
-  gap: clamp(10px, 1.5vh, 20px);
+  padding: 2.5vh 2.5vw;
+  gap: 1.2vh;
 }
 
 /* ── MAIN 2-PANEL ── */
 #slide-prayer .prayer-main {
   display: grid;
-  grid-template-columns: 1fr clamp(380px, 38vw, 720px);
+  grid-template-columns: 1fr 38vw;
   overflow: hidden;
   border-radius: 14px;
   border: 1px solid rgba(255,255,255,0.06);
@@ -369,18 +369,18 @@ body.cursor-hidden { cursor: none; }
 /* Table header */
 #slide-prayer .pt-header {
   display: grid;
-  grid-template-columns: clamp(80px, 10vw, 150px) clamp(180px, 18vw, 320px) 1fr 1fr;
+  grid-template-columns: 8vw 18vw 1fr 1fr;
   background: rgba(0,0,0,0.25);
   border-bottom: 1px solid var(--ln);
 }
 #slide-prayer .pt-header .pt-hcell {
-  padding: clamp(16px, 2.5vh, 24px) 44px;
+  padding: 2vh 2vw;
   font-family: 'Josefin Sans', sans-serif;
-  font-size: clamp(1.6rem, 2.8vh, 2.4rem);
+  font-size: 2.8vh;
   font-weight: 700;
   color: var(--gold);
   text-transform: uppercase;
-  letter-spacing: 8px;
+  letter-spacing: 0.4vw;
   text-align: center;
 }
 #slide-prayer .pt-header .pt-hcell:first-child {
@@ -403,7 +403,7 @@ body.cursor-hidden { cursor: none; }
 /* Prayer rows */
 #slide-prayer .pt-row {
   display: grid;
-  grid-template-columns: clamp(80px, 10vw, 150px) clamp(180px, 18vw, 320px) 1fr 1fr;
+  grid-template-columns: 8vw 18vw 1fr 1fr;
   border-bottom: 1px solid var(--ln);
   background: rgba(255,255,255,0.015);
   transition: all 0.4s ease;
@@ -426,7 +426,7 @@ body.cursor-hidden { cursor: none; }
 }
 
 #slide-prayer .pt-cell {
-  padding: 0 44px;
+  padding: 0 2vw;
   display: flex; align-items: center;
   height: 100%;
 }
@@ -446,7 +446,7 @@ body.cursor-hidden { cursor: none; }
   background: rgba(0,0,0,0.12);
 }
 #slide-prayer .pt-ic i {
-  font-size: clamp(2rem, 3.5vh, 3.2rem);
+  font-size: 3.5vh;
   color: var(--tm);
   opacity: 0.7;
 }
@@ -461,10 +461,10 @@ body.cursor-hidden { cursor: none; }
 /* Prayer name */
 #slide-prayer .pt-cell.pt-name {
   font-family: 'Josefin Sans', sans-serif;
-  font-size: clamp(1.8rem, 3.2vh, 2.8rem);
+  font-size: 3.2vh;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: clamp(4px, 0.6vh, 6px);
+  letter-spacing: 0.5vw;
   color: var(--tw);
   justify-content: center;
 }
@@ -476,7 +476,7 @@ body.cursor-hidden { cursor: none; }
 #slide-prayer .pt-cell.pt-time {
   justify-content: center;
   font-family: 'Quattrocento Sans', sans-serif;
-  font-size: clamp(3rem, 5.5vh, 4.8rem);
+  font-size: 5.5vh;
   font-weight: 700;
   color: var(--tw);
   line-height: 1;
@@ -485,9 +485,9 @@ body.cursor-hidden { cursor: none; }
   color: var(--gold);
 }
 #slide-prayer .pt-time .pt-ap {
-  font-size: clamp(1.1rem, 1.9vh, 1.7rem);
+  font-size: 1.9vh;
   font-weight: 700;
-  margin-left: 6px;
+  margin-left: 0.3vw;
   color: var(--td);
   vertical-align: super;
 }
@@ -1236,65 +1236,6 @@ body.cursor-hidden { cursor: none; }
   width: 28px; border-radius: 5px;
 }
 
-/* ═══ RESPONSIVE ═══ */
-@media (max-height: 900px) {
-  #slide-prayer .s-content { padding: 2.5vh 2.5vw; gap: 1.2vh; }
-  #slide-prayer .prayer-main { grid-template-columns: 1fr clamp(280px, 35vw, 560px); }
-  #slide-prayer .pt-header .pt-hcell { padding: 1.8vh 2vw; font-size: clamp(1rem, 2.2vh, 1.8rem); }
-  #slide-prayer .pt-cell { padding: 0 2vw; }
-  #slide-prayer .pt-cell.pt-time { font-size: clamp(1.8rem, 4.5vh, 3.6rem); }
-  #slide-prayer .pt-cell.pt-name { font-size: clamp(1.2rem, 2.8vh, 2.2rem); letter-spacing: 4px; }
-  #slide-prayer .pt-ic i { font-size: clamp(1.4rem, 3vh, 2.4rem); }
-  #slide-prayer .info-panel { padding: 2vh 2vw; gap: 0.4vh; }
-  #slide-prayer .info-clock { font-size: clamp(3rem, 8vh, 7rem); }
-  #slide-prayer .info-clock .info-ap { font-size: clamp(0.8rem, 2vh, 1.6rem); }
-  #slide-prayer .info-hijri { font-size: clamp(0.7rem, 1.4vh, 1.2rem); }
-  #slide-prayer .info-greg { font-size: clamp(0.6rem, 1.2vh, 1rem); margin-bottom: 1vh; }
-  #slide-prayer .info-niq { padding: 1.5vh 0; margin-top: 0.8vh; }
-  #slide-prayer .info-niq-label { font-size: clamp(0.55rem, 1.1vh, 0.9rem); }
-  #slide-prayer .info-niq-time { font-size: clamp(1.6rem, 4vh, 3.2rem); }
-  #slide-prayer .info-niq-time small { font-size: clamp(0.7rem, 1.5vh, 1.2rem); }
-  #slide-prayer .info-jumuah { padding: 1.2vh 0; }
-  #slide-prayer .info-jumuah-title { font-size: clamp(0.65rem, 1.3vh, 1.1rem); margin-bottom: 1vh; }
-  #slide-prayer .info-jumuah-col .jtime { font-size: clamp(1.4rem, 3.5vh, 2.8rem); }
-  #slide-prayer .info-jumuah-col .jtime .jap { font-size: clamp(0.5rem, 1vh, 0.8rem); }
-  #slide-prayer .info-jumuah-col .jlabel { font-size: clamp(0.45rem, 0.9vh, 0.75rem); }
-  #slide-prayer .info-sun { padding-top: 1.2vh; gap: 0.5vh; }
-  #slide-prayer .info-sun-row { padding: 1vh 1.2vw; gap: 0.8vw; }
-  #slide-prayer .info-sun-row .sun-label { font-size: clamp(0.55rem, 1.1vh, 0.9rem); }
-  #slide-prayer .info-sun-row .sun-time { font-size: clamp(0.9rem, 2vh, 1.6rem); }
-  #slide-prayer .info-sun-row i { font-size: clamp(0.65rem, 1.3vh, 1.1rem); }
-}
-@media (max-height: 750px) {
-  #slide-prayer .s-content { padding: 1.5vh 1.5vw; gap: 0.8vh; }
-  #slide-prayer .prayer-main { grid-template-columns: 1fr clamp(220px, 30vw, 440px); }
-  #slide-prayer .pt-header,
-  #slide-prayer .pt-row { grid-template-columns: clamp(50px, 5vw, 80px) clamp(120px, 12vw, 180px) 1fr 1fr; }
-  #slide-prayer .pt-header .pt-hcell { padding: 1.2vh 1.5vw; font-size: clamp(0.8rem, 1.8vh, 1.4rem); }
-  #slide-prayer .pt-cell { padding: 0 1.5vw; }
-  #slide-prayer .pt-cell.pt-time { font-size: clamp(1.4rem, 3.5vh, 2.6rem); }
-  #slide-prayer .pt-time .pt-ap { font-size: clamp(0.6rem, 1.3vh, 1rem); }
-  #slide-prayer .pt-cell.pt-name { font-size: clamp(0.9rem, 2.2vh, 1.6rem); letter-spacing: 3px; }
-  #slide-prayer .pt-ic i { font-size: clamp(1rem, 2.4vh, 1.8rem); }
-  #slide-prayer .info-panel { padding: 1.5vh 1.5vw; gap: 0.2vh; }
-  #slide-prayer .info-clock { font-size: clamp(2.2rem, 6.5vh, 5rem); }
-  #slide-prayer .info-clock .info-ap { font-size: clamp(0.6rem, 1.6vh, 1.2rem); }
-  #slide-prayer .info-hijri { font-size: clamp(0.55rem, 1.2vh, 0.95rem); }
-  #slide-prayer .info-greg { font-size: clamp(0.5rem, 1vh, 0.8rem); margin-bottom: 0.6vh; }
-  #slide-prayer .info-niq { padding: 1vh 0; margin-top: 0.6vh; }
-  #slide-prayer .info-niq-label { font-size: clamp(0.45rem, 0.9vh, 0.75rem); }
-  #slide-prayer .info-niq-time { font-size: clamp(1.2rem, 3vh, 2.2rem); }
-  #slide-prayer .info-niq-time small { font-size: clamp(0.5rem, 1.1vh, 0.9rem); }
-  #slide-prayer .info-jumuah { padding: 0.8vh 0; }
-  #slide-prayer .info-jumuah-title { font-size: clamp(0.5rem, 1.1vh, 0.85rem); margin-bottom: 0.8vh; }
-  #slide-prayer .info-jumuah-col .jtime { font-size: clamp(1.1rem, 2.7vh, 2rem); }
-  #slide-prayer .info-jumuah-col .jlabel { font-size: clamp(0.4rem, 0.8vh, 0.65rem); }
-  #slide-prayer .info-sun { padding-top: 0.8vh; gap: 0.4vh; }
-  #slide-prayer .info-sun-row { padding: 0.8vh 1vw; }
-  #slide-prayer .info-sun-row .sun-label { font-size: clamp(0.45rem, 0.9vh, 0.75rem); }
-  #slide-prayer .info-sun-row .sun-time { font-size: clamp(0.7rem, 1.7vh, 1.3rem); }
-}
-
 /* ── Iqamah countdown bar on non-prayer slides ── */
 .iq-bar{
   position:fixed;top:0;left:0;right:0;z-index:20;
@@ -2016,8 +1957,8 @@ function updateIqBar(){
         const isNext = nextP && p.k === nextP.k;
         h += '<div class="iq-bar-pt'+(isNext?' active':'')+'">';
         h += '<span class="iq-bar-pt-name">'+p.n+'</span>';
-        h += '<span class="iq-bar-pt-adhan">'+adhan+'</span>';
-        h += '<span class="iq-bar-pt-iq">Iqamah '+iq+'</span>';
+        h += '<span class="iq-bar-pt-adhan">'+iq+'</span>';
+        h += '<span class="iq-bar-pt-iq">Adhan '+adhan+'</span>';
         h += '</div>';
       });
       barTimes.innerHTML = h;
