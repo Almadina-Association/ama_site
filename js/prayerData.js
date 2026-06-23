@@ -1987,7 +1987,7 @@ var prayerData = {
     "2026-06-26": {
       "fajr_18": "2:59 AM",
       "fajr_na": "3:34 AM",
-      "fajr_iqamah": "4:15 AM",
+      "fajr_iqamah": "5:00 AM",
       "sunrise": "5:28 AM",
       "zuhr": "1:16 PM",
       "zuhr_iqamah": "1:55 PM",
@@ -2002,7 +2002,7 @@ var prayerData = {
     "2026-06-27": {
       "fajr_18": "3:00 AM",
       "fajr_na": "3:35 AM",
-      "fajr_iqamah": "4:15 AM",
+      "fajr_iqamah": "5:00 AM",
       "sunrise": "5:28 AM",
       "zuhr": "1:16 PM",
       "zuhr_iqamah": "1:45 PM",
@@ -2017,7 +2017,7 @@ var prayerData = {
     "2026-06-28": {
       "fajr_18": "3:00 AM",
       "fajr_na": "3:35 AM",
-      "fajr_iqamah": "4:15 AM",
+      "fajr_iqamah": "5:00 AM",
       "sunrise": "5:29 AM",
       "zuhr": "1:16 PM",
       "zuhr_iqamah": "1:45 PM",
@@ -2032,7 +2032,7 @@ var prayerData = {
     "2026-06-29": {
       "fajr_18": "3:01 AM",
       "fajr_na": "3:36 AM",
-      "fajr_iqamah": "4:15 AM",
+      "fajr_iqamah": "5:00 AM",
       "sunrise": "5:29 AM",
       "zuhr": "1:17 PM",
       "zuhr_iqamah": "1:45 PM",
@@ -2047,7 +2047,7 @@ var prayerData = {
     "2026-06-30": {
       "fajr_18": "3:02 AM",
       "fajr_na": "3:37 AM",
-      "fajr_iqamah": "4:15 AM",
+      "fajr_iqamah": "5:00 AM",
       "sunrise": "5:30 AM",
       "zuhr": "1:17 PM",
       "zuhr_iqamah": "1:45 PM",
