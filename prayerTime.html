@@ -596,7 +596,12 @@
                         </div>
 
                         <div class="col-md-8" style="padding-left: 40px;">
-                            <h5 style="font-weight: 900; text-transform: uppercase; font-size: 1.2rem; letter-spacing: 2px; margin-bottom: 30px; color: var(--primary-green); border-bottom: 3px solid var(--primary-green); padding-bottom: 12px; display: inline-block;">Live Preview</h5>
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+                                <h5 style="font-weight: 900; text-transform: uppercase; font-size: 1.2rem; letter-spacing: 2px; color: var(--primary-green); border-bottom: 3px solid var(--primary-green); padding-bottom: 12px; display: inline-block; margin: 0;">Live Preview</h5>
+                                <button onclick="togglePreviewFullscreen()" id="preview-fs-btn" style="background: var(--primary-green); color: white; border: none; border-radius: 10px; padding: 8px 16px; cursor: pointer; font-size: 0.85rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; display: flex; align-items: center; gap: 6px;">
+                                    <i class="fas fa-expand"></i> Fullscreen
+                                </button>
+                            </div>
                             <div id="pdf-preview-area" style="background: white; border: 2px solid #f0f0f0; border-radius: 20px; height: 500px; overflow: auto; padding: 0; box-shadow: 0 5px 20px rgba(0,0,0,0.03);">
                                 <!-- Preview content will be injected here -->
                             </div>
@@ -620,7 +625,67 @@
     <!-- prayerData.js -->
     <script src="js/prayerData.js"></script>
 
+    <style>
+        #pdf-preview-area.preview-fullscreen {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            z-index: 99999 !important;
+            border-radius: 0 !important;
+            border: none !important;
+            margin: 0 !important;
+            padding: 20px !important;
+            background: white !important;
+        }
+        #pdf-preview-area.preview-fullscreen + div .preview-fs-exit {
+            display: block;
+        }
+        .preview-fs-exit-btn {
+            position: fixed;
+            top: 15px;
+            right: 20px;
+            z-index: 100000;
+            background: var(--primary-green, #0F3B2E);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: none;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .preview-fs-exit-btn.visible { display: flex; }
+    </style>
+    <button class="preview-fs-exit-btn" id="preview-fs-exit" onclick="togglePreviewFullscreen()">
+        <i class="fas fa-compress"></i> Exit Fullscreen
+    </button>
     <script>
+        function togglePreviewFullscreen() {
+            const area = document.getElementById('pdf-preview-area');
+            const btn = document.getElementById('preview-fs-btn');
+            const exitBtn = document.getElementById('preview-fs-exit');
+            area.classList.toggle('preview-fullscreen');
+            const isFs = area.classList.contains('preview-fullscreen');
+            btn.innerHTML = isFs ? '<i class="fas fa-compress"></i> Exit' : '<i class="fas fa-expand"></i> Fullscreen';
+            exitBtn.classList.toggle('visible', isFs);
+            document.body.style.overflow = isFs ? 'hidden' : '';
+        }
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && document.getElementById('pdf-preview-area').classList.contains('preview-fullscreen')) {
+                togglePreviewFullscreen();
+            }
+        });
+
         let currentView = 'month';
         let pivotDate = new Date(); // The anchor date for views
 
@@ -772,7 +837,7 @@
 
             html += `<table style="width:100%; border-collapse:collapse; font-size:${pdfFontSize}; border: 3px solid #192b24; table-layout: fixed;">`;
             html += '<thead><tr style="background:#192b24; color:white;">';
-            ["Day", "Fajr 18°", "Fajr NA", "Iqamah", "Sunrise", "Zuhr", "Iqamah", "Asr Standard", "Asr Hanafi", "Iqamah", "Maghrib", "Iqamah", "Isha", "Iqamah"].forEach(h => {
+            ["Day", "Fajr 18°", "Fajr NA", "Iqamah", "Sunrise", "Zuhr", "Iqamah", "Asr Std", "Asr Hanafi", "Iqamah", "Maghrib", "Iqamah", "Isha", "Iqamah"].forEach(h => {
                 html += `<th style="padding:18px 5px; border:1px solid #fff; font-size:0.9em; word-wrap: break-word; text-transform: uppercase; letter-spacing: 0.5px;">${h}</th>`;
             });
             html += '</tr></thead><tbody>';
@@ -832,15 +897,15 @@
         function generateSelectedPDF() {
             const mode = document.querySelector('input[name="pdfMode"]:checked').value;
             let startDate, endDate, titleText;
-            
+
             if (mode === 'month') {
                 const monthIdx = parseInt(document.getElementById('pdf-month-select').value);
                 startDate = new Date(2026, monthIdx, 1);
                 endDate = new Date(2026, monthIdx + 1, 0);
                 titleText = startDate.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
             } else if (mode === 'ramadan') {
-                startDate = new Date(2026, 1, 19); // Feb 19
-                endDate = new Date(2026, 2, 20);   // Mar 20
+                startDate = new Date(2026, 1, 19);
+                endDate = new Date(2026, 2, 20);
                 titleText = "Ramadan 2026";
             } else {
                 const sVal = document.getElementById('pdf-start-date').value;
@@ -858,61 +923,60 @@
             }
 
             const { jsPDF } = window.jspdf;
-            const doc = new jsPDF({
-                orientation: 'landscape',
-                unit: 'pt',
-                format: 'letter'
-            });
+            const doc = new jsPDF({ orientation: 'landscape', unit: 'pt', format: 'letter' });
 
-            // Add Header
             doc.setFontSize(18);
             doc.setFont("helvetica", "bold");
-            doc.setTextColor(25, 43, 36); // primary-green
-            doc.text(`Salat and Iqamah time for Almadina Association, Rosemount`, doc.internal.pageSize.width / 2, 35, { align: 'center' });
-            
+            doc.setTextColor(25, 43, 36);
+            doc.text('Salat and Iqamah time for Almadina Association, Rosemount', doc.internal.pageSize.width / 2, 35, { align: 'center' });
             doc.setFontSize(14);
             doc.setFont("helvetica", "normal");
             doc.setTextColor(80);
             doc.text(titleText, doc.internal.pageSize.width / 2, 55, { align: 'center' });
-
             doc.setFontSize(8);
             doc.setTextColor(150);
-            doc.text(`Generated: ${new Date().toLocaleDateString()}`, doc.internal.pageSize.width - 40, 65, { align: 'right' });
+            doc.text('Generated: ' + new Date().toLocaleDateString(), doc.internal.pageSize.width - 40, 65, { align: 'right' });
 
-            // Prepare Data for Table
-            const columns = ["Day", "Fajr 18°", "Fajr NA", "Iqamah", "Sunrise", "Zuhr", "Iqamah", "Asr Standard", "Asr Hanafi", "Iqamah", "Maghrib", "Iqamah", "Isha", "Iqamah"];
+            const columns = ["Day", "Fajr 18°", "Fajr NA", "Iqamah", "Sunrise", "Zuhr", "Iqamah", "Asr Std", "Asr Hanafi", "Iqamah", "Maghrib", "Iqamah", "Isha", "Iqamah"];
             const rows = [];
-            
+            const rowMeta = []; // track friday + dates for highlighting
+
             let curr = new Date(startDate);
             while (curr <= endDate) {
                 const dStr = formatDate(curr);
                 const data = getPrayerDataForDate(dStr);
                 if (!data) { curr.setDate(curr.getDate() + 1); continue; }
                 let dayLabel = curr.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
-                if (data?.ramadan) {
-                    dayLabel += ` (${data.ramadan})`;
-                }
-                
+                if (data?.ramadan) dayLabel += ' (' + data.ramadan + ')';
+
                 rows.push([
                     dayLabel,
-                    data?.fajr_18 || '—',
-                    data?.fajr_na || '—',
-                    data?.fajr_iqamah || '—',
-                    data?.sunrise || '—',
-                    data?.zuhr || '—',
-                    data?.zuhr_iqamah || '—',
-                    data?.asr_standard || '—',
-                    data?.asr_hanafi || '—',
-                    data?.asr_iqamah || '—',
-                    data?.maghrib || '—',
-                    data?.maghrib_iqamah || '—',
-                    data?.isha || '—',
-                    data?.isha_iqamah || '—'
+                    data?.fajr_18 || '—', data?.fajr_na || '—', data?.fajr_iqamah || '—',
+                    data?.sunrise || '—', data?.zuhr || '—', data?.zuhr_iqamah || '—',
+                    data?.asr_standard || '—', data?.asr_hanafi || '—', data?.asr_iqamah || '—',
+                    data?.maghrib || '—', data?.maghrib_iqamah || '—',
+                    data?.isha || '—', data?.isha_iqamah || '—'
                 ]);
+                rowMeta.push({
+                    isFriday: curr.getDay() === 5,
+                    fajr_iqamah: data?.fajr_iqamah || '',
+                    zuhr_iqamah: data?.zuhr_iqamah || '',
+                    asr_iqamah: data?.asr_iqamah || ''
+                });
                 curr.setDate(curr.getDate() + 1);
             }
 
-            // Generate Table
+            // Detect iqamah change rows (col indices: 3=fajr_iq, 6=zuhr_iq, 9=asr_iq)
+            const changeCells = new Set();
+            const iqCols = { fajr_iqamah: 3, zuhr_iqamah: 6, asr_iqamah: 9 };
+            for (const key of Object.keys(iqCols)) {
+                for (let r = 1; r < rowMeta.length; r++) {
+                    if (rowMeta[r][key] !== rowMeta[r-1][key]) {
+                        changeCells.add(r + ':' + iqCols[key]);
+                    }
+                }
+            }
+
             doc.autoTable({
                 head: [columns],
                 body: rows,
@@ -922,46 +986,97 @@
                 styles: {
                     fontSize: rows.length > 20 ? 8 : (rows.length > 10 ? 9 : 10),
                     cellPadding: rows.length > 20 ? 2 : 5,
-                    halign: 'center',
-                    valign: 'middle',
-                    textColor: [51, 51, 51],
-                    font: 'helvetica',
-                    lineWidth: 0.5
+                    halign: 'center', valign: 'middle',
+                    textColor: [51, 51, 51], font: 'helvetica', lineWidth: 0.5
                 },
                 headStyles: {
-                    fillColor: [25, 43, 36],
-                    textColor: [255, 255, 255],
-                    fontStyle: 'bold',
-                    lineWidth: 0.5
+                    fillColor: [25, 43, 36], textColor: [255, 255, 255],
+                    fontStyle: 'bold', lineWidth: 0.5
                 },
-                alternateRowStyles: {
-                    fillColor: [243, 249, 246]
+                alternateRowStyles: { fillColor: [243, 249, 246] },
+                columnStyles: { 0: { fontStyle: 'bold', halign: 'left', cellWidth: 'auto' } },
+
+                didParseCell: function(data) {
+                    if (data.section !== 'body') return;
+                    const ri = data.row.index;
+                    if (!rowMeta[ri]) return;
+
+                    // Friday row background
+                    if (rowMeta[ri].isFriday) {
+                        data.cell.styles.fillColor = [200, 230, 210];
+                        if (data.column.index === 0) data.cell.styles.fontStyle = 'bold';
+                    }
                 },
-                columnStyles: {
-                    0: { fontStyle: 'bold', halign: 'left', cellWidth: 'auto' }
+
+                didDrawCell: function(data) {
+                    if (data.section !== 'body') return;
+                    const ri = data.row.index;
+                    const ci = data.column.index;
+                    if (!rowMeta[ri]) return;
+
+                    const isJummah = rowMeta[ri].isFriday && ci === 6; // zuhr iqamah
+                    const isChange = changeCells.has(ri + ':' + ci);
+
+                    if (isJummah) {
+                        // Orange border + warm bg for Jummah iqamah
+                        const p = 1.5;
+                        doc.setFillColor(255, 243, 224);
+                        doc.rect(data.cell.x + p, data.cell.y + p, data.cell.width - 2*p, data.cell.height - 2*p, 'F');
+                        doc.setDrawColor(230, 81, 0);
+                        doc.setLineWidth(1.5);
+                        doc.rect(data.cell.x + p, data.cell.y + p, data.cell.width - 2*p, data.cell.height - 2*p, 'S');
+                        // Re-draw text on top
+                        doc.setTextColor(51, 51, 51);
+                        doc.setFontSize(data.cell.styles.fontSize);
+                        doc.setFont('helvetica', 'normal');
+                        doc.text(data.cell.text[0] || '', data.cell.x + data.cell.width / 2, data.cell.y + data.cell.height / 2 + 3, { align: 'center' });
+                    } else if (isChange) {
+                        // Blue border for iqamah time changes
+                        const p = 1.5;
+                        doc.setDrawColor(30, 100, 180);
+                        doc.setLineWidth(1.8);
+                        doc.rect(data.cell.x + p, data.cell.y + p, data.cell.width - 2*p, data.cell.height - 2*p, 'S');
+                    }
                 },
-                didDrawPage: function (data) {
-                    // Add Footer Notes
+
+                didDrawPage: function(data) {
                     const pageSize = doc.internal.pageSize;
-                    const pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight();
-                    
-                    doc.setFontSize(7);
-                    doc.setTextColor(80);
-                    doc.setFont("helvetica", "normal");
-                    
-                    const footerTop = pageHeight - 50;
-                    doc.text("• Taraweh will be followed by Isha prayer (about 15 minutes)", 40, footerTop);
-                    doc.text("• Jummua (Before daylight savings change): First Adan-1:00 PM, Khutba/Lecture at 1:15 PM (if Khutbah in English 1:20 PM) and Ikamah around at 1:45 PM", 40, footerTop + 10);
-                    doc.text("• Jummua (After daylight savings change): First Adan-AEAP, Khutba/Lecture at 1:25 PM (if English Khutbah 1:30 PM) and Ikamah around at 1:55 PM", 40, footerTop + 20);
-                    
-                    doc.setFontSize(9);
-                    doc.setFont("helvetica", "bold");
-                    doc.setTextColor(150);
-                    doc.text("AL-MADINA ASSOCIATION • 2058 Bonaire Path W, Rosemount, MN 55068", pageSize.width / 2, pageHeight - 10, { align: 'center' });
+                    const pageHeight = pageSize.height || pageSize.getHeight();
+                    const pageWidth = pageSize.width || pageSize.getWidth();
+
+                    // Legend
+                    const legendY = pageHeight - 58;
+                    // Friday swatch
+                    doc.setFillColor(200, 230, 210);
+                    doc.rect(40, legendY, 8, 8, 'FD');
+                    doc.setFontSize(7); doc.setTextColor(68, 68, 68); doc.setFont('helvetica', 'normal');
+                    doc.text('Friday', 52, legendY + 7);
+
+                    // Jummah swatch
+                    doc.setFillColor(255, 243, 224);
+                    doc.rect(90, legendY, 8, 8, 'F');
+                    doc.setDrawColor(230, 81, 0); doc.setLineWidth(1.2);
+                    doc.rect(90, legendY, 8, 8, 'S');
+                    doc.setTextColor(68, 68, 68);
+                    doc.text('Jummah Iqamah', 102, legendY + 7);
+
+                    // Change swatch
+                    doc.setDrawColor(30, 100, 180); doc.setLineWidth(1.5);
+                    doc.rect(182, legendY, 8, 8, 'S');
+                    doc.setTextColor(68, 68, 68);
+                    doc.text('Iqamah Time Change', 194, legendY + 7);
+
+                    // Footer notes
+                    doc.setFontSize(7); doc.setTextColor(80); doc.setFont('helvetica', 'normal');
+                    doc.text("Jummah: First Adan-AEAP, Khutba/Lecture at 1:25 PM (if English Khutbah 1:30 PM) and Ikamah around at 1:55 PM", 40, pageHeight - 35);
+                    doc.text("18 Deg = Fajr on 18° method  •  N.A. = Fajr on North American method", 40, pageHeight - 25);
+
+                    doc.setFontSize(8); doc.setFont('helvetica', 'bold'); doc.setTextColor(150);
+                    doc.text("AL-MADINA ASSOCIATION • 2058 Bonaire Path W, Rosemount, MN 55068 • 612-548-4077", pageWidth / 2, pageHeight - 10, { align: 'center' });
                 }
             });
 
-            const filename = `AMA-Prayer-Times-${titleText.replace(/ /g, '-')}.pdf`;
+            const filename = 'AMA-Prayer-Times-' + titleText.replace(/ /g, '-') + '.pdf';
             doc.save(filename);
             $('#pdfModal').modal('hide');
         }
@@ -1059,7 +1174,7 @@
                     { label: 'Sunrise', time: data.sunrise, type: 'sunrise' },
                     { label: 'Zuhr', time: data.zuhr, type: 'prayer' },
                     { label: 'Iqamah', time: data.zuhr_iqamah, type: 'iqamah' },
-                    { label: 'Asr Standard', time: data.asr_standard, type: 'prayer', bgColor: '#1e4a35' },
+                    { label: 'Asr Std', time: data.asr_standard, type: 'prayer', bgColor: '#1e4a35' },
                     { label: 'Asr Hanafi', time: data.asr_hanafi, type: 'prayer', bgColor: '#4a7c5a' },
                     { label: 'Iqamah', time: data.asr_iqamah, type: 'iqamah' }, 
                     { label: 'Maghrib', time: data.maghrib, type: 'prayer' },
@@ -1094,7 +1209,7 @@
                 
                 title.innerText = start.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) + ' — ' + end.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
 
-                let html = '<table class="prayer-table"><thead><tr><th>Day</th><th style="background:#192b24;">Fajr 18°</th><th style="background:#2e6b47;">Fajr NA</th><th>Iqamah</th><th class="col-sunrise">Sunrise</th><th>Zuhr</th><th>Iqamah</th><th style="background:#1e4a35;">Asr Standard</th><th style="background:#4a7c5a;">Asr Hanafi</th><th>Iqamah</th><th>Maghrib</th><th>Iqamah</th><th>Isha</th><th>Iqamah</th></tr></thead><tbody>';
+                let html = '<table class="prayer-table"><thead><tr><th>Day</th><th style="background:#192b24;">Fajr 18°</th><th style="background:#2e6b47;">Fajr NA</th><th>Iqamah</th><th class="col-sunrise">Sunrise</th><th>Zuhr</th><th>Iqamah</th><th style="background:#1e4a35;">Asr Std</th><th style="background:#4a7c5a;">Asr Hanafi</th><th>Iqamah</th><th>Maghrib</th><th>Iqamah</th><th>Isha</th><th>Iqamah</th></tr></thead><tbody>';
                 
                 for (let i = 0; i < 7; i++) {
                     const d = new Date(start);
