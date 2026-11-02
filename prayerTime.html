@@ -173,9 +173,15 @@
         }
 
         /* View Container */
+        /* Note: overflow-x:auto was removed here on purpose. Per the CSS spec, setting
+           overflow-x to a non-visible value forces overflow-y to compute as auto too,
+           which made this div (not the page) the sticky positioning container for the
+           table header below -- and since this div never actually scrolls internally,
+           the header could never visually "stick" while the page scrolled. Wide tables
+           on narrow screens may now overflow the page horizontally instead of scrolling
+           within this box; flag if that needs its own fix. */
         #view-container {
             padding: 20px;
-            overflow-x: auto;
         }
 
         /* Table Styles (Week & Month) */
