@@ -1374,11 +1374,11 @@ body.cursor-hidden { cursor: none; }
           <div class="info-jumuah-title">Jumu'ah</div>
           <div class="info-jumuah-row">
             <div class="info-jumuah-col">
-              <div class="jtime" id="jumuah-start">1:25<span class="jap">PM</span></div>
+              <div class="jtime" id="jumuah-start">1:15<span class="jap">PM</span></div>
               <div class="jlabel">Starts</div>
             </div>
             <div class="info-jumuah-col">
-              <div class="jtime" id="jumuah-iqamah">1:55<span class="jap">PM</span></div>
+              <div class="jtime" id="jumuah-iqamah">1:45<span class="jap">PM</span></div>
               <div class="jlabel">Jumu'ah</div>
             </div>
           </div>
@@ -1731,8 +1731,8 @@ function buildPrayer(){
   // Jumu'ah times (fixed)
   const js=document.getElementById('jumuah-start');
   const ji=document.getElementById('jumuah-iqamah');
-  if(js) js.innerHTML='1:25<span class="jap">PM</span>';
-  if(ji) ji.innerHTML='1:55<span class="jap">PM</span>';
+  if(js) js.innerHTML='1:15<span class="jap">PM</span>';
+  if(ji) ji.innerHTML='1:45<span class="jap">PM</span>';
 
   iqCD();
 }

@@ -186,7 +186,7 @@
             text-align: center;
         }
 
-        .prayer-table th {
+        .prayer-table thead th {
             background-color: var(--primary-green);
             color: white;
             padding: 24px 10px;
@@ -196,9 +196,12 @@
             border: 1px solid rgba(255,255,255,0.2);
             text-align: center;
             font-size: 1.2rem;
+            position: sticky;
+            top: 78px; /* sits right below the sticky site nav (.v2-nav, 78px tall) */
+            z-index: 10;
         }
 
-        .prayer-table th:nth-child(even) {
+        .prayer-table thead th:nth-child(even) {
             background-color: #2b3e36; /* Slightly different green for alternating columns */
         }
 
@@ -1068,7 +1071,7 @@
 
                     // Footer notes
                     doc.setFontSize(7); doc.setTextColor(80); doc.setFont('helvetica', 'normal');
-                    doc.text("Jummah: First Adan-AEAP, Khutba/Lecture at 1:25 PM (if English Khutbah 1:30 PM) and Ikamah around at 1:55 PM", 40, pageHeight - 35);
+                    doc.text("Jummah: First Adan-1:00 PM, Khutba/Lecture at 1:15 PM (if Khutbah in English 1:20 PM) and Ikamah around at 1:45 PM", 40, pageHeight - 35);
                     doc.text("18 Deg = Fajr on 18° method  •  N.A. = Fajr on North American method", 40, pageHeight - 25);
 
                     doc.setFontSize(8); doc.setFont('helvetica', 'bold'); doc.setTextColor(150);
